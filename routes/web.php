@@ -21,4 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/perfil', 'HomeController@perfil')->name('perfil');
+//Route::get('/perfil', 'HomeController@perfil')->name('perfil');
+
+Route::resource('/perfil', 'PersonaController');

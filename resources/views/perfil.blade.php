@@ -19,20 +19,25 @@
                             <h3>Informacion de Usuario</h3>
                         </div>
                         <div class="col">
-                            <a href="/articulos/{{$user->id}}/edit" class="btn btn-success" style="float: right;" >
+                            <a href="/perfil/{{$user->id}}/edit" class="btn btn-success" style="float: right;" >
                                 Editar
                             </a>
                         </div>
                     </div>
 
                     <br>
-                    <h5> <strong>Nombre:</strong>  {{ $user->name }}</h5>
-                    <br>
-                    {{-- <h5> <strong>Apellido:</strong>  {{ $persona->papellido }}</h5> --}}
-                    <h5> <strong>Apellidos:</strong>
+                    <h5>
+                        <strong>Nombre:</strong>
+                        {{ $user->name }}
+
+                        @if(!empty($persona->snombre))
+                            {{ $persona->snombre }}
+                        @endif
+
                         @if(!empty($persona->papellido))
                             {{ $persona->papellido }}
                         @endif
+
                         @if(!empty($persona->sapellido))
                             {{ $persona->sapellido }}
                         @endif

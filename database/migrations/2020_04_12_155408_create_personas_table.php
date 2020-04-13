@@ -16,13 +16,13 @@ class CreatePersonasTable extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->bigIncrements('codigoPersona')->unsigned();
             $table->foreign('codigoPersona')->references('id')->on('users');
-            $table->string('pnombre');
-            $table->string('snombre');
-            $table->string('papellido');
-            $table->string('sapellido');
-            $table->string('direccion');
-            $table->string('telefono');
-            $table->string('correoElectronico');
+            $table->string('pnombre')->nullable();
+            $table->string('snombre')->nullable();
+            $table->string('papellido')->nullable();
+            $table->string('sapellido')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('correoElectronico')->nullable();
             $table->timestamps();
         });
     }
