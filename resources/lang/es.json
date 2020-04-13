@@ -1,0 +1,11 @@
+{
+    "Login"     : "Ingresar",
+    "Register"  : "Registrarse",
+    "E-Mail Address": "Correo Electrónico",
+    "Password" : "Contraseña",
+    "Remember Me" : "Recordar",
+    "Forgot Your Password?" : "¿Olvidó su contraseña?",
+    "Name" : "Nombre",
+    "Confirm Password": "Confirmar contraseña",
+    "Logout" : "Salir"
+}
