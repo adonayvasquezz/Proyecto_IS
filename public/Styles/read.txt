@@ -1,0 +1,3 @@
+Archivos css y o cualquier otro formato de archivos de estilos en los cuales se implementaran los estilos de las vistas 
+NOTA IMPORTANTE: Se evitara hacer estilos generales a componentes de las vistas como a body, p, header y se tratara de hacer estilos de manera correcta 
+dividido por clases o por ids

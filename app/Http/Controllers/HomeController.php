@@ -27,20 +27,31 @@ class HomeController extends Controller
     public function index()
     {
 
-
         return view('home');
     }
-
-
-
 
     public function perfil()
     {
 
         $user = User::find(Auth::user()->id);
-
         $persona = User::find(Auth::user()->id)->perfil;
 
         return view('perfil', ['user'=>$user, 'persona'=>$persona]);
+    }
+
+
+    public function ventas()
+    {
+        return view('ventas');
+    }
+
+    public function viajes()
+    {
+        return view('viajes');
+    }
+
+    public function rutas()
+    {
+        return view('rutas');
     }
 }

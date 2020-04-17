@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Persona;
+use DB;
+use App\Http\Controllers\Controller;
 
 class PersonaController extends Controller
 {
@@ -26,6 +29,10 @@ class PersonaController extends Controller
         $persona = User::find(Auth::user()->id)->perfil;
 
         return view('perfil', ['user'=>$user, 'persona'=>$persona]);
+
+       /*  $procedimiento = DB::select('call new_procedure()');
+
+        return $procedimiento; */
     }
 
     /**
@@ -93,8 +100,10 @@ class PersonaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $perfil = Persona::find($id);
 
+        // Actualizar los datos de una tabla con la forma estandar de laravel
+
+       /*  $perfil = Persona::find($id);
         $perfil->pnombre = $request->pnombre;
         $perfil->snombre = $request->snombre;
         $perfil->papellido = $request->papellido;
@@ -102,14 +111,35 @@ class PersonaController extends Controller
         $perfil->direccion = $request->direccion;
         $perfil->telefono = $request->telefono;
         $perfil->correoElectronico = $request->correo;
-        $perfil -> save();
+        $perfil -> save(); */
 
+
+
+        //  Metodo de actualizar informacion con procedimientos almacenados
+        $pnombre = $request->pnombre;
+        $snombre = $request->snombre;
+        $papellido = $request->papellido;
+        $sapellido = $request->sapellido;
+        $direccion = $request->direccion;
+        $telefono = $request->telefono;
+        $correo = $request->correo;
+
+        $procedimiento = DB::select('call sp_actualizar_persona(?,?,?,?,?,?,?,?)',
+                        array($id,$pnombre,$snombre,$papellido,$sapellido,$direccion,$telefono,$correo));
+
+        //  Actualiza la tabla users con los datos que se acaban de ingresar
+        //  en la tabla Personas
         $user = User::find($id);
         $user->name = $request->pnombre;
         $user->email = $request->correo;
         $user-> save();
 
-        return redirect()->route('home');
+
+        $persona = User::find(Auth::user()->id)->perfil;
+        return view('perfil', ['user'=>$user, 'persona'=>$persona]);
+
+        //return redirect()->route('home');
+
     }
 
     /**

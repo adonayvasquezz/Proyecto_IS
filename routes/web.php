@@ -14,13 +14,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('index');
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/ventas', 'HomeController@ventas');
+Route::get('/viajes', 'HomeController@viajes');
+Route::get('/rutas', 'HomeController@rutas');
 
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
 
 Route::resource('/perfil', 'PersonaController');
+
+
+

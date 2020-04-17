@@ -1,0 +1,187 @@
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+nav.navP {
+    background-color: #2c2e3d!important;
+    padding: 0.3em 1em;
+}
+
+span.t-logo {
+    color: white;
+    font-weight: 700%;
+    font-size: 1.5em;
+}
+
+img.img-n {
+    width: 4.5em;
+}
+
+.nav-link {
+    color: white!important;
+}
+
+.nav-n {
+    margin-right: 7%!important;
+    margin-left: auto!important;
+}
+
+.dropdown-menu {
+    left: auto!important;
+}
+
+.navbar-nav {
+    flex-direction: row!important;
+    padding: 0.5em!important;
+}
+
+div.dropdown-menu.show {
+    position: absolute!important;
+}
+
+.navbar-collapse {
+    flex-basis: auto!important;
+}
+
+li.nav-item.active {
+    padding: 0 1em!important;
+    font-size: 1.2em;
+}
+
+.dropdown-item {
+    font-size: 1em!important;
+    color: white!important;
+}
+
+.dropdown-item:hover {
+    color: black!important;
+}
+
+span i.fas.fa-user {
+    color: white!important;
+    font-size: 1.2em!important;
+}
+
+
+/* Icons */
+
+ul.icons {
+    cursor: default;
+}
+
+ul.icons li {
+    display: inline-block;
+    font-size: 1.25em;
+    line-height: 1em;
+    padding-left: 0.5em;
+}
+
+ul.icons li:first-child {
+    padding-left: 0;
+}
+
+ul.icons li a,
+ul.icons li span {
+    -moz-transition: background-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100%;
+    border: solid 1px white;
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    width: 2em;
+}
+
+
+/* ul.icons li a:hover,
+ul.icons li span:hover {
+    background: rgba(224, 224, 224, 0.15);
+} */
+
+.icon.brands:before {
+    font-family: 'Font Awesome 5 Brands';
+}
+
+#footer {
+    background-attachment: scroll;
+    background-color: #2c2e3d;
+    /* background-image: url("images/bottom-3200.svg"); */
+    background-position: top center;
+    background-repeat: repeat-x;
+    background-size: 3200px 460px;
+    color: rgba(255, 255, 255, 0.8);
+    /*
+				Since the SVG background occupies a lot of vertical space, we'll
+				add additional top padding (to move our content out of its way)
+				and a negative margin (to move everything up a bit).
+			*/
+    margin-top: -260px;
+    padding: 1% 0;
+    /* position: relative; */
+    text-align: center;
+}
+
+#footer a {
+    color: white;
+}
+
+#footer .copyright {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+    line-height: 1em;
+    margin: 1% 0 0 0;
+}
+
+#footer .copyright li {
+    border-left: dotted 1px;
+    display: inline-block;
+    margin-left: 1em;
+    padding-left: 1em;
+}
+
+#footer .copyright li:first-child {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+#footer .copyright li a,
+#footer .copyright li span {
+    color: inherit;
+}
+
+#footer .copyright li a:hover,
+#footer .copyright li span:hover {
+    color: #ffffff;
+}
+
+.inferior {
+    position: fixed;
+    /*El div será ubicado con relación a la pantalla*/
+    left: 0px;
+    margin-top: 10%;
+    /*A la derecha deje un espacio de 0px*/
+    right: 0px;
+    /*A la izquierda deje un espacio de 0px*/
+    bottom: 0px;
+    /*Abajo deje un espacio de 0px*/
+    /*alto del div*/
+    z-index: 0;
+}
+
+@media screen and (max-width: 720px) {
+    ul.icons li {
+        display: inline-block;
+        font-size: 0.8em;
+        line-height: 0.7em;
+        padding-left: 0.5em;
+    }
+    #footer {
+        padding: 1% 0;
+        /* position: relative; */
+        text-align: center;
+    }
+}

@@ -1,0 +1,2 @@
+Archivos para cada vista que llevaran las funcionalidades de cada  vista se nombrara cada controlador segun el nombre de la vista:
+  example.controller.js
