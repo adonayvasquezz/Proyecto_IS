@@ -13,22 +13,69 @@
 .list-group-item.active {
     z-index: 2;
     color: #000;
-    background-color: #007bff63!important;
-    border-color:#007bff63 ;
+    background-color: rgba(237, 43, 69, 0.623)!important;
+    border-color:#ED2B46 ;
 }
 
 .list-group-item-action:hover {
     z-index: 1;
     text-decoration: none;
-    background-color: #007bff63!important;
+    background-color: rgba(237, 43, 69, 0.788)!important;
 }
 
 button.bg-light:focus, button.bg-light:hover {
-    background-color: #007bff63!important;
+    background-color: rgba(237, 43, 69, 0.788)!important;
 }
 
 .opt-success{
     color: #000!important;
     background-color: #00ff7363!important;
     border-color:#00ff7363 ;
+}
+
+.opt-success:hover{
+    color: #000!important;
+    background-color: #00ff73a9!important;
+    border-color:#00ff7363 ;
+}
+
+.bg-content{
+    background-color:rgba(44, 46, 61, 0.952);
+    color:white;
+     width: 100%;
+     height: 80vh;
+     padding: 20px;
+}
+
+
+
+
+.bg-bus-md{
+    background-image: url("../Images/bus-enmedio.png");
+    background-position:center;
+	background-repeat:no-repeat;
+    background-size:cover;
+    padding-left: 70px;
+    padding-right: 30px;
+}
+.bg-bus-tp{
+    background-image: url("../Images/bus-frente.png");
+    background-position:center;
+	background-repeat:no-repeat;
+    background-size:cover;
+    height:75px;
+}
+.bg-bus-lw{
+    background-image: url("../Images/bus-atras.png");
+    background-position:center;
+	background-repeat:no-repeat;
+    background-size:cover;
+    height:47px;
+}
+
+
+
+.error-form{
+    border-color: red;
+    border-radius: 8px;
 }

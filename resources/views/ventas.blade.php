@@ -13,14 +13,11 @@
               <button id="inicio" type="button" class="btn list-group-item active list-group-item-action"><span class="iconify" data-icon="emojione-monotone:digit-one"></span>  Inicio</button>
               <button id="boleteria" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-two"></span>  Boletería</button>
               <button id="asientos" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-three"></span>  Asientos</button>
-              <button id="datos" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-four"></span>  Datos</button>
-              <button id="confirmacion" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-five"></span>  Confirmación</button>
-              <button id="terminos" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-six"></span>  Términos</button>
-              <button id="pago" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-seven"></span>  Pago</button>
-              <button id="fin" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-eight"></span>  Fin</button>
+              <button id="confirmacion" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-four"></span>  Confirmación Y Pago</button>
+              <button id="fin" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-five"></span>  Fin</button>
             </div>
         </div>
-        <div id="contenido" style="background-color:antiquewhite; width: 100%; height: 80vh; padding: 20px;" class="col-9">
+        <div id="contenido" class="col-9 bg-content">
           <div style="height: 90%;">
             <h1 style="text-align: center;">Bienvenido a E-transs</h1>
             <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>
