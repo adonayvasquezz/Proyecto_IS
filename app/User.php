@@ -43,6 +43,6 @@ class User extends Authenticatable
     public function perfil()
     {
 
-        return $this->hasOne('App\Persona', 'codigoPersona', 'id');
+        return $this->hasOne('App\Persona', 'idPersona', 'id');
     }
 }

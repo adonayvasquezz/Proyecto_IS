@@ -79,7 +79,7 @@ class PersonaController extends Controller
         $persona = User::find(Auth::user()->id)->perfil;
         if (empty($persona)) {
             $nuevaPersona = new Persona;
-            $nuevaPersona->codigoPersona = $id;
+            $nuevaPersona->idPersona = $id;
             $nuevaPersona->pnombre = $user->name;
             $nuevaPersona->save();
           }
@@ -103,15 +103,17 @@ class PersonaController extends Controller
 
         // Actualizar los datos de una tabla con la forma estandar de laravel
 
-       /*  $perfil = Persona::find($id);
+        $perfil = Persona::find($id);
         $perfil->pnombre = $request->pnombre;
         $perfil->snombre = $request->snombre;
         $perfil->papellido = $request->papellido;
         $perfil->sapellido = $request->sapellido;
+        $perfil->identidad = $request->identidad;
+        $perfil->nacimiento = $request->nacimiento;
         $perfil->direccion = $request->direccion;
         $perfil->telefono = $request->telefono;
-        $perfil->correoElectronico = $request->correo;
-        $perfil -> save(); */
+        $perfil->correo = $request->correo;
+        $perfil -> save();
 
 
 
@@ -124,8 +126,8 @@ class PersonaController extends Controller
         $telefono = $request->telefono;
         $correo = $request->correo;
 
-        $procedimiento = DB::select('call sp_actualizar_persona(?,?,?,?,?,?,?,?)',
-                        array($id,$pnombre,$snombre,$papellido,$sapellido,$direccion,$telefono,$correo));
+       /*  $procedimiento = DB::select('call sp_actualizar_persona(?,?,?,?,?,?,?,?)',
+                        array($id,$pnombre,$snombre,$papellido,$sapellido,$direccion,$telefono,$correo)); */
 
         //  Actualiza la tabla users con los datos que se acaban de ingresar
         //  en la tabla Personas

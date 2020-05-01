@@ -44,6 +44,36 @@
                             </div>
                         </div>
 
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nacimiento">Fecha de nacimiento</label>
+                                    <input type="date" class="form-control" value="{{$persona->nacimiento}}" id="nacimiento" name="nacimiento">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="nacimiento">Numero de Identidad</label>
+                                    <input type="text" class="form-control" id="identidad" maxlength="16" onkeyup="addHyphen(this)" name="identidad" value="{{$persona->identidad}}" placeholder="XXXX-XXXX-XXXXX">
+                                </div>
+                                <script>
+                                    function addHyphen (element) {
+                                        let ele = document.getElementById(element.id);
+                                        ele = ele.value.split('-').join('');    // Remove dash (-) if mistakenly entered.
+
+                                        console.log(ele.length);
+                                        let finalVal = ele.match(/[0-9]{1,4}/g).join('-');
+
+                                        /* if (ele.length>9) {
+                                            finalVal = ele.match(/[0-9]{1,5}/g).join('-');
+                                        }; */
+                                        document.getElementById(element.id).value = finalVal;
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label for="">Direccion</label>
                             <input type="text" class="form-control" name="direccion" value="{{$persona->direccion}}" placeholder="Direccion actual">
