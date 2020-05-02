@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -53,5 +58,25 @@ class HomeController extends Controller
     public function rutas()
     {
         return view('rutas');
+    }
+
+    public function administracion()
+    {
+        return view('administracion');
+    }
+
+    public function administracion_post(Request $request)
+    {
+        $name = $request->nombre;
+        $email = $request->correo;
+
+
+        $users = User::orderBy('id','DESC')
+            ->name($name)
+            ->email($email)
+            ->get();
+
+        return view('administracion', ['users'=>$users]);
+
     }
 }

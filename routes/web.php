@@ -28,6 +28,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas');
+Route::get('/administracion', 'HomeController@administracion');
+Route::post('/administracion', 'HomeController@administracion_post');
 
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
 
