@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     public function perfil()
     {
-
+        // Se busca la informacion del usuario autenticado, en las tablas users y personas
         $user = User::find(Auth::user()->id);
         $persona = User::find(Auth::user()->id)->perfil;
 
@@ -60,23 +60,40 @@ class HomeController extends Controller
         return view('rutas');
     }
 
-    public function administracion()
+    public function empleados()
     {
-        return view('administracion');
+        return view('empleados');
     }
 
-    public function administracion_post(Request $request)
+    public function empleados_buscar(Request $request)
     {
+        // Se reciben los parametros de busqueda, si vienen vacios se hace una busqueda general
         $name = $request->nombre;
         $email = $request->correo;
 
-
-        $users = User::orderBy('id','DESC')
+        // Se guarda en el arreglo users los registros que coinciden con los
+        // parametros de busqueda
+        $users = User::orderBy('id','ASC')
             ->name($name)
             ->email($email)
             ->get();
 
-        return view('administracion', ['users'=>$users]);
+        return view('empleados', ['users'=>$users]);
+        //return $users;
 
     }
+
+    public function empleados_registro(Request $request)
+    {
+        // Se recibe el id del usuario seleccionado en la vista busqueda
+        $id_empleado = $request->idbeta;
+
+        // Se busca la informacion del usuario seleccionado, en las tablas users y personas
+        $persona = User::find($id_empleado)->perfil;
+        $user = User::find($id_empleado);
+
+        return view('agregar-empleado', ['persona'=>$persona ,'user'=>$user]);
+
+    }
+
 }
