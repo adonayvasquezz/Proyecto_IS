@@ -96,4 +96,12 @@ class HomeController extends Controller
 
     }
 
+    public function empleados_registrado(Request $request)
+    {
+
+
+        return $request;
+
+    }
+
 }
