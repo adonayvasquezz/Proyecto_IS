@@ -40,9 +40,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    //  Funcion para relacionar la tabla personas a la tabla users
     public function perfil()
     {
 
-        return $this->hasOne('App\Persona', 'codigoPersona', 'id');
+        return $this->hasOne('App\Persona', 'idPersona', 'id');
     }
+
+    //  Funciones para buscar por nombre y/o por correo
+    public function scopeName($query, $name)
+    {
+        if($name)
+            return $query->where('name', 'LIKE', "%$name%");
+    }
+
+    public function scopeEmail($query, $email)
+    {
+        if($email)
+            return $query->where('email', 'LIKE', "%$email%");
+    }
+
 }

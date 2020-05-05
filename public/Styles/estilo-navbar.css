@@ -21,6 +21,10 @@ img.img-n {
     color: white!important;
 }
 
+.nav-link.active {
+color: black !important;
+}
+
 .nav-n {
     margin-right: 7%!important;
     margin-left: auto!important;

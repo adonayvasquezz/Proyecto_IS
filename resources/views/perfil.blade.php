@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="margin-bottom:150px;">
                 <div class="card-header">PERFIL</div>
 
                 <div class="card-body">
@@ -43,6 +43,22 @@
                         @endif
                     </h5>
                     <br>
+                    <h5>
+                        <strong>No. de identidad:</strong>
+                        @if(!empty($persona->identidad))
+                            {{ $persona->identidad }}
+                        @endif
+                    </h5>
+
+                    <br>
+                    <h5>
+                        <strong>Fecha de nacimiento:</strong>
+                        @if(!empty($persona->nacimiento))
+                            {{ $persona->nacimiento }}
+                        @endif
+                    </h5>
+                    <br>
+
                     <h5> <strong>Direccion:</strong>
                         @if(!empty($persona->direccion))
                             {{ $persona->direccion }}

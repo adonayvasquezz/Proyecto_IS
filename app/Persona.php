@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Persona extends Model
 {
+    public $timestamps = false;
 
-    protected $primaryKey = 'codigoPersona';
-    protected $fillable = ['pnombre', 'snombre', 'papellido', 'sapellido','direccion','telefono','correoElectronico'];
+    protected $primaryKey = 'idpersona';
+    protected $fillable = ['pnombre', 'snombre', 'papellido', 'sapellido','identidad', 'nacimiento', 'direccion','telefono','correo'];
 
 
      /**
@@ -17,7 +18,7 @@ class Persona extends Model
     public function user()
     {
 
-        return $this->belongsToMany('App\Users', 'codigoPersona');
+        return $this->belongsToMany('App\Users', 'idPersona');
     }
 
 }
