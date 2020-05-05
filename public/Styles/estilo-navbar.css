@@ -14,7 +14,7 @@ span.t-logo {
 }
 
 img.img-n {
-    width: 4.5em;
+    width: 3.5em;
 }
 
 .nav-link {
@@ -71,7 +71,7 @@ ul.icons {
 
 ul.icons li {
     display: inline-block;
-    font-size: 1.25em;
+    font-size: 1em;
     line-height: 1em;
     padding-left: 0.5em;
 }

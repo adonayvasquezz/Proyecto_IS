@@ -29,6 +29,9 @@ Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas');
 
+Route::view('/index', 'index')->name('index');
+Route::post('index', 'MailController@store');
+
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
 
 Route::resource('/perfil', 'PersonaController');

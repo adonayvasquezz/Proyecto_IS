@@ -10,6 +10,7 @@
     <title>e-Transs</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
     {{-- <link rel="stylesheet" href="../Styles/main.css" />
     <link rel="stylesheet" href="../Styles/bootstrap.min.css"> --}}
 
@@ -745,27 +746,37 @@
     </div>
 
     <!-- Footer -->
+        
+
+ 
     <div id="footer">
         <div class="container medium">
-
-            <header class="major last">
+        <header class="major last">
                 <h2>Contáctanos</h2>
             </header>
 
             <p>Recuerda que tu cercanía con nuestra plataforma nos hace crecer, puedes enviar tus preguntas o comentarios.</p>
-
-            <form method="post" action="#">
+            
+            <form method="POST" action="{{route('index')}}  " >
+            @csrf
                 <div class="row">
                     <div class="col-6 col-12-mobilep">
-                        <input type="text" name="name" placeholder="Nombre" />
+                        <input  type="text" name="name" placeholder="Nombre" value="{{old('name')}}" />
+                        {!! $errors->first('name', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-6 col-12-mobilep">
-                        <input type="email" name="email" placeholder="Email" />
+                        <input  type="text" name="email" placeholder="Email" value="{{old('email')}}" />
+                        {!! $errors->first('email', '<small style="color:red">:message</small>') !!}
+                    </div>
+                    <div class="col-6 col-12-mobilep" style="display:none">
+                        <input  type="text" name="subject" placeholder="Email" value="Contacto-Cliente"  />
+                        {!! $errors->first('subject', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-12">
-                        <textarea name="message" placeholder="Mensaje" rows="6"></textarea>
+                        <textarea  name="message" placeholder="Mensaje" rows="6" value="{{old('message')}}"></textarea>
+                        {!! $errors->first('message', '<small style="color:red">:message</small>') !!}
                     </div>
-                    <div class="col-12">
+                  <div class="col-12">
                         <ul class="actions special">
                             <li><input type="submit" value="Enviar mensaje" id="btn-enviar" /></li>
                         </ul>

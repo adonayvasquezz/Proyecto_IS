@@ -3147,3 +3147,13 @@ td.table-m {
 .table th {
     font-size: 1.3em!important;
 }
+
+.table.table-hover {
+    font-size: 1em!important;
+}
+
+@media screen and (max-width: 1200px) {
+    .table.table-hover {
+        font-size: 0.7em!important;
+    }
+}
