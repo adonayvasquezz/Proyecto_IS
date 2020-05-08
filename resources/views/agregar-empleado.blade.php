@@ -102,12 +102,23 @@
 
                         <form action="empleados-registrado" method="POST">
                             {{ csrf_field() }}
+
+
+                            <input type="hidden" class="form-control" name="idpersona" value="{{$user->id}}">
+
                             <div class="form-group">
                                 <h5>
                                    <strong>Fecha de inicio</strong>
                                 </h5>
                                 <div class="col-md-4 col-4" style="padding-left:0;">
+
                                     <input type="date" class="form-control" value="" id="fecha_inicio" name="fecha_inicio">
+
+                                    {{-- Validacion de fecha, igual o mayor al dia actual --}}
+                                    <script>
+                                        var today = new Date().toISOString().split('T')[0];
+                                        document.getElementsByName("fecha_inicio")[0].setAttribute('min', today);
+                                    </script>
                                 </div>
                             </div>
 
@@ -117,8 +128,9 @@
                                 </h5>
                                 <div class="col-md-4 col-4" style="padding-left:0;">
                                     <select class="form-control" id="cargo" name="cargo">
-                                        <option value="motorista">Motorista</option>
-                                        <option value="cajero">Cajero</option>
+                                        @foreach ($cargos as $cargo)
+                                        <option value="{{$cargo->idcargo}}">{{$cargo->nombrecargo}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
