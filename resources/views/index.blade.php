@@ -18,7 +18,6 @@
     <link href="{{ asset('Styles/bootstrap.min.css') }}" rel="stylesheet">
 
 </head>
-
 <body class="is-preload">
     <!--Probando, probando, probando, probando. Esto es para el domingo y lo estamos trabajando el sábado en la madrugada -->
 
