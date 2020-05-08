@@ -13,31 +13,33 @@
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css"> 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="../Styles/estilo-navbar.css">
+    <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
 
     <div class="container">
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
             <ul class="nav nav-tabs justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab"
+                    <a class="nav-link active" id="list-tab" data-toggle="tab" href="#listViajes" role="tab"
                         aria-controls="list" aria-selected="false">Viajes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form"
+                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formViajes" role="tab" aria-controls="form"
                         aria-selected="true">Formulario de Viajes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " id="list-tab" data-toggle="tab" href="#listaLugares" role="tab"
+                    <a class="nav-link " id="list-tab" data-toggle="tab" href="#listBuses" role="tab"
                         aria-controls="list" aria-selected="true">Buses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formLugar" role="form"
+                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formBuses" role="form"
                         aria-controls="form" aria-selected="true">Form Buses</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active navegacionForm" id="list" role="tabpanel"
+                <div class="tab-pane fade show active navegacionForm" id="listViajes" role="tabpanel"
                     aria-labelledby="list-tab">
                     <div class="card">
                         <div class="card-header">
@@ -92,26 +94,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade navegacionForm" id="form" role="tabpanel" aria-labelledby="form-tab">
+                <div class="tab-pane fade navegacionForm" id="formViajes" role="tabpanel" aria-labelledby="form-tab">
                     <div class="card">
                         <div class="card-header">
                             <h4></h4>
                         </div>
                         <div class="card-body">
-                            <!-- Formulario de Rutas-->
+                            <!-- Formulario de Viajes-->
 
-                            <form class="form" role="form" autocomplete="off">
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
+                            <form class="form" role="form" autocomplete="off" method="GET" action="{{url('viajes/create')}}">
+                                 <div class="form-group row">
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="number">
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Hora de Salida</label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="text">
+                                        <select class="form-control" id="sel1">
+                                            <option value='1'>1 - San pedro a Tegucigalpa</option>
+                                            <option value='2'>2 - Catacamas a Tegucigalpa</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -119,40 +117,39 @@
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Bus ID</label>
                                     <div class="col-lg-9">
                                         <select class="form-control" id="sel1">
-                                            <option>102015 - Bus Combi Blanco</option>
-                                            <option>991020 - Bus Mitsubishi Amarillo</option>
+                                            <option value="102015">102015 - Bus Combi Blanco</option>
+                                            <option value="991020">991020 - Bus Mitsubishi Amarillo</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="" class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Fecha y hora de Salida</label>
+                                    <div class="col-lg-9">
+                                        <input type="datetime-local">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                     <div class="col-lg-9">
                                         <select class="form-control" id="sel1">
-                                            <option>1 - San pedro a Tegucigalpa</option>
-                                            <option>2 - Catacamas a Tegucigalpa</option>
+                                            <option value="activo">Activo</option>
+                                            <option value="inactivo">Inactivo</option>
                                         </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Precio</label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="number">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-12 text-center">
                                         <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                        <input type="button" class="btn btn-primary" value="Guardar Cambiios">
+                                        <input type="submit" class="btn btn-primary" value="Guardar Cambios">
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade show navegacionForm" id="listaLugares" role="tabpanel"
+                <div class="tab-pane fade show navegacionForm" id="listBuses" role="tabpanel"
                     aria-labelledby="list-tab">
                     <div class="card-header">
                         <h4>Informacion Buses</h4>
@@ -202,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade navegacionForm" id="formLugar" role="tabpanel" aria-labelledby="form-tab">
+                <div class="tab-pane fade navegacionForm" id="formBuses" role="tabpanel" aria-labelledby="form-tab">
                     <div class="card-header">
                         <h4></h4>
                     </div>
