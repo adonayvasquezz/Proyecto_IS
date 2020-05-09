@@ -27,9 +27,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
-//Route::get('/viajes#listViajes', 'ViajesController@listViajes');
-//Route::get('/viajes#formViajes', 'ViajesController@edit');
-Route::get('/viajes#formViajes', 'ViajesController@create');
 Route::get('/rutas', 'HomeController@rutas');
 Route::get('/empleados', 'HomeController@empleados');
 Route::post('/empleados', 'HomeController@empleados_buscar');
@@ -47,6 +44,8 @@ route::get('/create','LugarRutasController@show');
 route::post('/create','LugarRutasController@create');
 route::get('/rutas','lugarRutasController@read');
 
+Route::post('/create', 'ViajesController@create');
+route::get('/create','ViajesController@show');
 //Route::resource('/viajes', 'ViajesController');
 
 

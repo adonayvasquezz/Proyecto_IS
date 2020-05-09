@@ -101,12 +101,26 @@
                         </div>
                         <div class="card-body">
                             <!-- Formulario de Viajes-->
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
-                            <form class="form" role="form" autocomplete="off" method="GET" action="{{url('viajes/create')}}">
+                            @if(session('mensaje'))
+                                 <div class="alert alert-success">
+                                    <p>{{session ('mensaje')}}</p>
+                                </div>
+                            @endif
+                            <form class="form" role="form" autocomplete="off" action="/create" method="post">
                                  <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="idRuta" name="idRuta" value="{{old('idRuta')}}">
                                             <option value='1'>1 - San pedro a Tegucigalpa</option>
                                             <option value='2'>2 - Catacamas a Tegucigalpa</option>
                                         </select>
@@ -116,7 +130,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Bus ID</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="bus" name="bus"  value="{{old('bus')}}">
                                             <option value="102015">102015 - Bus Combi Blanco</option>
                                             <option value="991020">991020 - Bus Mitsubishi Amarillo</option>
                                         </select>
@@ -126,14 +140,14 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Fecha y hora de Salida</label>
                                     <div class="col-lg-9">
-                                        <input type="datetime-local">
+                                        <input class="form-control" type="datetime-local"  id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="estado" name="estado" value="{{old('estado')}}">
                                             <option value="activo">Activo</option>
                                             <option value="inactivo">Inactivo</option>
                                         </select>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Viajes;
+use App\rutasViajes;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,39 @@ class ViajesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $datosViaje = request() ->all();
-        viajes::insert($datosViaje);
-        return view('viajes');
+        $this->validate($request, [
+            'idRuta' => 'required',
+            'bus' => 'required',
+            'horaSalida' => 'required',
+            'estado' => 'required'
+        ],[
+            'idRuta.required' => 'La ruta es requerida',
+            'horaSalida.required' =>  'La fecha y hora de salida es requerida',
+            'estado.required' => 'El estado es requerido', 
+        ]
+        );
+        $viajes= new viajes();
+        $viajes->$request->except(['idRuta', 'horaSalida']);
+        $viajes-> save();
+        $idAViajeRecienGuardada = $viajes->id;
+        if ($idAViajeRecienGuardada) {
+            $rutasViajes= new rutasViajes();
+            $rutasViajes->ruta_idRuta= $request->idRuta;
+            $rutasViajes->viaje_idViaje= $idAViajeRecienGuardada;
+            $rutasViajes->horaSalida= $request->horaSalida;
+            $rutasViajes-> save();
+        }
+        return back()->with('mensaje', 'El Viaje fue agregado exitosamente');
     }
+
+    public function show(viajes $viajes)
+    {
+        return view('viajes');
+        //
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -48,9 +76,13 @@ class ViajesController extends Controller
      * @param  \App\Viajes  $viajes
      * @return \Illuminate\Http\Response
      */
-    public function show(Viajes $viajes)
-    {
-        //
+    public function read(request $request){
+        $viajes=viajes::all();
+        $rutasViajes=rutasViajes::all();
+        foreach($viajes as $viaje){
+            
+        }
+        return view('rutas',['viajes'=>$viajes]);
     }
 
     /**
