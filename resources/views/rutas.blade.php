@@ -93,18 +93,13 @@
                         <div class="card-body">
                             <!-- Formulario de Rutas-->
 
-                            <form class="form" role="form" autocomplete="off">
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="number">
-                                    </div>
-                                </div>
+                            <form class="form" method="post" role="form" autocomplete="off">
+                                
 
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Inicio</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="inicio">
                                             <option>Tegucigalpa</option>
                                             <option>San Pedro Sula</option>
                                         </select>
@@ -115,7 +110,7 @@
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Fin</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
+                                        <select class="form-control" id="fin">
                                             <option>Tegucigalpa</option>
                                             <option>San Pedro Sula</option>
                                         </select>
@@ -124,19 +119,19 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Duracion</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" id="duracion">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Precio</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="number">
+                                        <input class="form-control" type="number" id="precio">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-12 text-center">
                                         <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                        <input type="button" class="btn btn-primary" value="Guardar Cambiios">
+                                        <input type="button" onclick="ValidacionRutas()" class="btn btn-primary" value="Guardar Cambios">
                                     </div>
                                 </div>
                             </form>
@@ -159,26 +154,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>San Pedro Sula</td>
+                                
+                                @foreach ($ciudades as $ciudad)
+                                   <tr>
+                                        <th scope="row">{{$ciudad->idLugar}}</th>
+                                        <td>{{$ciudad->nombre}}</td>
                                         <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
+                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <form method="post"action="{{ url("/lugarRutas/{$ciudad->idLugar}")}}">
+                                                {{csrf_field()}}
+                                                {{method_field('DELETE')}}
+                                                <button type="submit" onclick="return confirm('¿Desea eliminar esta ciudad?');" class="awe" id="btn-borrar"><i class="fas fa-trash"></i></button>
+                                            </form>
 
 
                                         </td>
-                                    </tr>
-                                </tbody>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Tegucigalpa</td>
-                                        <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                        </td>
-                                    </tr>
+                                    </tr> 
+                                @endforeach
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -191,23 +184,20 @@
                     <div class="card-body">
                         <!-- Formulario de Lugares-->
 
-                        <form class="form" role="form" autocomplete="off">
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">ID Lugar</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="number">
-                                </div>
-                            </div>
+                        <form class="form" action="/create" method="post" role="form" autocomplete="off" id="formularioLugares">
+                            {{csrf_field()}}
+                           
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nombre/Descripcion</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="Varchar">
+                                    <input class="form-control " name="nombre" type="text" id="nombreLugar" >
+                                   
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
                                     <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                    <input type="button" class="btn btn-primary" value="Guardar Cambios">
+                                    <input type="submit" onclick="validando()"  class="btn btn-primary " value="Guardar Cambios" id="btnGuardar">
                                 </div>
                             </div>
                         </form>

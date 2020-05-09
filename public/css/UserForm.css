@@ -73,3 +73,14 @@ a .navegacionForm {
 .container {
     margin-bottom: 15%;
 }
+.error-form{
+    border-color: red !important;
+}
+#btn-borrar{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}

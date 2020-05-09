@@ -40,6 +40,14 @@ Route::post('index', 'MailController@store');
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
 
 Route::resource('/perfil', 'PersonaController');
+//Route::resource('/LugarRutas', 'LugarRutasController');
+route::get('/create','LugarRutasController@show');
+route::post('/create','LugarRutasController@create');
+route::get('/rutas','lugarRutasController@read');
+//Route::delete('/lugarRutas', 'lugarRutasController@destroy');
 
+//Route::delete('rutas', 'lugarRutasController@destroy');
+Route::resource('/LugarRutas', 'LugarRutasController');
 
-
+Route::delete('/LugarRutas/{LugarRuta}', 'LugarRutasController@destroy')
+    ->name('LugarRutas.destroy');
