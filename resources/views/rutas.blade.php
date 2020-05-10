@@ -157,17 +157,11 @@
                                 
                                 @foreach ($ciudades as $ciudad)
                                    <tr>
-                                        <th scope="row">{{$ciudad->idLugar}}</th>
+                                        <th scope="row">{{$ciudad->id}}</th>
                                         <td>{{$ciudad->nombre}}</td>
-                                        <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | 
-                                            <form method="post"action="{{ url("/lugarRutas/{$ciudad->idLugar}")}}">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button type="submit" onclick="return confirm('¿Desea eliminar esta ciudad?');" class="awe" id="btn-borrar"><i class="fas fa-trash"></i></button>
-                                            </form>
-
-
+                                        <td style="width:15%">
+                                            <a href="{{ route('editarLugar', $ciudad->id)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <a href="{{ route('eliminarLugar.destroy', $ciudad->id)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr> 
                                 @endforeach
@@ -184,19 +178,20 @@
                     <div class="card-body">
                         <!-- Formulario de Lugares-->
 
-                        <form class="form" action="/create" method="post" role="form" autocomplete="off" id="formularioLugares">
+                        <form class="form" action="/createLugar" method="post" role="form" autocomplete="off" id="formularioLugares">
                             {{csrf_field()}}
                            
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nombre/Descripcion</label>
+                                
                                 <div class="col-lg-9">
                                     <input class="form-control " name="nombre" type="text" id="nombreLugar" >
-                                   
+                                    {!! $errors->first('nombre', '<small style="color:red">:message</small>') !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
-                                    <input type="reset" class="btn btn-secondary" value="Cancelar">
+                                <a href="/rutas" class="btn btn-secondary btn-close">Cancel</a>
                                     <input type="submit" onclick="validando()"  class="btn btn-primary " value="Guardar Cambios" id="btnGuardar">
                                 </div>
                             </div>
@@ -206,31 +201,6 @@
             </div>
         </div>
     </div>
-
-    <div id="footer" class="inferior">
-        <ul class="icons">
-            <li>
-                <a href="#" class="icon brands fa-twitter"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-facebook-f"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-instagram"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-github"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-dribbble"></a>
-            </li>
-        </ul>
-
-        <ul class="copyright">
-            <li>&copy; E-Transs. Todos los derechos reservados.</li>
-        </ul>
-    </div>
-
 
     <!--BOOTSTRAP JAVASCRIPT-->
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -24,6 +24,13 @@ class lugarRutasController extends Controller
 
     public function create(request $request)
     {
+        
+        $this->validate($request, [
+            'nombre' => 'required'
+
+        ],[
+            'nombre.required' => 'Debe ingresar un nombre'
+        ]);
         $lugarRutas= new lugarRutas();
         $lugarRutas->nombre= $request->nombre;
         $lugarRutas-> save();
@@ -41,18 +48,32 @@ class lugarRutasController extends Controller
         $ciudad=lugarRutas::all();
         return view('rutas',['ciudades'=>$ciudad]);
     }
-/*
-    public function destroy($idLugar){
-        lugarRutas::destroy($idLugar);
+
+    public function edit($id)
+    {
+        $lugarRutas =lugarRutas::find($id);
+        return view('editarLugar', compact('lugarRutas', 'id'));
+    }
+
+    public function destroy($id)
+    {
+        $lugarRutas =lugarRutas::find($id);
+        $lugarRutas-> delete();
+
+        // Flash('El usuario'. $lugarRutas->nombre .'ha sido eliminado correctamente')->error;
         return redirect('rutas');
     }
-    */
-    public function destroy($idLugar)
+    public function update(Request $request, $id)
     {
-        $Lugar = LugarRutas::find($idLugar);
-        
-        $Lugar->delete();
- 
+        $this->validate($request, [
+            'nombre' => 'required'
+
+        ],[
+            'nombre.required' => 'Debe ingresar un nombre'
+        ]);
+        $lugarRutas =lugarRutas::find($id);
+        $lugarRutas->nombre=$request->nombre;
+        $lugarRutas->save();
         return redirect('rutas');
     }
 

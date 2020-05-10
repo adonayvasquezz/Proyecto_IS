@@ -40,10 +40,20 @@ Route::post('index', 'MailController@store');
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
 
 Route::resource('/perfil', 'PersonaController');
-route::get('/create','LugarRutasController@show');
-route::post('/create','LugarRutasController@create');
-route::get('/rutas','lugarRutasController@read');
 
+//Inicio de rutas para CRUD Lugares
+//Leer e insertar
+route::get('/rutas','lugarRutasController@read');
+route::get('/createLugar','LugarRutasController@show');
+route::post('/createLugar','LugarRutasController@create');
+//Eliminar
+route::get('eliminarLugar/{id}/destroy',['uses'=> 'LugarRutasController@destroy','as' => 'eliminarLugar.destroy']);
+//Editar
+route::get('editarLugar/{id}/edit',['uses'=> 'LugarRutasController@edit','as' => 'editarLugar']);
+route::post('editarLugar/{id}/edit','lugarRutasController@update' );
+//Fin de rutasdel CRUD Lugares
+
+//Rutas para el envio de formulario de contacto
 Route::post('/create', 'ViajesController@create');
 route::get('/create','ViajesController@show');
 //Route::resource('/viajes', 'ViajesController');
