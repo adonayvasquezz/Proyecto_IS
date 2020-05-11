@@ -4,10 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rutas extends Model
+class Rutas extends Model
 {
     protected $table='rutas';
     public $timestamps = false;
-    //
 }
-
