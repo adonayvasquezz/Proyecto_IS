@@ -16,8 +16,8 @@
 
                     ¿A donde viajaras?
 
-                    @if(@Auth::user()->hasRole('cliente'))
-                        <h2>Eres un cliente!!</h2>
+                    @if(@Auth::user()->hasRole('empleado'))
+                        <h2>Eres un Empleado</h2>
                     @endif
 
                 </div>

@@ -3,6 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="../css/UserForm.css">
 
+
 <div class="row justify-content-center">
     <div class="col-md-8"  id="myTab" role="tablist">
 
@@ -10,15 +11,27 @@
             <li class="nav-item" >
                 <a class="nav-link active" id="list-tab" data-toggle="tab" href="#info">Perfil</a>
             </li>
+            @if(empty($es_empleado->idpersona))
             <li class="nav-item">
                 <a class="nav-link" id="form-tab" data-toggle="tab" href="#form">Formulario</a>
             </li>
+        @endif
+
         </ul>
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active navegacionForm" id="info" role="tabpanel" aria-labelledby="list-tab">
                 <div class="card" style="margin-bottom:150px;">
-                    <div class="card-header">Informacion de Usuario</div>
+                    <div class="card-header">
+                        Informacion de
+                        @if(!empty($es_empleado->idpersona))
+                            <strong>Empleado</strong>
+                        @else
+                            Usuario
+                        @endif
+                    </div>
+
+
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">

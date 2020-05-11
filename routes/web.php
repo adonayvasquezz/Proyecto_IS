@@ -31,9 +31,12 @@ Route::get('/viajes', 'HomeController@viajes');
 //Route::get('/viajes#formViajes', 'ViajesController@edit');
 Route::get('/viajes#formViajes', 'ViajesController@create');
 Route::get('/rutas', 'HomeController@rutas');
-Route::get('/empleados', 'HomeController@empleados');
-Route::post('/empleados', 'HomeController@empleados_buscar');
-Route::post('/empleados-registro', 'HomeController@empleados_registro');
+
+Route::get('/administracion', 'HomeController@administracion');
+Route::get('/empleados', 'HomeController@empleados')->name('empleados');
+Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
+Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
+Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
 Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
 
 

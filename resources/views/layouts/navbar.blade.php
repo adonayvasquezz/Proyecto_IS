@@ -50,6 +50,12 @@
                         <a class="nav-link" href="/ventas">Ventas</a>
                     </li>
 
+                    @if(@Auth::user()->hasRole('empleado'))
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/administracion">Administracion</a>
+                    </li>
+                    @endif
+
                     <li class="nav-item active">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i  class="fas fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>

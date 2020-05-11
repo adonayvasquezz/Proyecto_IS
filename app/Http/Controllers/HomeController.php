@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Persona;
+use App\Empleado;
+use Spatie\Permission\Models\Role;
 
 class HomeController extends Controller
 {
@@ -61,9 +64,29 @@ class HomeController extends Controller
         return view('rutas');
     }
 
+    public function administracion()
+    {
+        return view('administracion');
+    }
+
     public function empleados()
     {
-        return view('empleados');
+
+        $empleados = DB::select("SELECT A.idempleado, B.pnombre, B.papellido, C.nombrecargo, B.telefono, B.correo
+        from etranss2.empleados A,
+        etranss2.personas B,
+        etranss2.cargo C
+        where A.idpersona = B.idpersona
+        and A.idcargo = C.idcargo
+        order by C.idcargo;");
+
+        return view('empleados', ['empleados'=>$empleados]);
+        //return $empleados;
+    }
+
+    public function agregar_empleado()
+    {
+        return view('empleados-buscar');
     }
 
     public function empleados_buscar(Request $request)
@@ -79,7 +102,7 @@ class HomeController extends Controller
             ->email($email)
             ->get();
 
-        return view('empleados', ['users'=>$users]);
+        return view('empleados-buscar', ['users'=>$users]);
         //return $users;
 
     }
@@ -89,6 +112,8 @@ class HomeController extends Controller
         // Se recibe el id del usuario seleccionado en la vista busqueda
         $id_empleado = $request->idbeta;
 
+        $es_empleado = Empleado::where('idpersona',$id_empleado)->first();
+
         // Se obtienen todos los cargos para llenarlos en el select del formulario
         $cargos = DB::select("SELECT * FROM cargo");
 
@@ -96,23 +121,37 @@ class HomeController extends Controller
         $persona = User::find($id_empleado)->perfil;
         $user = User::find($id_empleado);
 
-        return view('agregar-empleado', ['persona'=>$persona ,'user'=>$user, 'cargos'=>$cargos]);
-
+        return view('agregar-empleado', ['persona'=>$persona ,'user'=>$user, 'cargos'=>$cargos, 'es_empleado'=>$es_empleado]);
+        //return $es_empleado;
     }
 
     public function empleados_registrado(Request $request)
     {
-
         $fechainicio=$request->fecha_inicio;
         $idpersona=$request->idpersona;
         $idcargo=$request->cargo;
 
+        $persona = User::find($idpersona)->perfil;
+        if (empty($persona)) {
+            $nuevaPersona = new Persona;
+            $nuevaPersona->idPersona = $idpersona;
+            $nuevaPersona->save();
+          }
+
+        $Empleado = new Empleado;
+        //$Empleado->idEmpleado = $id;
+        $Empleado->fechainicio = $fechainicio;
+        $Empleado->idpersona = $idpersona;
+        $Empleado->idcargo = $idcargo;
+        $Empleado->save();
+
+        $user = User::find($idpersona);
+        $user->assignRole('empleado');
+
         // El ingreso de las variables en el array debe ser en el mismo orden como fue creado el SP
-        $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
-            array($fechainicio,$idpersona,$idcargo));
-
-        return $request;
-
+        /* $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
+            array($fechainicio,$idpersona,$idcargo)); */
+        return redirect()->route('empleados');
     }
 
 }

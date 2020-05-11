@@ -20,7 +20,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="pnombre" value="{{$persona->pnombre}}" placeholder="Primer nombre">
+                                    <input type="text" class="form-control" name="pnombre" value="{{$user->name}}" placeholder="Primer nombre">
                                 </div>
                             </div>
                             <div class="col">
