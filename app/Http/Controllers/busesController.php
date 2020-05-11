@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 use App\buses;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ViajesController;
 use Illuminate\Http\Request;
 
 class busesController extends Controller
 {
     // Función para visualizar todos los buses que se encuentran almacenados en la base de datos
    public function index(){
-       //$datos['buses']= buses::paginate(20);
-       //return view('viajes', $datos);
-       $buses = buses::all();
-       return view('viajes',compact('buses')); // Equivalente a la creación de un arreglo asociativo.
+        $b = new ViajesController();
+        $b->index();
    }
    // Función que permite añadir nuevos unidades de transporte al sistema.
     public function store(request $request){
