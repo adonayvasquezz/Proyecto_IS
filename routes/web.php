@@ -54,8 +54,7 @@ route::post('editarLugar/{id}/edit','lugarRutasController@update' );
 //Fin de rutasdel CRUD Lugares
 
 //Rutas para el envio de formulario de contacto
-Route::post('/create', 'ViajesController@create');
-route::get('/create','ViajesController@show');
+
 //Route::resource('/viajes', 'ViajesController');
 
 
@@ -65,3 +64,11 @@ Route::post('/create', 'busesController@store');
 Route::get('/editar/{id}/',['uses'=>'busesController@edit', 'as' => 'editar']);
 Route::post('/update/{id}', 'busesController@update');
 Route::get('/eliminarBus/{id}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
+
+// Inicio de rutas para CRUD de Viajes perteneciente al módulo de Viajes.
+Route::get('/viajes', 'ViajesController@index');
+Route::post('/create', 'ViajesController@create');
+Route::get('/editar/{id}/',['uses'=>'ViajesController@edit', 'as' => 'editar']);
+Route::post('/update/{id}', 'ViajesController@update');
+Route::get('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
+

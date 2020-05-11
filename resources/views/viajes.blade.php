@@ -60,34 +60,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>3:00 pm</td>
-                                            <td>991020</td>
-                                            <td>Activo</td>
-                                            <td>San pedro a Tegucigalpa</td>
-                                            <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                    class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>8:00 am</td>
-                                            <td>102015</td>
-                                            <td>Inactivo</td>
-                                            <td>Catacamas a Tegucigalpa</td>
-                                            <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                    class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                            </td>
-                                        </tr>
+                                        @foreach($viajes as $item)
+                                            <tr>
+                                                <th scope="row">{{$item->idviaje}}</th>
+                                                <td>{{$item->horaSalida}}</td>
+                                                <td>{{$item->id}}</td>
+                                                <td>{{$item->estado}}</td>
+                                                <td>{{$item->estado}}</td>
+                                                <td>
+                                                    <a href="{{route('editar', $item->idviaje)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarViaje', $item->idviaje)}}"
+                                                        class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -116,23 +101,26 @@
                                     <p>{{session ('mensaje')}}</p>
                                 </div>
                             @endif
-                            <form class="form" role="form" autocomplete="off" action="/create" method="post">
+                             <form class="form" role="form" autocomplete="off" action="/create" method = "post">
+                             {{csrf_field()}}
                                  <div class="form-group row">
-                                    <label for="" class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="idRuta" name="idRuta" value="{{old('idRuta')}}">
-                                            <option value='1'>1 - San pedro a Tegucigalpa</option>
-                                            <option value='2'>2 - Catacamas a Tegucigalpa</option>
+                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idRuta')}}">
+                                            @foreach($rutas as $item)
+                                                <option value="{{$item->idruta}}">{{$item->idruta}} - {{$item->lugarInicio}} a {{$item->lugarFin}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="" class="col-lg-3 col-form-label form-control-label">Bus ID</label>
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="bus" name="bus"  value="{{old('bus')}}">
-                                            <option value="102015">102015 - Bus Combi Blanco</option>
-                                            <option value="991020">991020 - Bus Mitsubishi Amarillo</option>
+                                        <select class="form-control" id="id" name="id"  value="{{old('bus')}}">
+                                         @foreach($buses as $item)
+                                            <option value="{{$item->id}}">id bus:{{$item->id}} - capacidad:{{$item->capacidad}}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>

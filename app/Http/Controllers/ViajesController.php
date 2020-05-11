@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Viajes;
+use App\viajes;
 use App\rutasViajes;
+use App\buses;
+use App\lugarRutas;
+use App\rutas;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,7 +19,31 @@ class ViajesController extends Controller
      */
     public function index()
     {
-        return view('viajes');
+        $viajes = viajes::all();
+        $buses = buses::all();
+        $Lugares = lugarRutas::all();
+        $rutasViajes = rutasViajes::all();
+        $rutas = rutas::all();
+        $rutasSelect =array();
+
+        if($rutas){
+            foreach ($rutas as $ruta) {
+                foreach ($Lugares as $lugar) {
+                    if($ruta->lugarInicio == $lugar->id){
+                        $ruta->lugarInicio= $lugar->nombre;
+                    }
+                    if($ruta->lugarFin == $lugar->id){
+                        $ruta->lugarFin= $lugar->nombre;
+                    }
+                }
+            }
+        }
+        // if($rutasViajes){
+        //     foreach ($rutasViajes as $rutaViaje) {
+
+        //     }
+        // }
+        return view('viajes',compact('buses','viajes','rutas')); // Equivalente a la creación de un arreglo asociativo.
     }
 
     /**
@@ -27,25 +54,27 @@ class ViajesController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'idRuta' => 'required',
-            'bus' => 'required',
+            'idruta' => 'required',
+            'id' => 'required',
             'horaSalida' => 'required',
             'estado' => 'required'
         ],[
-            'idRuta.required' => 'La ruta es requerida',
+            'idruta.required' => 'La ruta es requerida',
             'horaSalida.required' =>  'La fecha y hora de salida es requerida',
             'estado.required' => 'El estado es requerido', 
+            'id.required' => 'El Bus es requerido', 
         ]
         );
         $viajes= new viajes();
-        $viajes->$request->except(['idRuta', 'horaSalida']);
+        $viajes->id= $request->id;
+        $viajes->estado= $request->estado;
         $viajes-> save();
         $idAViajeRecienGuardada = $viajes->id;
         if ($idAViajeRecienGuardada) {
             $rutasViajes= new rutasViajes();
-            $rutasViajes->ruta_idRuta= $request->idRuta;
-            $rutasViajes->viaje_idViaje= $idAViajeRecienGuardada;
-            $rutasViajes->horaSalida= $request->horaSalida;
+            $rutasViajes->ruta_idruta= $request->idruta;
+            $rutasViajes->viaje_idviaje= $idAViajeRecienGuardada;
+            $rutasViajes->horaSalida= str_replace("T", " ", $request->horaSalida);
             $rutasViajes-> save();
         }
         return back()->with('mensaje', 'El Viaje fue agregado exitosamente');
@@ -77,12 +106,7 @@ class ViajesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function read(request $request){
-        $viajes=viajes::all();
-        $rutasViajes=rutasViajes::all();
-        foreach($viajes as $viaje){
-            
-        }
-        return view('rutas',['viajes'=>$viajes]);
+      
     }
 
     /**
@@ -91,31 +115,24 @@ class ViajesController extends Controller
      * @param  \App\Viajes  $viajes
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        return view('viajes#formViajes', compact('id'));
+     // Función que permite recuperar los datos del bus seleccionado y mostrarlos en la view "editarBuses" para posteriormente pasar a su actualización.
+     public function edit($id){
+        $busActualizar = buses::find($id);
+        return view('editarBuses', compact('busActualizar', 'id'));
+    }
+    // Función para guardar los nuevos cambios realizados en los buses.
+    public function update(request $request, $id){
+        $agregarBus = buses::find($id);
+        $agregarBus->capacidad = $request->capacidad;
+        $agregarBus->estado = $request->estado;
+        $agregarBus->save();
+        return redirect('viajes');
+    }
+    //Función para eliminar del sistema el Viaje seleccionado.
+    public function destroy($id){
+        $eliminarViaje = viajes::find($id);
+        $eliminarViaje-> delete();
+        return redirect('viajes');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Viajes  $viajes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Viajes $viajes)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Viajes  $viajes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Viajes $viajes)
-    {
-        //
-    }
 }
