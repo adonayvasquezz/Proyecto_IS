@@ -21,7 +21,7 @@
         <div class="mx-auto col-sm-8 main-section" >
             <ul class="nav nav-tabs justify-content-end">
                 <li class="nav-item">
-                    <a>Form Lugares</a>
+                    <a>Editar Lugar</a>
                 </li>
             </ul>
             <div >
