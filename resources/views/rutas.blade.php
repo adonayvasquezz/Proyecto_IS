@@ -53,33 +53,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($rutas as $ruta)
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>San Pedro Sula</td>
-                                            <td>Tegucigalpa</td>
-                                            <td>4 Horas</td>
-                                            <td>150 lps</td>
+                                            <th scope="row">{{$ruta->id}}</th>
+                                            <td>{{$ruta->ciudadInicio}}</td>
+                                            <td>{{$ruta->ciudadFin}}</td>
+                                            <td>{{$ruta->duracion}}</td>
+                                            <td>{{$ruta->precio}}</td>
                                             <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
-
+                                            <a href="{{ route('editarRuta', $ruta->id)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <a href="{{ route('eliminarRuta.destroy', $ruta->id)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
 
                                             </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Catacamas</td>
-                                            <td>Tegucigalpa</td>
-                                            <td>4 Horas</td>
-                                            <td>150 lps</td>
-                                            <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                        </tr>  
+                                    @endforeach                             
                                 </table>
                             </div>
                         </div>
@@ -93,53 +80,53 @@
                         <div class="card-body">
                             <!-- Formulario de Rutas-->
 
-                            <form class="form" role="form" autocomplete="off">
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="number">
-                                    </div>
-                                </div>
-
+                            <form class="form" action="/createRuta" method="POST" role="form" autocomplete="off">
+                            {{csrf_field()}}
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Inicio</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
-                                            <option>Tegucigalpa</option>
-                                            <option>San Pedro Sula</option>
+                                        <select class="form-control" id="ciudadInicio" name="ciudadInicio">
+                                        @foreach ($ciudades as $ciudad)
+                                            <option value='{{$ciudad->id}}'>{{$ciudad->id}}-{{$ciudad->nombre}}</option>
+                                        @endforeach
+                                        {!! $errors->first('ciudadInicio', '<small style="color:red">:message</small>') !!}
                                         </select>
                                     </div>
                                 </div>
-
-
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Fin</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
-                                            <option>Tegucigalpa</option>
-                                            <option>San Pedro Sula</option>
+                                        <select class="form-control" id="cidadFin" name="ciudadFin">
+                                        @foreach ($ciudades as $ciudad)
+                                            <option value='{{$ciudad->id}}'>{{$ciudad->id}}-{{$ciudad->nombre}}</option>
+                                        @endforeach
+                                        {!! $errors->first('ciudadFin', '<small style="color:red">:message</small>') !!}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Duracion</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="text">
+                                        <input class="form-control" type="text" id="duracion" name="duracion">
+                                        {!! $errors->first('duracion', '<small style="color:red">:message</small>') !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Precio</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="number">
+                                        <input class="form-control" type="number" id="precio" name="precio">
+                                        {!! $errors->first('precio', '<small style="color:red">:message</small>') !!}
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-lg-12 text-center">
-                                        <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                        <input type="button" class="btn btn-primary" value="Guardar Cambiios">
+                                        <a href="/rutas" class="btn btn-secondary btn-close">Cancel</a>
+                                        <input type="submit"  class="btn btn-primary " value="Guardar Cambios" id="btnGuardar">
                                     </div>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
                 </div>
@@ -159,26 +146,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>San Pedro Sula</td>
-                                        <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
-
-
+                                @foreach ($ciudades as $ciudad)
+                                   <tr>
+                                        <th scope="row">{{$ciudad->id}}</th>
+                                        <td>{{$ciudad->nombre}}</td>
+                                        <td style="width:15%">
+                                            <a href="{{ route('editarLugar', $ciudad->id)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <a href="{{ route('eliminarLugar.destroy', $ciudad->id)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
                                         </td>
-                                    </tr>
-                                </tbody>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Tegucigalpa</td>
-                                        <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#" class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                        </td>
-                                    </tr>
+                                    </tr> 
+                                @endforeach
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -191,23 +169,21 @@
                     <div class="card-body">
                         <!-- Formulario de Lugares-->
 
-                        <form class="form" role="form" autocomplete="off">
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">ID Lugar</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="number">
-                                </div>
-                            </div>
+                        <form class="form" action="/createLugar" method="post" role="form" autocomplete="off" id="formularioLugares">
+                            {{csrf_field()}}
+                           
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nombre/Descripcion</label>
+                                
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="Varchar">
+                                    <input class="form-control " name="nombre" type="text" id="nombreLugar" >
+                                    {!! $errors->first('nombre', '<small style="color:red">:message</small>') !!}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
-                                    <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                    <input type="button" class="btn btn-primary" value="Guardar Cambios">
+                                <a href="/rutas" class="btn btn-secondary btn-close">Cancel</a>
+                                    <input type="submit"  class="btn btn-primary " value="Guardar Cambios" id="btnGuardar">
                                 </div>
                             </div>
                         </form>
@@ -216,31 +192,6 @@
             </div>
         </div>
     </div>
-
-    <div id="footer" class="inferior">
-        <ul class="icons">
-            <li>
-                <a href="#" class="icon brands fa-twitter"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-facebook-f"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-instagram"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-github"></a>
-            </li>
-            <li>
-                <a href="#" class="icon brands fa-dribbble"></a>
-            </li>
-        </ul>
-
-        <ul class="copyright">
-            <li>&copy; E-Transs. Todos los derechos reservados.</li>
-        </ul>
-    </div>
-
 
     <!--BOOTSTRAP JAVASCRIPT-->
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -60,34 +60,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>3:00 pm</td>
-                                            <td>991020</td>
-                                            <td>Activo</td>
-                                            <td>San pedro a Tegucigalpa</td>
-                                            <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                    class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>8:00 am</td>
-                                            <td>102015</td>
-                                            <td>Inactivo</td>
-                                            <td>Catacamas a Tegucigalpa</td>
-                                            <td>
-                                                <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                    class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                            </td>
-                                        </tr>
+                                        @foreach($viajes as $item)
+                                            <tr>
+                                                <th scope="row">{{$item->idviaje}}</th>
+                                                <td>{{$item->horaSalida}}</td>
+                                                <td>{{$item->id}}</td>
+                                                <td>{{$item->estado}}</td>
+                                                <td>{{$item->estado}}</td>
+                                                <td>
+                                                    <a href="{{route('editar', $item->idviaje)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarViaje', $item->idviaje)}}"
+                                                        class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -101,24 +86,41 @@
                         </div>
                         <div class="card-body">
                             <!-- Formulario de Viajes-->
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
-                            <form class="form" role="form" autocomplete="off" method="GET" action="{{url('viajes/create')}}">
+                            @if(session('mensaje'))
+                                 <div class="alert alert-success">
+                                    <p>{{session ('mensaje')}}</p>
+                                </div>
+                            @endif
+                             <form class="form" role="form" autocomplete="off" action="/create" method = "post">
+                             {{csrf_field()}}
                                  <div class="form-group row">
-                                    <label for="" class="col-lg-3 col-form-label form-control-label">ID Ruta</label>
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
-                                            <option value='1'>1 - San pedro a Tegucigalpa</option>
-                                            <option value='2'>2 - Catacamas a Tegucigalpa</option>
+                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idRuta')}}">
+                                            @foreach($rutas as $item)
+                                                <option value="{{$item->idruta}}">{{$item->idruta}} - {{$item->lugarInicio}} a {{$item->lugarFin}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="" class="col-lg-3 col-form-label form-control-label">Bus ID</label>
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
-                                            <option value="102015">102015 - Bus Combi Blanco</option>
-                                            <option value="991020">991020 - Bus Mitsubishi Amarillo</option>
+                                        <select class="form-control" id="id" name="id"  value="{{old('bus')}}">
+                                         @foreach($buses as $item)
+                                            <option value="{{$item->id}}">id bus:{{$item->id}} - capacidad:{{$item->capacidad}}</option>
+                                        @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -126,16 +128,16 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Fecha y hora de Salida</label>
                                     <div class="col-lg-9">
-                                        <input type="datetime-local">
+                                        <input class="form-control" type="datetime-local"  id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="sel1">
-                                            <option value="activo">Activo</option>
-                                            <option value="inactivo">Inactivo</option>
+                                        <select class="form-control" id="estado" name="estado" value="{{old('estado')}}">
+                                            <option value="ACTIVO">ACTIVO</option>
+                                            <option value="INACTIVO">INACTIVO</option>
                                         </select>
                                     </div>
                                 </div>
@@ -161,39 +163,26 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">ID Bus (Matricula)</th>
-                                        <th scope="col">Descripcion de Bus</th>
-                                        <th scope="col">Capacidad</th>
                                         <th scope="col">Estado</th>
+                                        <th scope="col">Capacida</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($buses as $item)
                                     <tr>
-                                        <th scope="row">102015</th>
-                                        <td>Bus Combi Blanco</td>
-                                        <td>50</td>
-                                        <td>Activo</td>
+                                        <th scope="row">{{$item->id}}</th>
+                                        <td>{{$item->estado}}</td>
+                                        <td>{{$item->capacidad}}</td>
                                         <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                class="awe"><i class="fas fa-trash"></i></a>
+                                            <a href="{{route('editar', $item->id)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->id)}}"
+                                                class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
+                                                
 
 
                                         </td>
                                     </tr>
-                                </tbody>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">991020</th>
-                                        <td>Bus Combi Blanco</td>
-                                        <td>45</td>
-                                        <td>Activo</td>
-                                        <td>
-                                            <a href="#" class="awe"><i class="fas fa-edit"></i></a> | <a href="#"
-                                                class="awe"><i class="fas fa-trash"></i></a>
-
-
-                                        </td>
-                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -206,7 +195,8 @@
                     <div class="card-body">
                         <!-- Formulario de Buses-->
 
-                        <form class="form" role="form" autocomplete="off">
+                        <form class="form" role="form" autocomplete="off" action="/create" method = "post">
+                        {{csrf_field()}}
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">ID Bus(Matricula)</label>
                                 <div class="col-lg-9">
@@ -214,33 +204,33 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">Descripcion de Bus</label>
-                                <div class="col-lg-9">
-                                    <input class="form-control" type="Varchar">
-                                </div>
-                            </div>
-                            <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Capacidad</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="number">
+                                    <input class="form-control" name="capacidad" type="number">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                 <div class="col-lg-9">
-                                    <select class="form-control" id="sel1">
-                                        <option>Activo</option>
-                                        <option>Inactivo</option>
+                                    <select class="form-control" id="sel1" name="estado">
+                                        <option>ACTIVO</option>
+                                        <option>INACTIVO</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
                                     <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                    <input type="button" class="btn btn-primary" value="Guardar Cambios">
+                                    <input type="submit" class="btn btn-primary" value="Guardar Cambios">
                                 </div>
                             </div>
+                            
                         </form>
+                        @if(session('agregar'))
+                            <div>
+                                {{session ('agregar')}}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -251,15 +241,15 @@
    {{--  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../Controladores/app.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../Controladores/app.js"></script>
  --}}
 
     @endsection
