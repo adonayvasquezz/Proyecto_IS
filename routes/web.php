@@ -29,12 +29,16 @@ Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas');
 
-Route::get('/administracion', 'HomeController@administracion');
-Route::get('/empleados', 'HomeController@empleados')->name('empleados');
-Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
-Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
-Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
-Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+
+// Rutas protegidas, solo empleados pueden acceder
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/administracion', 'HomeController@administracion');
+    Route::get('/empleados', 'HomeController@empleados')->name('empleados');
+    Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
+    Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
+    Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
+    Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+    });
 
 
 //Rutas para el envio de formulario de contacto
