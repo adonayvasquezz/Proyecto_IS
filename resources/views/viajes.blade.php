@@ -51,8 +51,8 @@
                                 <table id="ViajeList" class="table table-bordered table-hover table-striped">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Hora Salida</th>
+                                            <th scope="col">ID Viaje</th>
+                                            <th scope="col">Hora de Salida</th>
                                             <th scope="col">ID Bus</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Ruta</th>
@@ -60,16 +60,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($viajes as $item)
+                                        @foreach($rutasViajes as $item)
                                             <tr>
-                                                <th scope="row">{{$item->idviaje}}</th>
-                                                <td>{{$item->horaSalida}}</td>
-                                                <td>{{$item->id}}</td>
+                                                <th scope="row">{{$item->viaje_idviaje}}</th>
+                                                <td>{{$item->horaSalida}}</td>                                      
+                                                <td>{{$item->idBus}}</td>
                                                 <td>{{$item->estado}}</td>
-                                                <td>{{$item->estado}}</td>
+                                                <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
                                                 <td>
-                                                    <a href="{{route('editar', $item->idviaje)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarViaje', $item->idviaje)}}"
-                                                        class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
+                                                    <a href="javascript:void(0);"  class="awe" onclick="$(this).find('form').submit();">
+                                                        <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-edit"></i></button>
+                                                        </form>
+                                                    </a> | 
+                                                    <a href="javascript:void(0);"  class="awe" onclick="return confirm('¿Deseas eliminar el registro?')">
+                                                        <form class="form" role="form" autocomplete="off" action="{{ route('eliminarViaje', $item->viaje_idviaje)}}" method = "post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -101,7 +113,7 @@
                                     <p>{{session ('mensaje')}}</p>
                                 </div>
                             @endif
-                             <form class="form" role="form" autocomplete="off" action="/create" method = "post">
+                             <form class="form" role="form" autocomplete="off" action="/createViaje" method = "post">
                              {{csrf_field()}}
                                  <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
@@ -126,9 +138,9 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Fecha y hora de Salida</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Hora de Salida</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="datetime-local"  id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
+                                        <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
                                     </div>
                                 </div>
 
