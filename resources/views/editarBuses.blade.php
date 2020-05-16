@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
+    <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
 <br>
 <br>
-    <div>Actualización de buses</div>
+    <div class="titulo-edicion">Actualización de buses</div>
     <form class="form" role="form" autocomplete="off" action="{{action('busesController@update', $idbus)}}" method = "post">
         {{csrf_field()}}
             <div class="form-group row">
@@ -37,7 +38,7 @@
                     <input class="form-control" name="capacidad" type="number" value="{{$busActualizar->capacidad}}">
                 </div>
             </div>
-            <label for="">Estado del bus <br> previamente seleccionado: {{$busActualizar->estado}} </label>
+            <label for="">Estado del bus <br> previamente seleccionado: <span style="color: #ed2b46">{{$busActualizar->estado}}</span> </label>
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Nuevo estado</label>
                 <div class="col-lg-9">
