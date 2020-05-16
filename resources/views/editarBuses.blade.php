@@ -9,7 +9,6 @@
     <!--iconos fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
@@ -17,14 +16,47 @@
 
 <br>
 <br>
-    <form action="{{action('busesController@update', $id)}}" method="post">
-        
-    {{csrf_field()}}
-    Edición del bus con id {{$busActualizar->id}}<br>
-    <input type="text" name="capacidad" value="{{$busActualizar->capacidad}}"><br>
-    <input type="text" name="estado" value="{{$busActualizar->estado}}"><br>
-    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-    </form>
+    <div>Actualización de buses</div>
+    <form class="form" role="form" autocomplete="off" action="" method = "post">
+        {{csrf_field()}}
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">Matrícula</label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" value="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">Descripción</label>
+                <div class="col-lg-9">
+                    <input class="form-control" type="text" value="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">Capacidad de pasajeros</label>
+                <div class="col-lg-9">
+                    <input class="form-control" name="capacidad" type="number" value="{{$busActualizar->capacidad}}">
+                </div>
+            </div>
+            <label for="">Estado del bus previamente seleccionado: {{$busActualizar->estado}} </label>
+            <div class="form-group row">
+                <label class="col-lg-3 col-form-label form-control-label">Nuevo estado</label>
+                <div class="col-lg-9">
+                    <select class="form-control" id="sel1" name="estado">
+                        <option>ACTIVO</option>
+                        <option>INACTIVO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-lg-12 text-center">
+                    <input type="reset" class="btn btn-secondary" value="Cancelar">
+                    <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                </div>
+            </div>
+            
+        </form>
+
+   
 
     <!--BOOTSTRAP JAVASCRIPT-->
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

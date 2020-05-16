@@ -177,9 +177,6 @@
                                         <td>
                                             <a href="{{route('editar', $item->id)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->id)}}"
                                                 class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
-                                                
-
-
                                         </td>
                                     </tr>
                                 @endforeach
