@@ -22,15 +22,20 @@
                 <li class="nav-item">
                     <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Rutas</a>
                 </li>
+
+                {{-- @if(@Auth::user()->hasRole('admin')) --}}
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form Rutas</a>
                 </li>
+                {{-- @endif --}}
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listaLugares" role="tab" aria-controls="list" aria-selected="true">Lugares</a>
                 </li>
+               {{--  @if(@Auth::user()->hasRole('admin')) --}}
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formLugar" role="form" aria-controls="form" aria-selected="true">Form Lugares</a>
                 </li>
+               {{--  @endif --}}
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active navegacionForm" id="list" role="tabpanel" aria-labelledby="list-tab">
@@ -61,12 +66,12 @@
                                             <td>{{$ruta->duracion}}</td>
                                             <td>{{$ruta->precio}}</td>
                                             <td>
-                                            <a href="{{ route('editarRuta', $ruta->id)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <a href="{{ route('editarRuta', $ruta->id)}}" class="awe"><i class="fas fa-edit"></i></a> |
                                             <a href="{{ route('eliminarRuta.destroy', $ruta->id)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
 
                                             </td>
-                                        </tr>  
-                                    @endforeach                             
+                                        </tr>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -151,12 +156,12 @@
                                         <th scope="row">{{$ciudad->id}}</th>
                                         <td>{{$ciudad->nombre}}</td>
                                         <td style="width:15%">
-                                            <a href="{{ route('editarLugar', $ciudad->id)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+                                            <a href="{{ route('editarLugar', $ciudad->id)}}" class="awe"><i class="fas fa-edit"></i></a> |
                                             <a href="{{ route('eliminarLugar.destroy', $ciudad->id)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
                                         </td>
-                                    </tr> 
+                                    </tr>
                                 @endforeach
-                                
+
                                 </tbody>
                             </table>
                         </div>
@@ -171,10 +176,10 @@
 
                         <form class="form" action="/createLugar" method="post" role="form" autocomplete="off" id="formularioLugares">
                             {{csrf_field()}}
-                           
+
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Nombre/Descripcion</label>
-                                
+
                                 <div class="col-lg-9">
                                     <input class="form-control " name="nombre" type="text" id="nombreLugar" >
                                     {!! $errors->first('nombre', '<small style="color:red">:message</small>') !!}

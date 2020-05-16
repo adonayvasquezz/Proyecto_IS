@@ -16,6 +16,7 @@ use App\Persona;
 use App\Empleado;
 use Spatie\Permission\Models\Role;
 
+
 class HomeController extends Controller
 {
     /**
@@ -26,6 +27,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        //$this->middleware(['role:empleado']);
+
     }
 
     /**
@@ -109,12 +112,13 @@ class HomeController extends Controller
 
     public function empleados_registro(Request $request)
     {
-        // Se recibe el id del usuario seleccionado en la vista busqueda
+        // Se recibe el id del usuario seleccionado en la vista busqueda.
         $id_empleado = $request->idbeta;
 
+        // Se verifica si ya es un empleado.
         $es_empleado = Empleado::where('idpersona',$id_empleado)->first();
 
-        // Se obtienen todos los cargos para llenarlos en el select del formulario
+        // Se obtienen todos los cargos para llenarlos en el select del formulario.
         $cargos = DB::select("SELECT * FROM cargo");
 
         // Se busca la informacion del usuario seleccionado, en las tablas users y personas
