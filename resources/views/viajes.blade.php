@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
+    <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
 
@@ -210,19 +211,34 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Matrícula</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="matricula">
+                                    <input class="form-control @error('matricula') is-invalid @enderror" type="text" name="matricula" value="{{old('matricula')}}">
+                                    @error('matricula')
+                                      <span class="invalid-feedback mensaje-error" role="alert">
+                                          {{ $message }}
+                                      </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Descripción</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="text" name="descripcion">
+                                    <input class="form-control @error('descripcion') is-invalid @enderror" type="text" name="descripcion" value="{{old('descripcion')}}">
+                                    @error('descripcion')
+                                    <span class="invalid-feedback mensaje-error" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                  @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Capacidad</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" name="capacidad" type="number">
+                                    <input class="form-control @error('capacidad') is-invalid @enderror" name="capacidad" type="number" value="{{old('capacidad')}}">
+                                    @error('capacidad')
+                                    <span class="invalid-feedback mensaje-error" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                  @enderror
                                 </div>
                             </div>
                             <div class="form-group row">

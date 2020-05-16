@@ -3,5 +3,8 @@
     color: #ed2b46;
     font-weight: 600;
     margin-bottom: 2%;
-
+}
+.mensaje-error{
+    font-size: 15px;
+    text-align: right;
 }

@@ -23,19 +23,34 @@
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Matrícula</label>
                 <div class="col-lg-9">
-                    <input class="form-control" name="matricula" type="text" value="{{$busActualizar->matricula}}">
+                    <input class="form-control @error('matricula') is-invalid @enderror" name="matricula" type="text" value="{{$busActualizar->matricula}}">
+                    @error('matricula')
+                      <span class="invalid-feedback mensaje-error" role="alert">
+                        {{ $message }}
+                      </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Descripción</label>
                 <div class="col-lg-9">
-                    <input class="form-control" name="descripcion" type="text" value="{{$busActualizar->descripcion}}">
+                    <input class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" type="text" value="{{$busActualizar->descripcion}}">
+                    @error('descripcion')
+                      <span class="invalid-feedback mensaje-error" role="alert">
+                        {{ $message }}
+                      </span>
+                    @enderror
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-lg-3 col-form-label form-control-label">Capacidad de pasajeros</label>
                 <div class="col-lg-9">
-                    <input class="form-control" name="capacidad" type="number" value="{{$busActualizar->capacidad}}">
+                    <input class="form-control @error('capacidad') is-invalid @enderror" name="capacidad" type="number" value="{{$busActualizar->capacidad}}">
+                    @error('capacidad')
+                      <span class="invalid-feedback mensaje-error" role="alert">
+                        {{ $message }}
+                      </span>
+                    @enderror
                 </div>
             </div>
             <label for="">Estado del bus <br> previamente seleccionado: <span style="color: #ed2b46">{{$busActualizar->estado}}</span> </label>

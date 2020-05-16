@@ -79,7 +79,7 @@ route::get('/create','ViajesController@show');
 
 // Inicio de rutas para CRUD de buses perteneciente al módulo de Viajes.
 Route::get('/viajes', 'busesController@index');
-Route::post('/create', 'busesController@store');
+Route::post('/create', 'busesController@createBus');
 Route::get('/editar/{idbus}/',['uses'=>'busesController@edit', 'as' => 'editar']);
 Route::post('/update/{idbus}', 'busesController@update');
 Route::get('/eliminarBus/{idbus}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
