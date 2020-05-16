@@ -8,7 +8,7 @@
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!--iconos fontawesome-->
+    <!--íconos fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
@@ -27,7 +27,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formViajes" role="tab" aria-controls="form"
-                        aria-selected="true">Formulario de Viajes</a>
+                        aria-selected="true">Registro de Viajes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listBuses" role="tab"
@@ -35,7 +35,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formBuses" role="form"
-                        aria-controls="form" aria-selected="true">Form Buses</a>
+                        aria-controls="form" aria-selected="true">Registro de Buses</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -166,7 +166,7 @@
                 <div class="tab-pane fade show navegacionForm" id="listBuses" role="tabpanel"
                     aria-labelledby="list-tab">
                     <div class="card-header">
-                        <h4>Informacion Buses</h4>
+                        <h4>Informacion de buses</h4>
                     </div>
                     <div class="card-body">
                         <!-- Lista de Buses-->
@@ -174,20 +174,22 @@
                             <table id="lugarList" class="table table-bordered table-hover table-striped">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">ID Bus (Matricula)</th>
+                                        <th scope="col">Matrícula</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Capacidad</th>
                                         <th scope="col">Estado</th>
-                                        <th scope="col">Capacida</th>
-                                        <th></th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($buses as $item)
                                     <tr>
-                                        <th scope="row">{{$item->id}}</th>
-                                        <td>{{$item->estado}}</td>
+                                        <th scope="row">{{$item->matricula}}</th>
+                                        <td>{{$item->descripcion}}</td>
                                         <td>{{$item->capacidad}}</td>
+                                        <td>{{$item->estado}}</td>
                                         <td>
-                                            <a href="{{route('editar', $item->id)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->id)}}"
+                                            <a href="{{route('editar', $item->idbus)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->idbus)}}"
                                                 class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
@@ -203,13 +205,18 @@
                     </div>
                     <div class="card-body">
                         <!-- Formulario de Buses-->
-
                         <form class="form" role="form" autocomplete="off" action="/create" method = "post">
                         {{csrf_field()}}
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">ID Bus(Matricula)</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Matrícula</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="number">
+                                    <input class="form-control" type="text" name="matricula">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Descripción</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control" type="text" name="descripcion">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -222,15 +229,15 @@
                                 <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                 <div class="col-lg-9">
                                     <select class="form-control" id="sel1" name="estado">
-                                        <option>ACTIVO</option>
-                                        <option>INACTIVO</option>
+                                        <option>Activo</option>
+                                        <option>Inactivo</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
                                     <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                    <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                                    <input type="submit" class="btn btn-primary" value="Guardar">
                                 </div>
                             </div>
                             
