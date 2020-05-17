@@ -44,7 +44,7 @@
                     aria-labelledby="list-tab">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Informacion De Rutas</h4>
+                            <h4>Informacion De Viajes</h4>
                         </div>
                         <div class="card-body">
                             <!-- Lista de Rutas-->
@@ -54,7 +54,7 @@
                                         <tr>
                                             <th scope="col">ID Viaje</th>
                                             <th scope="col">Hora de Salida</th>
-                                            <th scope="col">ID Bus</th>
+                                            <th scope="col">Bus</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Ruta</th>
                                             <th></th>
@@ -65,7 +65,7 @@
                                             <tr>
                                                 <th scope="row">{{$item->viaje_idviaje}}</th>
                                                 <td>{{$item->horaSalida}}</td>                                      
-                                                <td>{{$item->idBus}}</td>
+                                                <td>{{$item->idbus}} - matricula:{{$item->matriculaBus}} - {{$item->descripcionBus}} -capacidad: {{$item->capacidadBus}}</td>
                                                 <td>{{$item->estado}}</td>
                                                 <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
                                                 <td>
@@ -117,9 +117,21 @@
                              <form class="form" role="form" autocomplete="off" action="/createViaje" method = "post">
                              {{csrf_field()}}
                                  <div class="form-group row">
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Viaje</label>
+                                    <div class="col-lg-9">
+                                        <select class="form-control" id="idviaje" name="idviaje" value="{{old('idviaje')}}">
+                                            <option value="nuevo">Crear un nuevo viaje</option>
+                                            @foreach($viajes as $item)
+                                                <option value="{{$item->idviaje}}">Viaje:{{$item->idviaje}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idRuta')}}">
+                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idruta')}}">
                                             @foreach($rutas as $item)
                                                 <option value="{{$item->idruta}}">{{$item->idruta}} - {{$item->lugarInicio}} a {{$item->lugarFin}}</option>
                                             @endforeach
@@ -130,9 +142,9 @@
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="id" name="id"  value="{{old('bus')}}">
+                                        <select class="form-control" id="idbus" name="idbus"  value="{{old('idbus')}}">
                                          @foreach($buses as $item)
-                                            <option value="{{$item->id}}">id bus:{{$item->id}} - capacidad:{{$item->capacidad}}</option>
+                                            <option value="{{$item->idbus}}"> matricula:{{$item->matricula}}- descripcion:{{$item->descripcion}}- capacidad:{{$item->capacidad}}</option>
                                         @endforeach
                                         </select>
                                     </div>

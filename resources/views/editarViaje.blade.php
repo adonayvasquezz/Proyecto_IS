@@ -9,21 +9,15 @@
     <!--iconos fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
+    <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
 <br>
 <br>
-<div class="container">
-    <div class="mx-auto col-sm-8 main-section">
-                <ul class="nav nav-tabs justify-content-end">
-                    <li class="nav-item">
-                        <a>Editar Viaje </a>
-                    </li>
-                </ul>
+    <div class="titulo-edicion">Actualización de Viajes</div>
                     @if($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -40,7 +34,15 @@
                                 </div>
                             @endif
                     <form class="form" action="{{action('ViajesController@update', $viaje->idviaje)}}" method="POST" role="form" autocomplete="off">
-                    {{csrf_field()}}                  
+                    {{csrf_field()}}        
+                        <div class="form-group row">
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Viaje</label>
+                                    <div class="col-lg-9">
+                                        <select class="form-control" id="idviaje" name="idviaje" value="{{$viaje->idviaje}}">
+                                                <option value="{{$viaje->idviaje}}">Viaje:{{$viaje->idviaje}} </option>
+                                        </select>
+                                    </div>
+                                </div>          
                         <div class="form-group row">
                             <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
                             <div class="col-lg-9">
@@ -52,9 +54,9 @@
                         <div class="form-group row">
                             <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                             <div class="col-lg-9">
-                                <select class="form-control" id="id" name="id"  value="{{$bus->id}}">
+                                <select class="form-control" id="idbus" name="idbus"  value="{{$bus->idbus}}">
                                     @foreach($buses as $item)
-                                        <option value="{{$item->id}}">id bus:{{$item->id}} - capacidad:{{$item->capacidad}}</option>
+                                        <option value="{{$item->idbus}}"> matricula:{{$item->matricula}}- descripcion:{{$item->descripcion}}- capacidad:{{$item->capacidad}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -62,7 +64,7 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Hora de Salida</label>
                             <div class="col-lg-9">
-                                  <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{$rutasViaje->horaSalida}}"> 
+                                  <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{$horaSalida}}"> 
                             </div>
                         </div>
                         <div class="form-group row">
@@ -81,9 +83,7 @@
                             </div>
                         </div>
                 </form>
-        </div>
-    </div>
-</div>
+
 
     <!--BOOTSTRAP JAVASCRIPT-->
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

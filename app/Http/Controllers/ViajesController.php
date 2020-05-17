@@ -30,10 +30,10 @@ class ViajesController extends Controller
         if($rutas){
             foreach ($rutas as $ruta) {
                 foreach ($Lugares as $lugar) {
-                    if($ruta->lugarInicio == $lugar->id){
+                    if($ruta->lugarInicio == $lugar->idLugar){
                         $ruta->lugarInicio= $lugar->nombre;
                     }
-                    if($ruta->lugarFin == $lugar->id){
+                    if($ruta->lugarFin == $lugar->idLugar){
                         $ruta->lugarFin= $lugar->nombre;
                     }
                 }
@@ -42,21 +42,28 @@ class ViajesController extends Controller
         if($rutasViajes){
             foreach ($rutasViajes as $rutaViaje) {
                 foreach ($rutas as $ruta) {
-                    if($ruta->id == $rutaViaje->ruta_idruta){
+                    if($ruta->idruta == $rutaViaje->ruta_idruta){
                         $rutaViaje->lugarInicio= $ruta->lugarInicio;
                         $rutaViaje->lugarFin= $ruta->lugarFin;
                     }
                 }
                 foreach ($viajes as $viaje) {
                     if($viaje->idviaje == $rutaViaje->viaje_idviaje){
-                        $rutaViaje->idBus= $viaje->id;
+                        $rutaViaje->idbus= $viaje->idbus;
+                        foreach ($buses as $bus) {
+                            if($rutaViaje->idbus == $bus->idbus){
+                                $rutaViaje->matriculaBus= $bus->matricula;
+                                $rutaViaje->descripcionBus= $bus->descripcion;
+                                $rutaViaje->capacidadBus= $bus->capacidad;
+                            }
+                        }
                         $rutaViaje->estado= $viaje->estado;
                     }
                 }
             }
 
         }
-        return view('viajes',compact('buses','rutasViajes','rutas')); // Equivalente a la creación de un arreglo asociativo.
+        return view('viajes',compact('buses','rutasViajes','rutas','viajes')); // Equivalente a la creación de un arreglo asociativo.
     }
 
     /**
@@ -67,22 +74,27 @@ class ViajesController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
+            'idviaje' => 'required',
             'idruta' => 'required',
-            'id' => 'required',
+            'idbus' => 'required',
             'horaSalida' => 'required',
             'estado' => 'required'
         ],[
+            'idviaje.required' => 'Es requerida una opcion es requerida',
             'idruta.required' => 'La ruta es requerida',
             'horaSalida.required' =>  'La fecha y hora de salida es requerida',
             'estado.required' => 'El estado es requerido', 
-            'id.required' => 'El Bus es requerido', 
-        ]
-        );
-        $viajes= new viajes();
-        $viajes->id= $request->id;
-        $viajes->estado= $request->estado;
-        $viajes-> save();
-        $idAViajeRecienGuardada = $viajes->id;
+            'id.required' => 'El Bus es requerido'
+        ]);
+        if($request->idviaje == 'nuevo'){
+            $viajes= new viajes();
+            $viajes->id= $request->idbus;
+            $viajes->estado= $request->estado;
+            $viajes-> save();
+            $idAViajeRecienGuardada = $viajes->id;
+        }else{
+            $idAViajeRecienGuardada = $request->idviaje;
+        }
         if ($idAViajeRecienGuardada) {
             $rutasViajes= new rutasViajes();
             $rutasViajes->ruta_idruta= $request->idruta;
@@ -133,33 +145,39 @@ class ViajesController extends Controller
     {
         $buses = buses::all();
         $Lugares = lugarRutas::all();
-        $rutasViaje =DB::table('rutaviajes')
-        ->select('viaje_idviaje','ruta_idruta','horaSalida')
-        ->where('viaje_idviaje', '=', $id)->where('ruta_idruta', '=', $request->idruta)->get();
+        $rutasViajes =rutasViajes::all();
+        foreach ($rutasViajes as $rutasViaje) {
+            if($rutasViaje->viaje_idviaje == $id && $rutasViaje->ruta_idruta == $request->idruta){
+                $horaSalida =  $rutasViaje->horaSalida;
+            }
+        }
+        
         $ruta = rutas::find($request->idruta);
             if($ruta){
                 foreach ($Lugares as $lugar) {
-                    if($ruta->lugarInicio == $lugar->id){
+                    if($ruta->lugarInicio == $lugar->idLugar){
                         $ruta->lugarInicio= $lugar->nombre;
                     }
-                    if($ruta->lugarFin == $lugar->id){
+                    if($ruta->lugarFin == $lugar->idLugar){
                         $ruta->lugarFin= $lugar->nombre;
                     }
                 }
          }
         $viaje = viajes::find($id);
-        $bus = buses::find($viaje->id);
-        return view('editarViaje',compact('buses','viaje','ruta','bus','rutasViaje'));
+        $bus = buses::find($viaje->idbus);
+        return view('editarViaje',compact('buses','viaje','ruta','bus','horaSalida'));
     }
     // Función para guardar los nuevos cambios realizados en los Viajes.
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'idviaje' => 'required',
             'idruta' => 'required',
             'id' => 'required',
             'horaSalida' => 'required',
             'estado' => 'required'
         ],[
+            'idviaje.required' => 'Es requerida una opcion es requerida',
             'idruta.required' => 'La ruta es requerida',
             'horaSalida.required' =>  'La fecha y hora de salida es requerida',
             'estado.required' => 'El estado es requerido', 
@@ -168,6 +186,7 @@ class ViajesController extends Controller
         );
         $viajes =viajes::find($id);
         $viajes->estado= $request->estado;
+        $viajes->idbus= $request->idbus;
         $viajes-> save();
         if ($request->idruta) {
             $rutasViajes =DB::table('rutaviajes')
@@ -175,7 +194,7 @@ class ViajesController extends Controller
             $rutasViajes->horaSalida= $request->horaSalida;
             $rutasViajes-> save();
         }
-        return redirect('viajes');
+        return view('viajes');
     }
     //Función para eliminar del sistema el Viaje seleccionado.
     public function destroy(Request $request, $id){
