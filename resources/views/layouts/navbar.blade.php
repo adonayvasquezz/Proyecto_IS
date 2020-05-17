@@ -17,7 +17,7 @@
 
 <body>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navP" id="barra-nav">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light navP superior" id="barra-nav">
             <a class="navbar-brand" href="/home"><img class="img-n" src="../Images/logo.png" alt=""> <span class="t-logo">e-Transs</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -100,14 +100,12 @@
         </nav>
     </div>
 
-
+ 
 <div class="container">
-    <br>
+    <br> <br> <br>
     @yield('content')
     <br>
 </div>
-
-
 
     <div id="footer" class="inferior">
         <ul class="icons">

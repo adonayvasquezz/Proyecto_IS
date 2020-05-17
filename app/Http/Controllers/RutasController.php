@@ -51,13 +51,17 @@ class RutasController extends Controller
             'duracion.required' => 'Campo obligatorio',
             'precio.required' => 'Campo obligatorio'
         ]);
-        $Rutas= new Rutas();
+        if($request->ciudadInicio==$request->ciudadFin){
+            return redirect('rutas')->with('alert', 'Ciudad de Inicio y Fin deben ser diferentes');
+        }else{
+             $Rutas= new rutas();
         $Rutas->lugarInicio = $request->ciudadInicio;
         $Rutas->lugarFin = $request->ciudadFin;
         $Rutas->duracion= $request->duracion;
         $Rutas->precio= $request->precio;
         $Rutas-> save();
-        return redirect('rutas');
+        return redirect('rutas')->with('alert2', 'Ruta agregada correctamente');
+        }
     }
 
     /**
@@ -82,7 +86,16 @@ class RutasController extends Controller
         $ciudad = DB::table('lugarRutas')->get();
 
         $Rutas =Rutas::find($id);
-        return view('editarRuta',['ciudades'=>$ciudad, 'Rutas'=>$Rutas]);
+
+        $cA= DB::table('rutas')
+        ->join('lugarRutas as lr', 'lr.idLugar', '=', 'rutas.lugarInicio')
+        ->join('lugarRutas as lr1', 'lr1.idLugar', '=', 'rutas.lugarFin')
+        ->select('rutas.lugarInicio as idInicio','rutas.lugarFin as idFin','lr.nombre as ciudadInicio','lr1.nombre as ciudadFin')
+        ->where('rutas.idruta',$id)
+        ->get();
+        // dd($cA);
+      
+        return view('editarRuta',['ciudades'=>$ciudad, 'Rutas'=>$Rutas,'cA'=>$cA]);
     }
 
     /**
@@ -92,7 +105,7 @@ class RutasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idruta)
     {
         $this->validate($request, [
             'ciudadInicio' => 'required',
@@ -106,13 +119,17 @@ class RutasController extends Controller
             'duracion.required' => 'Campo obligatorio',
             'precio.required' => 'Campo obligatorio'
         ]);
-        $Rutas =Rutas::find($id);
+        if($request->ciudadInicio==$request->ciudadFin){
+            return redirect('rutas')->with('alert', 'Ciudad de Inicio y Fin deben ser diferentes');
+        }else{
+        $Rutas =rutas::find($idruta);
         $Rutas->lugarInicio = $request->ciudadInicio;
         $Rutas->lugarFin = $request->ciudadFin;
         $Rutas->duracion= $request->duracion;
         $Rutas->precio= $request->precio;
         $Rutas->save();
-        return redirect('rutas');
+        return redirect('rutas')->with('alert2', 'Ruta editada correctamente');
+        }
     }
 
     /**
@@ -121,11 +138,20 @@ class RutasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idruta)
     {
-        $Rutas =Rutas::find($id);
+        if(
+            DB::table('rutaviajes')
+        ->where('rutaviajes.ruta_idRuta', $idruta)
+        ->select('rutaviajes.*')
+        ->exists()
+        ){
+            return redirect('rutas')->with('alert', 'Ruta asociada a un viaje, no se puede borrar en este momento');
+        }else {
+        $Rutas =rutas::find($idruta);
         $Rutas-> delete();
         // Flash('El usuario'. $lugarRutas->nombre .'ha sido eliminado correctamente')->error;
-        return redirect('rutas');
+        return redirect('rutas')->with('alert', 'Ruta eliminada!');
+        }
     }
 }

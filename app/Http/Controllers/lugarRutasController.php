@@ -28,15 +28,25 @@ class lugarRutasController extends Controller
     {
         
         $this->validate($request, [
-            'nombre' => 'required'
-
+            'nombre' =>'required'
         ],[
             'nombre.required' => 'Campo obligatorio'
         ]);
+
+        
+        if(
+            DB::table('lugarrutas')
+        ->where('lugarrutas.nombre', $request->nombre)
+        ->select('lugarrutas.*')
+        ->exists()
+        ){
+        return redirect('rutas')->with('alert', 'Esta ciudad ya ha sido registrada');
+        }else {
         $lugarRutas= new lugarRutas();
         $lugarRutas->nombre= $request->nombre;
         $lugarRutas-> save();
-        return redirect('rutas');
+        return redirect('rutas')->with('alert2', 'Lugar agregado correctamente');;
+        }
         //
     }
     //
@@ -48,11 +58,12 @@ class lugarRutasController extends Controller
 
     public function read(request $request){
         $rutas= DB::table('rutas')
-        ->join('lugarRutas as lr', 'lr.id', '=', 'rutas.lugarInicio')
-        ->join('lugarRutas as lr1', 'lr1.id', '=', 'rutas.lugarFin')
+        ->join('lugarRutas as lr', 'lr.idLugar', '=', 'rutas.lugarInicio')
+        ->join('lugarRutas as lr1', 'lr1.idLugar', '=', 'rutas.lugarFin')
         ->select('rutas.*','lr.nombre as ciudadInicio','lr1.nombre as ciudadFin')
-        ->orderBy('rutas.id', 'asc')
-        ->get();
+        ->orderBy('rutas.idRuta', 'asc')
+        ->paginate(5);
+        // dd($rutas);
 
         $ciudad=lugarRutas::all();
         
@@ -62,17 +73,31 @@ class lugarRutasController extends Controller
     public function edit($id)
     {
         $lugarRutas =lugarRutas::find($id);
-        return view('editarLugar', compact('lugarRutas', 'id'));
+        return view('editarLugar', compact('lugarRutas', 'id'))->with('alert2', 'Lugar editado correctamente');
     }
 
     public function destroy($id)
     {
-        $lugarRutas =lugarRutas::find($id);
-        $lugarRutas-> delete();
+        
 
-        // Flash('El usuario'. $lugarRutas->nombre .'ha sido eliminado correctamente')->error;
-        return redirect('rutas');
+        if(
+            DB::table('rutas')
+        ->join('lugarRutas as lr', 'lr.idLugar', '=', 'rutas.lugarInicio')
+        ->join('lugarRutas as lr1', 'lr1.idLugar', '=', 'rutas.lugarFin')
+        ->where('rutas.lugarInicio', $id)
+        ->orWhere('rutas.lugarFin', $id)
+        ->select('rutas.*')
+        ->exists()
+        ){
+            return redirect('rutas')->with('alert', 'Lugar asociado a una ruta, no se puede borrar en este momento');
+        }else {
+            $lugarRutas =lugarRutas::find($id);
+            $lugarRutas-> delete();
+            return redirect('rutas')->with('alert', 'Lugar eliminado');
+        }
     }
+
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -84,7 +109,7 @@ class lugarRutasController extends Controller
         $lugarRutas =lugarRutas::find($id);
         $lugarRutas->nombre=$request->nombre;
         $lugarRutas->save();
-        return redirect('rutas');
+        return redirect('rutas')->with('alert2', 'Lugar editado correctamente');
     }
 
 }

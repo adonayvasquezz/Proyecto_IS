@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Empleado' => $baseDir . '/app/Empleado.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -18,6 +19,10 @@ return array(
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\MailController' => $baseDir . '/app/Http/Controllers/MailController.php',
     'App\\Http\\Controllers\\PersonaController' => $baseDir . '/app/Http/Controllers/PersonaController.php',
+    'App\\Http\\Controllers\\RutasController' => $baseDir . '/app/Http/Controllers/RutasController.php',
+    'App\\Http\\Controllers\\ViajesController' => $baseDir . '/app/Http/Controllers/ViajesController.php',
+    'App\\Http\\Controllers\\busesController' => $baseDir . '/app/Http/Controllers/busesController.php',
+    'App\\Http\\Controllers\\lugarRutasController' => $baseDir . '/app/Http/Controllers/lugarRutasController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
@@ -33,12 +38,12 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Rutas' => $baseDir . '/app/rutas.php',
     'App\\User' => $baseDir . '/app/User.php',
-<<<<<<< HEAD
+    'App\\buses' => $baseDir . '/app/buses.php',
     'App\\lugarRutas' => $baseDir . '/app/lugarRutas.php',
-=======
-    'App\\Viajes' => $baseDir . '/app/Viajes.php',
->>>>>>> bd0f541c6bff2d4bdf4df6723248ca647435ba38
+    'App\\rutasViajes' => $baseDir . '/app/rutasViajes.php',
+    'App\\viajes' => $baseDir . '/app/viajes.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
     'Brick\\Math\\BigDecimal' => $vendorDir . '/brick/math/src/BigDecimal.php',

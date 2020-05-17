@@ -17,6 +17,7 @@
     <link href="{{ asset('Styles/main.css') }}" rel="stylesheet">
     <link href="{{ asset('Styles/bootstrap.min.css') }}" rel="stylesheet">
 
+
 </head>
 <body class="is-preload">
     <!--Probando, probando, probando, probando. Esto es para el domingo y lo estamos trabajando el sábado en la madrugada -->
@@ -51,8 +52,13 @@
 
     <!-- Main -->
     <div id="main">
-
+    @if (session('alert2'))
+    <div class="alert alert-success">
+        {{ session('alert2') }}
+    </div>
+    @endif
         <header class="major container medium">
+        
             <h2>VIAJA A NUESTROS PRINCIPALES
                 <br /> DESTINOS
             </h2>
@@ -63,7 +69,7 @@
         </header>
 
         <!-- Inicio del menú de las ciudades principales que sirven de origen para las rutas -->
-
+     
         <div class="box alt container">
             <div class="container-fluid">
                 <div class="row">
@@ -760,19 +766,19 @@
             @csrf
                 <div class="row">
                     <div class="col-6 col-12-mobilep">
-                        <input  type="text" name="name" placeholder="Nombre" value="{{old('name')}}" />
+                        <input required  type="text" name="name" placeholder="Nombre" value="{{old('name')}}" />
                         {!! $errors->first('name', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-6 col-12-mobilep">
-                        <input  type="text" name="email" placeholder="Email" value="{{old('email')}}" />
+                        <input required  type="text" name="email" placeholder="Email" value="{{old('email')}}" />
                         {!! $errors->first('email', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-6 col-12-mobilep" style="display:none">
-                        <input  type="text" name="subject" placeholder="Email" value="Contacto-Cliente"  />
+                        <input required type="text" name="subject" placeholder="Email" value="Contacto-Cliente"  />
                         {!! $errors->first('subject', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-12">
-                        <textarea  name="message" placeholder="Mensaje" rows="6" value="{{old('message')}}"></textarea>
+                        <textarea required  name="message" placeholder="Mensaje" rows="6" value="{{old('message')}}"></textarea>
                         {!! $errors->first('message', '<small style="color:red">:message</small>') !!}
                     </div>
                   <div class="col-12">

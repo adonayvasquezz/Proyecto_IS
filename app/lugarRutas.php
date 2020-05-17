@@ -8,5 +8,7 @@ class lugarRutas extends Model
 {
     protected $table='lugarRutas';
     public $timestamps = false;
+    protected $primaryKey = 'idLugar';
+    protected $fillable = ['nombre'];
     //
 }
