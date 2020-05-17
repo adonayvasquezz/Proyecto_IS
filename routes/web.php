@@ -29,12 +29,16 @@ Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas');
 
-Route::get('/administracion', 'HomeController@administracion');
-Route::get('/empleados', 'HomeController@empleados')->name('empleados');
-Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
-Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
-Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
-Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+
+// Rutas protegidas, solo empleados pueden acceder
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/administracion', 'HomeController@administracion');
+    Route::get('/empleados', 'HomeController@empleados')->name('empleados');
+    Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
+    Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
+    Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
+    Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+    });
 
 
 //Rutas para el envio de formulario de contacto
@@ -75,15 +79,15 @@ route::get('/create','ViajesController@show');
 
 // Inicio de rutas para CRUD de buses perteneciente al módulo de Viajes.
 Route::get('/viajes', 'busesController@index');
-Route::post('/create', 'busesController@store');
-Route::get('/editar/{id}/',['uses'=>'busesController@edit', 'as' => 'editar']);
-Route::post('/update/{id}', 'busesController@update');
-Route::get('/eliminarBus/{id}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
+Route::post('/create', 'busesController@createBus');
+Route::get('/editar/{idbus}/',['uses'=>'busesController@edit', 'as' => 'editar']);
+Route::post('/update/{idbus}', 'busesController@update');
+Route::get('/eliminarBus/{idbus}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
 
 // Inicio de rutas para CRUD de Viajes perteneciente al módulo de Viajes.
 Route::get('/viajes', 'ViajesController@index');
-Route::post('/create', 'ViajesController@create');
-Route::get('/editar/{id}/',['uses'=>'ViajesController@edit', 'as' => 'editar']);
-Route::post('/update/{id}', 'ViajesController@update');
+Route::post('/createViaje', 'ViajesController@create');
+Route::post('/editViaje/{id}/edit',['uses'=>'ViajesController@edit', 'as' => 'editarViaje']);
+Route::post('/editarViaje/{id}/edit', 'ViajesController@update');
 Route::get('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
-
+Route::post('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
