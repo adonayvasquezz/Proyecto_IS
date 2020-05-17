@@ -78,7 +78,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-12 text-center">
-                                <a href="/rutas" class="btn btn-secondary btn-close">Cancel</a>
+                                <a href="/viajes" class="btn btn-secondary btn-close">Cancel</a>
                                 <input type="submit"  class="btn btn-primary " value="Guardar Cambios" id="btnGuardar">
                             </div>
                         </div>
