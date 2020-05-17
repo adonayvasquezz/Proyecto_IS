@@ -75,11 +75,14 @@ class HomeController extends Controller
     public function empleados()
     {
 
-        $empleados = DB::select("SELECT A.idempleado, B.pnombre, B.papellido, C.nombrecargo, B.telefono, B.correo
+        // Se consulta los empleados de la compañia
+        $empleados = DB::select("SELECT A.idempleado, D.name, B.papellido, C.nombrecargo, B.telefono, D.email
         from etranss2.empleados A,
         etranss2.personas B,
-        etranss2.cargo C
+        etranss2.cargo C,
+        etranss2.users D
         where A.idpersona = B.idpersona
+        and B.idpersona = D.id
         and A.idcargo = C.idcargo
         order by C.idcargo;");
 
@@ -156,6 +159,17 @@ class HomeController extends Controller
         /* $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
             array($fechainicio,$idpersona,$idcargo)); */
         return redirect()->route('empleados');
+    }
+
+    public function destroy($id)
+    {
+        $Empleado = Empleado::find($id);
+        $usuario = User::find($Empleado->idpersona);
+
+        $usuario->removeRole('empleado');
+        $Empleado-> delete();
+
+        return 'Accediste a eliminar empleado! '.$Empleado->idpersona;
     }
 
 }

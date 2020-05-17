@@ -30,7 +30,7 @@ Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas');
 
 
-// Rutas protegidas, solo empleados pueden acceder
+// Rutas protegidas, solo rol administrador puede acceder
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/administracion', 'HomeController@administracion');
     Route::get('/empleados', 'HomeController@empleados')->name('empleados');
@@ -38,6 +38,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
     Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
     Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+    route::get('eliminar-empleado/{id}/destroy',['uses'=> 'HomeController@destroy','as' => 'eliminarEmpleado.destroy']);
     });
 
 
