@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -43,7 +41,8 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 
 //Rutas para el envio de formulario de contacto
-Route::view('/index', 'index')->name('index');
+//Route::view('/index', 'index')->name('index');
+Route::get('/index', 'IndexController@index')->name('index');
 Route::post('index', 'MailController@store');
 
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');

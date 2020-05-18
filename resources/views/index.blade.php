@@ -223,56 +223,17 @@
                                 </b>
                             </tr>
                         </thead>
+                         @foreach ($tegus as $tgu)
+                        
                         <tbody>
                             <tr>
-                                <td>Tegucigalpa</td>
-                                <td>San Pedro Sula</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>300 lps</td>
+                                <td>{{$tgu->salida}}</td>
+                                <td>{{$tgu->destino}}</td>
+                                <td>{{$tgu->hora}}</td>
+                                <td>{{$tgu->tarifa}}</td>
                             </tr>
-
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Siguatepeque</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Lago de Yojoa</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>180 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Choluteca</td>
-                                <td>7:00 am y 1:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Danli</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Catacamas</td>
-                                <td>9:00 am y 2:00 pm</td>
-                                <td>250 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Ceiba</td>
-                                <td>5:00 am </td>
-                                <td>380 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Trujillo</td>
-                                <td>5:00 am </td>
-                                <td>500 lps</td>
-                            </tr>
+                        @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -280,7 +241,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -314,37 +275,17 @@
                                 </b>
                             </tr>
                         </thead>
+                        @foreach ($sps as $spsr)
+                        
                         <tbody>
                             <tr>
-                                <td>San Pdero Sula</td>
-                                <td>Tegucigalpa</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>300 lps</td>
+                                <td>{{$spsr->salida}}</td>
+                                <td>{{$spsr->destino}}</td>
+                                <td>{{$spsr->hora}}</td>
+                                <td>{{$spsr->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Siguatepeque</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Lago de Yojoa</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>150 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Ceiba</td>
-                                <td>7:00 am</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Trujillo</td>
-                                <td>7:00 am</td>
-                                <td>350 lps</td>
-                            </tr>
+                        @endforeach
+                           
                         </tbody>
                     </table>
                 </div>
@@ -352,7 +293,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -386,25 +327,17 @@
                                 </b>
                             </tr>
                         </thead>
+                         @foreach ($ceiba as $ceibar)
+                        
                         <tbody>
                             <tr>
-                                <td>Ceiba</td>
-                                <td>Tegucigalpa</td>
-                                <td>2:00 pm</td>
-                                <td>380 lps</td>
+                                <td>{{$ceibar->salida}}</td>
+                                <td>{{$ceibar->destino}}</td>
+                                <td>{{$ceibar->hora}}</td>
+                                <td>{{$ceibar->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Ceiba </td>
-                                <td>San Pedro Sula</td>
-                                <td>11:00 am</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Ceiba</td>
-                                <td>Trujillo</td>
-                                <td>10:00 am y 12:00 m</td>
-                                <td>150 lps</td>
-                            </tr>
+                        @endforeach
+                            
 
                         </tbody>
                     </table>
@@ -413,7 +346,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -446,25 +379,17 @@
                                 </b>
                             </tr>
                         </thead>
+                        @foreach ($siguatepeque as $siguar)
+                        
                         <tbody>
                             <tr>
-                                <td>Siguatepeque</td>
-                                <td>Tegucigalpa</td>
-                                <td>1:00 pm y 6:00 pm</td>
-                                <td>100 lps</td>
+                                <td>{{$siguar->salida}}</td>
+                                <td>{{$siguar->destino}}</td>
+                                <td>{{$siguar->hora}}</td>
+                                <td>{{$siguar->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Siguatepeque</td>
-                                <td>San Pedro Sula</td>
-                                <td>10:00 am y 4:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Siguatepeque</td>
-                                <td>Lago de Yojoa</td>
-                                <td>10:00 pm y 4:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
+                        @endforeach
+                           
 
                         </tbody>
                     </table>
@@ -473,7 +398,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -507,14 +432,16 @@
                                 </b>
                             </tr>
                         </thead>
+                         @foreach ($catacamas as $catar)
+                        
                         <tbody>
                             <tr>
-                                <td>Catacamas</td>
-                                <td>Tegucigalpa</td>
-                                <td>10 am</td>
-                                <td>250 lps</td>
+                                <td>{{$catar->salida}}</td>
+                                <td>{{$catar->destino}}</td>
+                                <td>{{$catar->hora}}</td>
+                                <td>{{$catar->tarifa}}</td>
                             </tr>
-
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -522,7 +449,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -555,13 +482,16 @@
                                 </b>
                             </tr>
                         </thead>
+                       @foreach ($choluteca as $cholur)
+                        
                         <tbody>
                             <tr>
-                                <td>Choluteca</td>
-                                <td>Tegucigalpa</td>
-                                <td>11:00 am</td>
-                                <td>200 lps</td>
+                                <td>{{$cholur->salida}}</td>
+                                <td>{{$cholur->destino}}</td>
+                                <td>{{$cholur->hora}}</td>
+                                <td>{{$cholur->tarifa}}</td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -569,7 +499,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -603,25 +533,17 @@
                                 </b>
                             </tr>
                         </thead>
+                        @foreach ($lago as $lagor)
+                        
                         <tbody>
                             <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>Tegucigalpa</td>
-                                <td>12:00 m y 5:00 pm</td>
-                                <td>180 lps</td>
+                                <td>{{$lagor->salida}}</td>
+                                <td>{{$lagor->destino}}</td>
+                                <td>{{$lagor->hora}}</td>
+                                <td>{{$lagor->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>San Pedro Sula</td>
-                                <td>11:00 m y 5:00 pm</td>
-                                <td>150 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>Siguatepeque</td>
-                                <td>12:00 m y 5:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
+                        @endforeach
+                           
                         </tbody>
                     </table>
                 </div>
@@ -629,7 +551,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -663,25 +585,17 @@
                                 </b>
                             </tr>
                         </thead>
+                         @foreach ($trujillo as $trur)
+                        
                         <tbody>
                             <tr>
-                                <td>Trujillo</td>
-                                <td>Tegucigalpa</td>
-                                <td>11:00 am</td>
-                                <td>500 lps</td>
+                                <td>{{$trur->salida}}</td>
+                                <td>{{$trur->destino}}</td>
+                                <td>{{$trur->hora}}</td>
+                                <td>{{$trur->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Trujillo</td>
-                                <td>San Pedro Sula</td>
-                                <td>8:00 am</td>
-                                <td>350 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Trujillo</td>
-                                <td>Ceiba</td>
-                                <td>8:00 am y 11:00 am</td>
-                                <td>500 lps</td>
-                            </tr>
+                        @endforeach
+                           
 
                         </tbody>
                     </table>
@@ -690,7 +604,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -724,13 +638,16 @@
                                 </b>
                             </tr>
                         </thead>
+                         @foreach ($danli as $danr)
+                        
                         <tbody>
                             <tr>
-                                <td>Danli</td>
-                                <td>Tegucigalpa</td>
-                                <td>1:00 pm am</td>
-                                <td>100 lps</td>
+                                <td>{{$danr->salida}}</td>
+                                <td>{{$danr->destino}}</td>
+                                <td>{{$danr->hora}}</td>
+                                <td>{{$danr->tarifa}}</td>
                             </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
@@ -739,7 +656,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
