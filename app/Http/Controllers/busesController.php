@@ -5,6 +5,8 @@ use App\buses;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ViajesController;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\DB;
 
 class busesController extends Controller
 {
@@ -43,7 +45,8 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
-        return redirect('viajes');
+        return redirect('viajes')->with('success', 'Bus agregado correctamente');
+        
     }
     // Función que permite recuperar los datos del bus seleccionado y mostrarlos en la view "editarBuses" para posteriormente pasar a su actualización.
     public function edit($idbus){
@@ -73,13 +76,15 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
-        return redirect('viajes');
+        return redirect('viajes')->with('success', 'Bus actualizado correctamente');
     }
     //Función para eliminar del sistema el bus seleccionado.
     public function destroy($idbus){
-        $agregarBus = buses::find($idbus);
-        $agregarBus-> delete();
-        return redirect('viajes');
+            $agregarBus = buses::find($idbus);
+            $agregarBus-> delete();
+            return redirect('viajes')->with('success', 'Bus eliminado correctamente');
+        
+        
     }
 
    
