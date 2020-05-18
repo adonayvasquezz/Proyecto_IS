@@ -88,7 +88,7 @@ Route::get('/eliminarBus/{idbus}',['uses'=>'busesController@destroy', 'as' => 'e
 // Inicio de rutas para CRUD de Viajes perteneciente al módulo de Viajes.
 Route::get('/viajes', 'ViajesController@index');
 Route::post('/createViaje', 'ViajesController@create');
-Route::post('/editViaje/{id}/edit',['uses'=>'ViajesController@edit', 'as' => 'editarViaje']);
+Route::get('/editViaje/{id}/edit',['uses'=>'ViajesController@edit', 'as' => 'editarViaje']);
 Route::post('/editarViaje/{id}/edit', 'ViajesController@update');
 Route::get('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
 Route::post('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);

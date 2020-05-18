@@ -7,9 +7,12 @@ use App\rutasViajes;
 use App\buses;
 use App\lugarRutas;
 use App\rutas;
+use App\Log;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ViajesController extends Controller
 {
@@ -23,7 +26,11 @@ class ViajesController extends Controller
         $viajes = viajes::all();
         $buses = buses::all();
         $Lugares = lugarRutas::all();
-        $rutasViajes = rutasViajes::all();
+        $rutasViajes = DB::table('rutaviajes')
+        ->select('rutaviajes.*')
+        ->orderBy('rutaviajes.viaje_idviaje', 'asc')
+        ->paginate(5);
+
         $rutas = rutas::all();
         $rutasSelect =array();
 
@@ -80,29 +87,42 @@ class ViajesController extends Controller
             'horaSalida' => 'required',
             'estado' => 'required'
         ],[
-            'idviaje.required' => 'Es requerida una opcion es requerida',
+            'idviaje.required' => 'Es requerida una opcion para el viaje',
             'idruta.required' => 'La ruta es requerida',
-            'horaSalida.required' =>  'La fecha y hora de salida es requerida',
+            'horaSalida.required' =>  'La hora de salida es requerida',
             'estado.required' => 'El estado es requerido', 
             'id.required' => 'El Bus es requerido'
         ]);
         if($request->idviaje == 'nuevo'){
             $viajes= new viajes();
-            $viajes->id= $request->idbus;
+            $viajes->idbus= $request->idbus;
             $viajes->estado= $request->estado;
             $viajes-> save();
-            $idAViajeRecienGuardada = $viajes->id;
+            $idAViajeRecienGuardada = $viajes->idviaje;
         }else{
             $idAViajeRecienGuardada = $request->idviaje;
         }
         if ($idAViajeRecienGuardada) {
-            $rutasViajes= new rutasViajes();
-            $rutasViajes->ruta_idruta= $request->idruta;
-            $rutasViajes->viaje_idviaje= $idAViajeRecienGuardada;
-            $rutasViajes->horaSalida= $request->horaSalida;
-            $rutasViajes-> save();
+            $viajeExistente =DB::table('rutaviajes')
+            ->where('viaje_idviaje', '=', $idAViajeRecienGuardada)->where('ruta_idruta', '=', $request->idruta)->get();
+            if($viajeExistente->isEmpty()){
+                $rutasViajes= new rutasViajes();
+                $rutasViajes->ruta_idruta= $request->idruta;
+                $rutasViajes->viaje_idviaje= $idAViajeRecienGuardada;
+                $rutasViajes->horaSalida= $request->horaSalida;
+                $rutasViajes-> save();
+            }else{
+                return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' y la '.$request->idruta.' ya estan asociados');
+            }
+    
         }
-        return back()->with('mensaje', 'El Viaje fue agregado exitosamente');
+         //Log de crear viaje.
+         $user = User::find(Auth::user()->id);
+         $logCrear = new Log();
+         $logCrear->action = 'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta;
+         $logCrear->user = $user;
+         $logCrear-> save();
+        return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta);
     }
 
     public function show(viajes $viajes)
@@ -173,7 +193,7 @@ class ViajesController extends Controller
         $this->validate($request, [
             'idviaje' => 'required',
             'idruta' => 'required',
-            'id' => 'required',
+            'idbus' => 'required',
             'horaSalida' => 'required',
             'estado' => 'required'
         ],[
@@ -181,7 +201,7 @@ class ViajesController extends Controller
             'idruta.required' => 'La ruta es requerida',
             'horaSalida.required' =>  'La fecha y hora de salida es requerida',
             'estado.required' => 'El estado es requerido', 
-            'id.required' => 'El Bus es requerido', 
+            'idbus.required' => 'El Bus es requerido', 
         ]
         );
         $viajes =viajes::find($id);
@@ -189,18 +209,37 @@ class ViajesController extends Controller
         $viajes->idbus= $request->idbus;
         $viajes-> save();
         if ($request->idruta) {
-            $rutasViajes =DB::table('rutaviajes')
-            ->where('viaje_idviaje', '=', $id)->where('ruta_idruta', '=', $request->idruta)->get();
-            $rutasViajes->horaSalida= $request->horaSalida;
-            $rutasViajes-> save();
+            DB::table('rutaviajes')
+            ->where('viaje_idviaje', '=', $id)->where('ruta_idruta', '=', $request->idruta)
+            ->update([
+                'horaSalida' => $request->horaSalida,
+            ]);
         }
-        return view('viajes');
+         //Log de editar viaje.
+         $user = User::find(Auth::user()->id);
+         $logEditar = new Log();
+         $logEditar->action = 'El Viaje '.$id.' fue editado exitosamente';
+         $logEditar->user = $user;
+         $logEditar-> save();
+        return redirect('viajes')->with('mensaje', 'El Viaje '.$id.' fue editado exitosamente');
     }
     //Función para eliminar del sistema el Viaje seleccionado.
     public function destroy(Request $request, $id){
         DB::table('rutaviajes')
         ->where('viaje_idviaje', '=', $id)->where('ruta_idruta', '=', $request->idruta)->delete();
-        return redirect('viajes');
+        $viajeEnUso = DB::table('rutaviajes')
+        ->where('viaje_idviaje', '=', $id)->get();
+        if($viajeEnUso->isEmpty()){
+            $viaje = viajes::find($id);
+            $viaje->delete();
+        }
+        //Log de eliminar viaje.
+        $user = User::find(Auth::user()->id);
+        $logEliminar = new Log();
+        $logEliminar->action = 'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id;
+        $logEliminar->user = $user;
+        $logEliminar-> save();
+        return redirect('viajes')->with('mensaje',  'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id);
     }
 
 }
