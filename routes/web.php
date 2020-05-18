@@ -36,7 +36,8 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
     Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
     Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
-    route::get('eliminar-empleado/{id}/destroy',['uses'=> 'HomeController@destroy','as' => 'eliminarEmpleado.destroy']);
+    Route::get('eliminar-empleado/{id}/destroy',['uses'=> 'HomeController@destroy','as' => 'eliminarEmpleado.destroy']);
+    Route::get('/bitacora', 'HomeController@bitacora');
     });
 
 

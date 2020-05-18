@@ -25,11 +25,11 @@
                     </a>
                     <br>
                     <br>
-                   {{--  <a href="/administrar_programas" type="button" class="btn btn-danger" style="height:70px; width:220px; line-height: 50px;">
+                    <a href="/bitacora" type="button" class="btn btn-secondary" style="height:70px; width:220px; line-height: 50px;">
                         <strong>
-                            ELIMINAR EMPLEADO
+                            BITÁCORA
                         </strong>
-                    </a> --}}
+                    </a>
                 </div>
             </div>
         </div>

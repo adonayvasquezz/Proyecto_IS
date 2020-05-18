@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Persona;
 use App\Empleado;
+use App\Log;
 use Spatie\Permission\Models\Role;
 
 
@@ -146,7 +147,6 @@ class HomeController extends Controller
           }
 
         $Empleado = new Empleado;
-        //$Empleado->idEmpleado = $id;
         $Empleado->fechainicio = $fechainicio;
         $Empleado->idpersona = $idpersona;
         $Empleado->idcargo = $idcargo;
@@ -154,6 +154,12 @@ class HomeController extends Controller
 
         $user = User::find($idpersona);
         $user->assignRole('empleado');
+
+        $Log = new Log;
+        $usuarioAccion = User::find(Auth::user()->id);
+        $Log->action = "Registro como empleado al usuario ".$idpersona;
+        $Log->user = $usuarioAccion->id;
+        $Log->save();
 
         // El ingreso de las variables en el array debe ser en el mismo orden como fue creado el SP
         /* $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
@@ -169,7 +175,21 @@ class HomeController extends Controller
         $usuario->removeRole('empleado');
         $Empleado-> delete();
 
-        return 'Accediste a eliminar empleado! '.$Empleado->idpersona;
+        $Log = new Log;
+        $usuarioAccion = User::find(Auth::user()->id);
+        $Log->action = "Elimino al empleado ".$id;
+        $Log->user = $usuarioAccion->id;
+        $Log->save();
+
+        return redirect()->route('empleados');
+    }
+
+    public function bitacora()
+    {
+        // Se consulta la tabla logs mediante un procedimiento almacenado
+        $consultar = DB::select('call SP_mostrar_logs');
+
+        return view('bitacora',['consultar'=>$consultar]);
     }
 
 }
