@@ -25,9 +25,9 @@ Route::get('/welcome', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/ventas', 'HomeController@ventas');
+/* Route::get('/ventas', 'HomeController@ventas');
 Route::get('/viajes', 'HomeController@viajes');
-Route::get('/rutas', 'HomeController@rutas');
+Route::get('/rutas', 'HomeController@rutas'); */
 
 Route::get('/administracion', 'HomeController@administracion');
 Route::get('/empleados', 'HomeController@empleados')->name('empleados');
@@ -87,3 +87,7 @@ Route::get('/editar/{id}/',['uses'=>'ViajesController@edit', 'as' => 'editar']);
 Route::post('/update/{id}', 'ViajesController@update');
 Route::get('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
 
+
+// Modulo de ventas
+Route::get('/ventas', 'VentasController@index');
+Route::post('/ventas', 'VentasController@send_http_request')->name('ajaxRequest.post');

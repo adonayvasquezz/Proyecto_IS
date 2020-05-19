@@ -49,10 +49,7 @@ class HomeController extends Controller
     }
 
 
-    public function ventas()
-    {
-        return view('ventas');
-    }
+
 
     public function viajes()
     {

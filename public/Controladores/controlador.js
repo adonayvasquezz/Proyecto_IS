@@ -1,78 +1,127 @@
-
-
-
-
-// viajes = [{
-//     origen:"Tegucigalpa",
-//     destino:"San Pedro Sula";
-//     hsalida:"10:00 am"
-//     hllegada:""
-// }]
-
-var numAsientos =25;
-var ocupados = [1,2,3,4,5,11,12,17,18,20,25];
-var seleccionados = []
-var numBoleto = 6;
+var numAsientos;
+var ocupados = [];
+var arrayOrigenes;
+var arrayDestinos;
+var arrayHorarios;
+var arrayExtraInfo;
+var seleccionados = [];
+var numBoleto;
 var origen ;
 var destino;
 var hora;
 var cantidad ;
+var fechaViaje;
+
+
+
+Date.prototype.addDays = function() {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + 6);
+    return date;
+}
+
+function fechaString(fecha){
+    let dd = String(fecha.getDate()).padStart(2, '0');
+    let mm = String(fecha.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = fecha.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+}
+
+var hoy = new Date();
+
 
 var divInicio = `
     <div style="height: 90%;">
         <h1 style="text-align: center;">Bienvenido a E-transs</h1>
         <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>  
     </div>
-    <button style="margin-left: 45%;" onclick="inicio()" type="button" class="btn btn-success">Continuar</button>
+    <button style="margin-left: 45%;" onclick="inicio(${arrayDestinos})" type="button" class="btn btn-success">Continuar</button>
 `;
 
-var divBoleteria = `
-            <div style="height: 90%;">
-                <h1 style="text-align: center;">Elija su Viaje</h1>
-                <br>
-                <div class="row">
-                  <label style="margin-top: 10px; text-align: right;" class="col-2">Origen:</label>
-                  <div style="margin-top: 10px;" class="col-4">
-                    <select onchange="validarBoleteria()" class = "form-control" id="origen">
-                      <option value="0" >------</option>
-                      <option value="1" >Tegucigalpa</option>
-                      <option value="2" >Comayagua</option>
-                    </select>
-                  </div>
-                  <label style="margin-top: 10px;text-align: right" class="col-2">Destino:</label>
-                  <div style="margin-top: 10px;" class="col-4">
-                    <select onchange="validarBoleteria()" class = "form-control" id="destino">
-                      <option value="0" selected>------</option>
-                      <option value="1" >San Pedro Sula</option>
-                      <option value="2" >La Ceiba</option>
-                    </select>
-                  </div>
-                  <label style="margin-top: 10px;text-align: right" class="col-2">Hora Salida:</label>
-                  <div style="margin-top: 10px;" class="col-4">
-                    <select onchange="validarBoleteria()" class = "form-control" id="hora">
-                      <option value="0" selected>------</option>
-                      <option value="1">10:00 am</option>
-                      <option value="2">01:00 pm</option>
-                    </select>
-                  </div>
-                  <label style="margin-top: 10px;text-align: right;" class="col-2">Hora Llegada: </label>
-                  <label style="margin-top: 10px;text-align: left;" class="col-4">------ </label>
-                  <label style="margin-top: 10px;text-align: right" class="col-2">Disponibles:</label>
-                  <label style="margin-top: 10px;text-align:left" class="col-4"> ${numAsientos - ocupados.length} </label>
-                  <label style="margin-top: 10px;text-align: right" class="col-2">Precio:</label>
-                  <label style="margin-top: 10px;text-align:left" class="col-4">100</label>
-                  <label style="margin-top: 10px;text-align: right" class="col-2">Cantidad:</label>
-                  <div style="margin-top: 10px;" class="col-4">
-                    <input type="number" onchange="validarBoleteria()" id="cantidad" min="1" max="25">
-                  </div>
-                </div>   
-              </div>
-            <button style="margin-left: 40%;" onclick="atrasBoleteria()" type="button" class="btn btn-secondary">Atras</button>
-            <button style="margin-left: 10px;" onclick="boleteria()" type="button" class="btn btn-success">Continuar</button>
+function selectDestinos(destinos){
+    arrayDestinos = destinos;
+    let optDestinos = `<option value="0" >------</option>`;
+    for(let i=0; i<arrayDestinos.length;i++){
+        optDestinos += `<option value="${i+1}" >${arrayDestinos[i].nombre}</option>`
+    }
+    document.getElementById("destino").innerHTML = optDestinos;
+}
 
-`;
+function selectHorarios(horario){
+    arrayHorarios = horario;
+    let optHorarios = `<option value="0" >------</option>`;
+    for(let i=0; i<arrayHorarios.length;i++){
+        optHorarios += `<option value="${i+1}" >${arrayHorarios[i].horaSalida}</option>`
+    }
+    document.getElementById("hora").innerHTML = optHorarios;
+}
 
-function inicio(){
+function selectDisponibles(info){
+    arrayExtraInfo = info;
+    numAsientos = arrayExtraInfo[0][0].capacidad;
+    let tempDisponible = numAsientos - arrayExtraInfo[1][0].cantidad;
+    document.getElementById("duracion").innerHTML=`${arrayHorarios[parseInt(hora.value)-1].duracion} Horas`
+    document.getElementById("dispon").innerHTML=`${tempDisponible} Asientos `
+    document.getElementById("precio").innerHTML=`Lps. ${arrayHorarios[parseInt(hora.value)-1].precio}.00`
+    document.getElementById("cantidad").max = `${tempDisponible}`
+}
+
+function llenarOcupados(arrayOcupados){
+    for(let i=0;i<arrayOcupados.length;i++){
+        ocupados.push(arrayOcupados[i].numeroasiento)
+    }
+    console.log(ocupados)
+    boleteria()
+}
+
+function inicio( origenes ){
+    arrayOrigenes = origenes;
+    let optOrigenes = `<option value="0" >------</option>`;
+    for(let i=0; i<arrayOrigenes.length;i++){
+        optOrigenes += `<option value="${i+1}" >${arrayOrigenes[i].nombre}</option>`
+    }
+    let divBoleteria = `<div style="height: 90%;">
+    <h1 style="text-align: center;">Elija su Viaje</h1>
+    <br>
+    <div class="row">
+      <label style="margin-top: 10px; text-align: right;" class="col-2">Origen:</label>
+      <div style="margin-top: 10px;" class="col-4">
+        <select onchange="actualizarDestino()" class = "form-control" id="origen">
+            ${optOrigenes}
+        </select>
+      </div>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Destino:</label>
+      <div style="margin-top: 10px;" class="col-4">
+        <select onchange="actualizarHorario()" class = "form-control" id="destino">
+          <option value="0" selected>------</option>
+        </select>
+      </div>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Dia:</label>
+      <div style="margin-top: 10px;" class="col-4">
+      <input type="date" onchange="actualizarDisponibles()" id="dia" value="${fechaString(hoy)}" min="${fechaString(hoy)}" max="${fechaString(hoy.addDays())}">
+      </div>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Hora Salida:</label>
+      <div style="margin-top: 10px;" class="col-4">
+        <select onchange="actualizarDisponibles()" class = "form-control" id="hora">
+          <option value="0" selected>------</option>
+        </select>
+      </div>
+      <label style="margin-top: 10px;text-align: right;" class="col-2">Duracion: </label>
+      <label id="duracion" style="margin-top: 10px;text-align: left;" class="col-4">------ </label>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Disponibles:</label>
+      <label id="dispon" style="margin-top: 10px;text-align:left" class="col-4"> -----</label>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Precio:</label>
+      <label id="precio" style="margin-top: 10px;text-align:left" class="col-4"> ----- </label>
+      <label style="margin-top: 10px;text-align: right" class="col-2">Cantidad:</label>
+      <div style="margin-top: 10px;" class="col-4">
+        <input type="number" onchange="validarBoleteria()" id="cantidad" min="1" max="30">
+      </div>
+    </div>   
+  </div>
+<button style="margin-left: 40%;" onclick="atrasBoleteria()" type="button" class="btn btn-secondary">Atras</button>
+<button style="margin-left: 10px;" onclick="obtenerOcupados()" type="button" class="btn btn-success">Continuar</button>`;
+
     document.getElementById("inicio").classList.remove("active");
     document.getElementById("inicio").classList.add("opt-success");
     document.getElementById("inicio").disabled=true;
@@ -96,7 +145,8 @@ function validarBoleteria(){
     destino = document.getElementById("destino");
     hora = document.getElementById("hora");
     cantidad = document.getElementById("cantidad")
-    if(cantidad.value <1 || cantidad.value> (numAsientos - ocupados.length)){
+    fechaViaje = document.getElementById("dia")
+    if(parseInt(cantidad.value) <1 || parseInt(cantidad.value)> parseInt(cantidad.max)){
         valido = false;
         cantidad.classList.add("error-form")
     }else{
@@ -131,6 +181,7 @@ function boleteria(){
         document.getElementById("boleteria").disabled=true;
         document.getElementById("asientos").classList.add("active");
         document.getElementById("asientos").disabled=false;
+        seleccionados = [];
         generarAsientos();
     }
 }
@@ -217,20 +268,19 @@ function asientos(){
             <h1 style="text-align: center;">Confirmacion y Pago</h1>  
                 <div class="ml-5">
                     <Label style="margin-left: auto;margin-right: auto;">Nombre: </Label><br>
-                    <Label>Origen: ${origen.value}</Label><br>
-                    <Label>Destino: ${destino.value}</Label><br>
-                    <Label>Fecha: </Label><br>
-                    <Label>Hora Salida: ${hora.value}</Label><br>
-                    <Label>Precio Boleto: </Label><br>
+                    <Label>Origen: ${arrayOrigenes[parseInt(origen.value)-1].nombre}</Label><br>
+                    <Label>Destino: ${arrayDestinos[parseInt(destino.value)-1].nombre}</Label><br>
+                    <Label>Fecha de Compra: ${fechaString(hoy)}</Label><br>
+                    <Label>Fecha de Viaje: ${fechaViaje.value}</Label><br>
+                    <Label>Hora Salida: ${arrayHorarios[parseInt(hora.value)-1].horaSalida}</Label><br>
+                    <Label>Precio Boleto: ${arrayHorarios[parseInt(hora.value)-1].precio}</Label><br>
                     <Label>Cantidad: ${cantidad.value}</Label><br>
-                    <Label>Asiento: ${seleccionados}</Label><br>
-                    <Label>Subtotal: </Label><br>
-                    <Label>Descuento: </Label><br>
-                    <Label>Total a Pagar: </Label><br>
+                    <Label>Asientos seleccionados: ${seleccionados}</Label><br>
+                    <Label>Total a Pagar: ${arrayHorarios[parseInt(hora.value)-1].precio*seleccionados.length}</Label><br>
                 </div>
         </div>
         <button style="margin-left: 40%;" onclick="atrasConfirmacion()" type="button" class="btn btn-secondary">Atras</button>
-        <button style="margin-left: 10px;" onclick="confirmacion()" type="button" class="btn btn-success">Continuar</button>
+        <button style="margin-left: 10px;" onclick="guardar()" type="button" class="btn btn-success">Continuar</button>
         `;
         document.getElementById("contenido").style="height: 100vh;";
     }
@@ -243,8 +293,4 @@ function atrasConfirmacion(){
     document.getElementById("confirmacion").classList.remove("active");
     document.getElementById("confirmacion").disabled=true;
     generarAsientos();
-}
-
-function confirmacion(){
-
 }
