@@ -242,8 +242,7 @@ class ViajesController extends Controller
         $logEliminar->action = 'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id;
         $logEliminar->user = $user;
         $logEliminar-> save();
-        //return redirect('viajes')->with('mensaje',  'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id);
-        return redirect('viajes')->with('warning', 'No es posible eliminar este viaje');
+        return redirect('viajes')->with('success',  'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id);
     }
 
 }
