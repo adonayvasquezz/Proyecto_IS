@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\DB;
 class busesController extends Controller
 {
     public function store(){
-        request()->validate([
-            'matricula' => 'required'
-        ]);
+        
     }
     // Función para visualizar todos los buses que se encuentran almacenados en la base de datos
    public function index(){
@@ -45,6 +43,12 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
+        // Instrucciones para almacenar en la tabla de logs las unidades de transporte almacenadas.
+        $usuarioAccion = User::find(Auth::user()->id);
+        $logs = new Log();
+        $logs->action = 'Se agregó la unidad de transporte con matrícula: '.$agregarBus->matricula;
+        $logs->user = $usuarioAccion->id;
+        $logs-> save();
         return redirect('viajes')->with('success', 'Bus agregado correctamente');
         
     }
@@ -76,12 +80,24 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
+        // Actualización de buses añadido en la tabla logs.
+        $usuarioAccion = User::find(Auth::user()->id);
+        $logs = new Log();
+        $logs->action = 'Se actualizó el bus con matrícula: '.$agregaBus->matricula;
+        $logs->user = $usuarioAccion->id;
+        $logs-> save();
         return redirect('viajes')->with('success', 'Bus actualizado correctamente');
     }
     //Función para eliminar del sistema el bus seleccionado.
     public function destroy($idbus){
             $agregarBus = buses::find($idbus);
             $agregarBus-> delete();
+            // Eliminación de buses añadido en la tabla logs.
+            $user = User::find(Auth::user()->id)->id;
+            $logEliminar = new Log();
+            $logEliminar->action = 'El bus con id '.$request->idbus.' fue eliminado';
+            $logEliminar->user = $user;
+            $logEliminar-> save();
             return redirect('viajes')->with('success', 'Bus eliminado correctamente');
         
         
