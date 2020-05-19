@@ -112,7 +112,8 @@ class ViajesController extends Controller
                 $rutasViajes->horaSalida= $request->horaSalida;
                 $rutasViajes-> save();
             }else{
-                return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' y la '.$request->idruta.' ya estan asociados');
+                return redirect('viajes')->with('warning', 'Viaje asociado a otra ruta');
+                //return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' y la '.$request->idruta.' ya estan asociados');
             }
     
         }
@@ -122,7 +123,8 @@ class ViajesController extends Controller
          $logCrear->action = 'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta;
          $logCrear->user = $user;
          $logCrear-> save();
-        return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta);
+        //return back()->with('mensaje',  'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta);
+        return redirect('viajes')->with('success', 'Viaje creado exitosamente');
     }
 
     public function show(viajes $viajes)
@@ -221,7 +223,8 @@ class ViajesController extends Controller
          $logEditar->action = 'El Viaje '.$id.' fue editado exitosamente';
          $logEditar->user = $user;
          $logEditar-> save();
-        return redirect('viajes')->with('mensaje', 'El Viaje '.$id.' fue editado exitosamente');
+        //return redirect('viajes')->with('mensaje', 'El Viaje '.$id.' fue editado exitosamente');
+        return redirect('viajes')->with('success', 'Viaje actualizado correctamente');
     }
     //Función para eliminar del sistema el Viaje seleccionado.
     public function destroy(Request $request, $id){
@@ -239,7 +242,8 @@ class ViajesController extends Controller
         $logEliminar->action = 'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id;
         $logEliminar->user = $user;
         $logEliminar-> save();
-        return redirect('viajes')->with('mensaje',  'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id);
+        //return redirect('viajes')->with('mensaje',  'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id);
+        return redirect('viajes')->with('warning', 'No es posible eliminar este viaje');
     }
 
 }

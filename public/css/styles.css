@@ -46,6 +46,9 @@ button.bg-light:focus, button.bg-light:hover {
      height: 80vh;
      padding: 20px;
 }
+#contenido{
+    border-radius: 10px;
+}
 
 
 

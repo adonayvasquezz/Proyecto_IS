@@ -106,7 +106,7 @@ class busesController extends Controller
                 $logEliminar-> save();
                 return redirect('viajes')->with('success', 'Bus eliminado correctamente');
             }else{
-                return redirect('viajes')->with('success', 'El bus se encuentra en uso actualmente');
+                return redirect('viajes')->with('warning', 'No es posible eliminar este bus');
             }   
         
         

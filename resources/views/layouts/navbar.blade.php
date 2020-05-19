@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>e-Transs</title>
+    <title>E-Transs</title>
     <link rel="shortcut icon" href="../Images/logo.png" type="image/x-icon">
    {{--  <link rel="stylesheet" href="../Styles/bootstrap.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
@@ -19,7 +19,7 @@
 <body>
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light navP superior" id="barra-nav">
-            <a class="navbar-brand" href="/home"><img class="img-n" src="../Images/logo.png" alt=""> <span class="t-logo">e-Transs</span></a>
+            <a class="navbar-brand" href="/home"><img class="img-n" src="../Images/logo.png" alt=""> <span class="t-logo">E-Transs</span></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

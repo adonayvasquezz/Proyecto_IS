@@ -19,8 +19,8 @@
         </div>
         <div id="contenido" style = "height:40vh" class="col-9 bg-content">
           <div style="height: 80%;">
-            <h1 style="text-align: center;">Bienvenido a E-transs</h1>
-            <h3 style="text-align: center;">Compre sus boletos de manera Rapida y Segura</h3>
+            <h1 style="text-align: center; font-size: 2em; margin-top:1%">Venta de tickets E-Transs</h1>
+            <h3 style="text-align: center;">Compra aquí tus boletos de manera rápida y segura.</h3>
           
         </div>
         
