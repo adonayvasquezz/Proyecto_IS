@@ -81,10 +81,14 @@ class busesController extends Controller
     //Función para eliminar del sistema el bus seleccionado.
     public function destroy($idbus){
             $agregarBus = buses::find($idbus);
-            $agregarBus-> delete();
-            return redirect('viajes')->with('success', 'Bus eliminado correctamente');
-        
-        
+            $busEnUso = DB::table('viaje')
+            ->where('idbus', '=', $idbus)->get();
+            if($busEnUso->isEmpty()){
+                $agregarBus-> delete();
+                return redirect('viajes')->with('success', 'Bus eliminado correctamente');
+            }else{
+                return redirect('viajes')->with('success', 'El bus se encuentra en uso actualmente');
+            }   
     }
 
    
