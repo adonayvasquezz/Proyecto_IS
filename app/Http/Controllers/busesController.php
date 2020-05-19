@@ -98,17 +98,16 @@ class busesController extends Controller
             ->where('idbus', '=', $idbus)->get();
             if($busEnUso->isEmpty()){
                 $agregarBus-> delete();
+                // Eliminación de buses añadido en la tabla logs.
+                $user = User::find(Auth::user()->id)->id;
+                $logEliminar = new Log();
+                $logEliminar->action = 'El bus con id '.$idbus.' fue eliminado';
+                $logEliminar->user = $user;
+                $logEliminar-> save();
                 return redirect('viajes')->with('success', 'Bus eliminado correctamente');
             }else{
                 return redirect('viajes')->with('success', 'El bus se encuentra en uso actualmente');
             }   
-            // Eliminación de buses añadido en la tabla logs.
-            $user = User::find(Auth::user()->id)->id;
-            $logEliminar = new Log();
-            $logEliminar->action = 'El bus con id '.$idbus.' fue eliminado';
-            $logEliminar->user = $user;
-            $logEliminar-> save();
-            return redirect('viajes')->with('success', 'Bus eliminado correctamente');
         
         
     }
