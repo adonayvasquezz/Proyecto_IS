@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
+
 <br>
 <br>
     <div class="titulo-edicion">Actualización de Viajes</div>
@@ -55,6 +56,7 @@
                             <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                             <div class="col-lg-9">
                                 <select class="form-control" id="idbus" name="idbus"  value="{{$bus->idbus}}">
+                                     <option value="{{$bus->idbus}}"> matricula:{{$bus->matricula}}- descripcion:{{$bus->descripcion}}- capacidad:{{$bus->capacidad}}</option>
                                     @foreach($buses as $item)
                                         <option value="{{$item->idbus}}"> matricula:{{$item->matricula}}- descripcion:{{$item->descripcion}}- capacidad:{{$item->capacidad}}</option>
                                     @endforeach
@@ -71,6 +73,7 @@
                             <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                             <div class="col-lg-9">
                                 <select class="form-control" id="estado" name="estado" value="{{$viaje->estado}}">
+                                        <option value="{{$viaje->estado}}">{{$viaje->estado}}</option>
                                         <option value="ACTIVO">ACTIVO</option>
                                         <option value="INACTIVO">INACTIVO</option>
                                 </select>
@@ -85,7 +88,7 @@
                 </form>
 
 
-    <!--BOOTSTRAP JAVASCRIPT-->
+   <!--BOOTSTRAP JAVASCRIPT-->
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
  --}}
 

@@ -43,7 +43,10 @@
             @endforeach
         </tbody>
       </table>
+      {{ $empleados->links() }}
 
 </div>
+
+@include('sweetalert::alert')
 
 @endsection

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 use App\buses;
+use App\Log;
+use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ViajesController;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class busesController extends Controller
 {
     public function store(){
-        request()->validate([
-            'matricula' => 'required'
-        ]);
+        
     }
     // Función para visualizar todos los buses que se encuentran almacenados en la base de datos
    public function index(){
@@ -45,6 +46,12 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
+        // Instrucciones para almacenar en la tabla de logs las unidades de transporte almacenadas.
+        $usuarioAccion = User::find(Auth::user()->id);
+        $logs = new Log();
+        $logs->action = 'Se agregó la unidad de transporte con matrícula: '.$request->matricula;
+        $logs->user = $usuarioAccion->id;
+        $logs-> save();
         return redirect('viajes')->with('success', 'Bus agregado correctamente');
         
     }
@@ -76,13 +83,31 @@ class busesController extends Controller
         $agregarBus->capacidad = $request->capacidad;
         $agregarBus->estado = $request->estado;
         $agregarBus->save();
+        // Actualización de buses añadido en la tabla logs.
+        $usuarioAccion = User::find(Auth::user()->id);
+        $logs = new Log();
+        $logs->action = 'Se actualizó el bus con matrícula: '.$request->matricula;
+        $logs->user = $usuarioAccion->id;
+        $logs-> save();
         return redirect('viajes')->with('success', 'Bus actualizado correctamente');
     }
     //Función para eliminar del sistema el bus seleccionado.
     public function destroy($idbus){
             $agregarBus = buses::find($idbus);
-            $agregarBus-> delete();
-            return redirect('viajes')->with('success', 'Bus eliminado correctamente');
+            $busEnUso = DB::table('viaje')
+            ->where('idbus', '=', $idbus)->get();
+            if($busEnUso->isEmpty()){
+                $agregarBus-> delete();
+                // Eliminación de buses añadido en la tabla logs.
+                $user = User::find(Auth::user()->id)->id;
+                $logEliminar = new Log();
+                $logEliminar->action = 'El bus con id '.$idbus.' fue eliminado';
+                $logEliminar->user = $user;
+                $logEliminar-> save();
+                return redirect('viajes')->with('success', 'Bus eliminado correctamente');
+            }else{
+                return redirect('viajes')->with('success', 'El bus se encuentra en uso actualmente');
+            }   
         
         
     }
