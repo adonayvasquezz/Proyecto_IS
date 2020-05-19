@@ -10,7 +10,7 @@ nav.navP {
 span.t-logo {
     color: white;
     font-weight: 700%;
-    font-size: 1.5em;
+    font-size: 1.2em;
 }
 
 img.img-n {
@@ -19,6 +19,9 @@ img.img-n {
 
 .nav-link {
     color: white!important;
+}
+.nav-link:hover{
+    color: #ed2b46 !important;
 }
 
 .nav-link.active {

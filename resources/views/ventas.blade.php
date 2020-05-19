@@ -19,12 +19,13 @@
         </div>
         <div id="contenido" style = "height:40vh" class="col-9 bg-content">
           <div style="height: 80%;">
-            <h1 style="text-align: center;">Bienvenido a E-transs</h1>
-            <h3 style="text-align: center;">Compre sus boletos de manera Rapida y Segura</h3>
+            <h1 style="text-align: center; font-size: 2em; margin-top:1%">Venta de tickets E-Transs</h1>
+            <h3 style="text-align: center;">Compra aquí tus boletos de manera rápida y segura.</h3>
           
         </div>
         
         <script>
+        //Funcion que recibe los origenes y los manda en el formato necesario a la funcion correspondiente
             function passInfo(){
               js_array =<?php echo json_encode($origenes );?>;
               inicio(js_array)
@@ -49,7 +50,7 @@
 
 <script>
 
-
+// se encarga de solicitar a la base de datos los lugares destino para el origen seleccionado
 function actualizarDestino(){    
     validarBoleteria() 
     if(parseInt(origen.value)!=0){   
@@ -67,7 +68,7 @@ function actualizarDestino(){
            
     }
 }
-
+// se encarga de solicitar a la base de datos los horarios del viaje para la ruta seleccionado
 function actualizarHorario(){    
     validarBoleteria();
     if( parseInt(destino.value) !=0){   
@@ -84,6 +85,7 @@ function actualizarHorario(){
     }
 }
 
+// se encarga de solicitar a la base de datos los asientos disponibles para el dia y hora seleccionados
 function actualizarDisponibles(){
   
   validarBoleteria();
@@ -101,6 +103,7 @@ function actualizarDisponibles(){
     }
 }
 
+// se encarga de solicitar a la base de datos los asientos ocupados y mostrarlos en el bus
 function obtenerOcupados(){
   validarBoleteria()
   if(validarBoleteria()){
@@ -119,10 +122,12 @@ function obtenerOcupados(){
   }
 }
 
+// retorna al inicio
 function cancelar(){
   window.location="{{URL::to('ventas')}}";
 }
 
+// Manda la informacion al controlador que se encarga de guardar registro en la base de datos
 function guardar(){
   $.ajax({
           headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -142,12 +147,6 @@ function guardar(){
             }
          })
 }      
-      
-      
-      
-      
-      
-
 
 </script>
 
