@@ -22,6 +22,9 @@
 
                 </div>
             </div>
+                <div class="card">
+                    <img src="../images/fotojet.png">
+            </div>
         </div>
     </div>
 </div>

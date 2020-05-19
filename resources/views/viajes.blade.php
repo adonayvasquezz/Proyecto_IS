@@ -18,7 +18,21 @@
     <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
+                         @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error}}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
+                            @if(session('mensaje'))
+                                 <div class="alert alert-success">
+                                    <p>{{session ('mensaje')}}</p>
+                                </div>
+                            @endif
     <div class="container">
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
             <ul class="nav nav-tabs justify-content-end">
@@ -70,7 +84,7 @@
                                                 <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
                                                 <td>
                                                     <a href="javascript:void(0);"  class="awe" onclick="$(this).find('form').submit();">
-                                                        <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "post">
+                                                        <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "get">
                                                             {{csrf_field()}}
                                                             <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
                                                             <button type="submit" class="btn btn-danger"><i class="fas fa-edit"></i></button>
@@ -88,6 +102,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{ $rutasViajes->links() }}
                             </div>
                         </div>
                     </div>
@@ -99,21 +114,7 @@
                         </div>
                         <div class="card-body">
                             <!-- Formulario de Viajes-->
-                            @if($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach($errors->all() as $error)
-                                            <li>{{ $error}}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-
-                            @if(session('mensaje'))
-                                 <div class="alert alert-success">
-                                    <p>{{session ('mensaje')}}</p>
-                                </div>
-                            @endif
+                           
                              <form class="form" role="form" autocomplete="off" action="/createViaje" method = "post">
                              {{csrf_field()}}
                                  <div class="form-group row">
