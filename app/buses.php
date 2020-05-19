@@ -8,5 +8,6 @@ class buses extends Model
 {
     //
     protected $table='buses';
+    protected $primaryKey = 'idbus';
     public $timestamps = false;
 }

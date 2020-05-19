@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Persona;
 use App\Empleado;
+use App\Log;
 use Spatie\Permission\Models\Role;
+
 
 class HomeController extends Controller
 {
@@ -26,6 +28,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        //$this->middleware(['role:empleado']);
+
     }
 
     /**
@@ -69,11 +73,14 @@ class HomeController extends Controller
     public function empleados()
     {
 
-        $empleados = DB::select("SELECT A.idempleado, B.pnombre, B.papellido, C.nombrecargo, B.telefono, B.correo
+        // Se consulta los empleados de la compañia
+        $empleados = DB::select("SELECT A.idempleado, D.name, B.papellido, C.nombrecargo, B.telefono, D.email
         from etranss2.empleados A,
         etranss2.personas B,
-        etranss2.cargo C
+        etranss2.cargo C,
+        etranss2.users D
         where A.idpersona = B.idpersona
+        and B.idpersona = D.id
         and A.idcargo = C.idcargo
         order by C.idcargo;");
 
@@ -106,12 +113,13 @@ class HomeController extends Controller
 
     public function empleados_registro(Request $request)
     {
-        // Se recibe el id del usuario seleccionado en la vista busqueda
+        // Se recibe el id del usuario seleccionado en la vista busqueda.
         $id_empleado = $request->idbeta;
 
+        // Se verifica si ya es un empleado.
         $es_empleado = Empleado::where('idpersona',$id_empleado)->first();
 
-        // Se obtienen todos los cargos para llenarlos en el select del formulario
+        // Se obtienen todos los cargos para llenarlos en el select del formulario.
         $cargos = DB::select("SELECT * FROM cargo");
 
         // Se busca la informacion del usuario seleccionado, en las tablas users y personas
@@ -136,7 +144,6 @@ class HomeController extends Controller
           }
 
         $Empleado = new Empleado;
-        //$Empleado->idEmpleado = $id;
         $Empleado->fechainicio = $fechainicio;
         $Empleado->idpersona = $idpersona;
         $Empleado->idcargo = $idcargo;
@@ -145,10 +152,41 @@ class HomeController extends Controller
         $user = User::find($idpersona);
         $user->assignRole('empleado');
 
+        $Log = new Log;
+        $usuarioAccion = User::find(Auth::user()->id);
+        $Log->action = "Registro como empleado al usuario ".$idpersona;
+        $Log->user = $usuarioAccion->id;
+        $Log->save();
+
         // El ingreso de las variables en el array debe ser en el mismo orden como fue creado el SP
         /* $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
             array($fechainicio,$idpersona,$idcargo)); */
         return redirect()->route('empleados');
+    }
+
+    public function destroy($id)
+    {
+        $Empleado = Empleado::find($id);
+        $usuario = User::find($Empleado->idpersona);
+
+        $usuario->removeRole('empleado');
+        $Empleado-> delete();
+
+        $Log = new Log;
+        $usuarioAccion = User::find(Auth::user()->id);
+        $Log->action = "Elimino al empleado ".$id;
+        $Log->user = $usuarioAccion->id;
+        $Log->save();
+
+        return redirect()->route('empleados');
+    }
+
+    public function bitacora()
+    {
+        // Se consulta la tabla logs mediante un procedimiento almacenado
+        $consultar = DB::select('call SP_mostrar_logs');
+
+        return view('bitacora',['consultar'=>$consultar]);
     }
 
 }

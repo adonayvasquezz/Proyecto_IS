@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'IndexController@index');
 
 Route::get('/welcome', function () {
     return view('welcome');
@@ -29,16 +27,23 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/viajes', 'HomeController@viajes');
 Route::get('/rutas', 'HomeController@rutas'); */
 
-Route::get('/administracion', 'HomeController@administracion');
-Route::get('/empleados', 'HomeController@empleados')->name('empleados');
-Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
-Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
-Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
-Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+
+// Rutas protegidas, solo rol administrador puede acceder
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/administracion', 'HomeController@administracion');
+    Route::get('/empleados', 'HomeController@empleados')->name('empleados');
+    Route::get('/agregar-empleados', 'HomeController@agregar_empleado');
+    Route::post('/empleados-buscar', 'HomeController@empleados_buscar');
+    Route::post('/empleados-registro', 'HomeController@empleados_registro')->name('empleados-registro');
+    Route::post('/empleados-registrado', 'HomeController@empleados_registrado');
+    Route::get('eliminar-empleado/{id}/destroy',['uses'=> 'HomeController@destroy','as' => 'eliminarEmpleado.destroy']);
+    Route::get('/bitacora', 'HomeController@bitacora');
+    });
 
 
 //Rutas para el envio de formulario de contacto
-Route::view('/index', 'index')->name('index');
+//Route::view('/index', 'index')->name('index');
+Route::get('/index', 'IndexController@index')->name('index');
 Route::post('index', 'MailController@store');
 
 //Route::get('/perfil', 'HomeController@perfil')->name('perfil');
@@ -69,25 +74,22 @@ route::get('/create','ViajesController@show');
 
 //Route::resource('/viajes', 'ViajesController');
 
-//
-
-
-
 // Inicio de rutas para CRUD de buses perteneciente al módulo de Viajes.
 Route::get('/viajes', 'busesController@index');
-Route::post('/create', 'busesController@store');
-Route::get('/editar/{id}/',['uses'=>'busesController@edit', 'as' => 'editar']);
-Route::post('/update/{id}', 'busesController@update');
-Route::get('/eliminarBus/{id}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
+Route::post('/create', 'busesController@createBus');
+Route::get('/editar/{idbus}/',['uses'=>'busesController@edit', 'as' => 'editar']);
+Route::post('/update/{idbus}', 'busesController@update');
+Route::get('/eliminarBus/{idbus}',['uses'=>'busesController@destroy', 'as' => 'eliminarBus']);
 
 // Inicio de rutas para CRUD de Viajes perteneciente al módulo de Viajes.
 Route::get('/viajes', 'ViajesController@index');
-Route::post('/create', 'ViajesController@create');
-Route::get('/editar/{id}/',['uses'=>'ViajesController@edit', 'as' => 'editar']);
-Route::post('/update/{id}', 'ViajesController@update');
+Route::post('/createViaje', 'ViajesController@create');
+Route::get('/editViaje/{id}/edit',['uses'=>'ViajesController@edit', 'as' => 'editarViaje']);
+Route::post('/editarViaje/{id}/edit', 'ViajesController@update');
 Route::get('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);
 
 
 // Modulo de ventas
 Route::get('/ventas', 'VentasController@index');
 Route::post('/ventas', 'VentasController@send_http_request')->name('ajaxRequest.post');
+Route::post('/eliminarViaje/{id}',['uses'=>'ViajesController@destroy', 'as' => 'eliminarViaje']);

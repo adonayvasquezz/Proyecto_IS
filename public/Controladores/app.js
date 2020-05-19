@@ -89,7 +89,7 @@ function ValidacionLugares(){
 
 function validando(){
 	if(ValidacionLugares()){}
-	console.log("ya sta")
+	console.log("")
 }
 
 

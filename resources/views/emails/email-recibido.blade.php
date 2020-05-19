@@ -17,7 +17,7 @@
 <body>
 
 <div>
-
+<!-- Cuerpo del mensaje -->
     <h2>Nuevo Mensaje</h2>
     
     <p><strong>Usuario:</strong>{{$msj['name']}}</p>

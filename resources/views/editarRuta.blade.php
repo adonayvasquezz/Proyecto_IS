@@ -2,10 +2,12 @@
 
 @section('content')
 
-
+<!-- Archivos necesarios -->
+    
     <link rel="stylesheet" href="../css/UserForm.css">
     <!--BOOTSTRAP CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!--iconos fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
@@ -18,6 +20,7 @@
 <br>
 <br>
 <div class="container">
+<!-- Formulario de Rutas -->
     <div class="mx-auto col-sm-8 main-section">
                 <ul class="nav nav-tabs justify-content-end">
                     <li class="nav-item">
@@ -25,15 +28,19 @@
                     </li>
                 </ul>
                 
-                    <form class="form" action="{{action('RutasController@update', $Rutas->id)}}" method="POST" role="form" autocomplete="off">
-                    {{csrf_field()}}                  
+                    <form class="form" action="{{action('RutasController@update', $Rutas->idruta)}}" method="POST" role="form" autocomplete="off">
+                    <!-- Token de seguridad -->
+                    {{csrf_field()}}        
+                    <!-- Carga los datos que se desean editar en el formulario -->          
                         <div class="form-group row">
                             <label for="" class="col-lg-3 col-form-label form-control-label">Inicio</label>
                             <div class="col-lg-9">
                             <select class="form-control" id="cidadFin" name="ciudadInicio">
-                            <option value="{{$Rutas->lugarInicio}}"> {{$Rutas->lugarInicio}}</option>
+                            @foreach($cA as $cidA)
+                            <option value="{{$cidA->idInicio}}"> {{$cidA->idInicio}}-{{$cidA->ciudadInicio}}</option>
+                            @endforeach
                             @foreach ($ciudades as $ciudad)
-                                <option value='{{$ciudad->id}}'>{{$ciudad->id}}-{{$ciudad->nombre}}</option>
+                                <option value='{{$ciudad->idLugar}}'>{{$ciudad->idLugar}}-{{$ciudad->nombre}}</option>
                             @endforeach
                             {!! $errors->first('ciudadInicio', '<small style="color:red">:message</small>') !!}
                             </select>
@@ -42,10 +49,12 @@
                         <div class="form-group row">
                             <label for="" class="col-lg-3 col-form-label form-control-label">Fin</label>
                             <div class="col-lg-9">
-                                <select class="form-control" id="cidadFin" name="ciudadFin">
-                                <option value='{{$Rutas->lugarFin}}'>{{$Rutas->lugarFin}}</option>
+                            <select class="form-control" id="cidadFin" name="ciudadFin">
+                            @foreach($cA as $cidA)
+                            <option value="{{$cidA->idFin}}"> {{$cidA->idFin}}-{{$cidA->ciudadFin}}</option>
+                            @endforeach
                                 @foreach ($ciudades as $ciudad)
-                                    <option value='{{$ciudad->id}}'>{{$ciudad->id}}-{{$ciudad->nombre}}</option>
+                                    <option value='{{$ciudad->idLugar}}'>{{$ciudad->idLugar}}-{{$ciudad->nombre}}</option>
                                 @endforeach
                                 {!! $errors->first('ciudadInicio', '<small style="color:red">:message</small>') !!}
                                 </select>

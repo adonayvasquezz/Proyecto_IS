@@ -14,10 +14,11 @@ class emailConfirmated extends Mailable
     public $msj;
 
     /**
-     * Create a new message instance.
+     * Crea una nueva instancia del mensaje
      *
      * @return void
      */
+    // Constructor de la clase email
     public function __construct($msj)
     {
       $this->msj=$msj;
@@ -28,6 +29,7 @@ class emailConfirmated extends Mailable
      *
      * @return $this
      */
+    // Retorna la vista donde ira el mensaje
     public function build()
     {
         return $this->view('emails.email-recibido');

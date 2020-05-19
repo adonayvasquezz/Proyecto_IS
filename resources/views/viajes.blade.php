@@ -8,85 +8,17 @@
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <!--iconos fontawesome-->
+    <!--íconos fontawesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
     <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
+    <link rel="stylesheet" href="../Styles/estilos-modulo-viajes.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
-
-    <div class="container">
-        <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
-            <ul class="nav nav-tabs justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link active" id="list-tab" data-toggle="tab" href="#listViajes" role="tab"
-                        aria-controls="list" aria-selected="false">Viajes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formViajes" role="tab" aria-controls="form"
-                        aria-selected="true">Formulario de Viajes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " id="list-tab" data-toggle="tab" href="#listBuses" role="tab"
-                        aria-controls="list" aria-selected="true">Buses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formBuses" role="form"
-                        aria-controls="form" aria-selected="true">Form Buses</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active navegacionForm" id="listViajes" role="tabpanel"
-                    aria-labelledby="list-tab">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Informacion De Rutas</h4>
-                        </div>
-                        <div class="card-body">
-                            <!-- Lista de Rutas-->
-                            <div class="table-responsive">
-                                <table id="ViajeList" class="table table-bordered table-hover table-striped">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Hora Salida</th>
-                                            <th scope="col">ID Bus</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Ruta</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach($viajes as $item)
-                                            <tr>
-                                                <th scope="row">{{$item->idviaje}}</th>
-                                                <td>{{$item->horaSalida}}</td>
-                                                <td>{{$item->id}}</td>
-                                                <td>{{$item->estado}}</td>
-                                                <td>{{$item->estado}}</td>
-                                                <td>
-                                                    <a href="{{route('editar', $item->idviaje)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarViaje', $item->idviaje)}}"
-                                                        class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade navegacionForm" id="formViajes" role="tabpanel" aria-labelledby="form-tab">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4></h4>
-                        </div>
-                        <div class="card-body">
-                            <!-- Formulario de Viajes-->
-                            @if($errors->any())
+                         @if($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
                                         @foreach($errors->all() as $error)
@@ -101,12 +33,106 @@
                                     <p>{{session ('mensaje')}}</p>
                                 </div>
                             @endif
-                             <form class="form" role="form" autocomplete="off" action="/create" method = "post">
+    <div class="container">
+        <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
+            <ul class="nav nav-tabs justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" id="list-tab" data-toggle="tab" href="#listViajes" role="tab"
+                        aria-controls="list" aria-selected="false">Viajes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formViajes" role="tab" aria-controls="form"
+                        aria-selected="true">Registro de Viajes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " id="list-tab" data-toggle="tab" href="#listBuses" role="tab"
+                        aria-controls="list" aria-selected="true">Buses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="form-tab" data-toggle="tab" href="#formBuses" role="form"
+                        aria-controls="form" aria-selected="true">Registro de Buses</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active navegacionForm" id="listViajes" role="tabpanel"
+                    aria-labelledby="list-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Informacion De Viajes</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Lista de Rutas-->
+                            <div class="table-responsive">
+                                <table id="ViajeList" class="table table-bordered table-hover table-striped">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">ID Viaje</th>
+                                            <th scope="col">Hora de Salida</th>
+                                            <th scope="col">Bus</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Ruta</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($rutasViajes as $item)
+                                            <tr>
+                                                <th scope="row">{{$item->viaje_idviaje}}</th>
+                                                <td>{{$item->horaSalida}}</td>                                      
+                                                <td>{{$item->idbus}} - matricula:{{$item->matriculaBus}} - {{$item->descripcionBus}} -capacidad: {{$item->capacidadBus}}</td>
+                                                <td>{{$item->estado}}</td>
+                                                <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
+                                                <td>
+                                                    <a href="javascript:void(0);"  class="awe" onclick="$(this).find('form').submit();">
+                                                        <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "get">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-edit"></i></button>
+                                                        </form>
+                                                    </a> | 
+                                                    <a href="javascript:void(0);"  class="awe" onclick="return confirm('¿Deseas eliminar el registro?')">
+                                                        <form class="form" role="form" autocomplete="off" action="{{ route('eliminarViaje', $item->viaje_idviaje)}}" method = "post">
+                                                            {{csrf_field()}}
+                                                            <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
+                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                {{ $rutasViajes->links() }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade navegacionForm" id="formViajes" role="tabpanel" aria-labelledby="form-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4></h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Formulario de Viajes-->
+                           
+                             <form class="form" role="form" autocomplete="off" action="/createViaje" method = "post">
                              {{csrf_field()}}
+                                 <div class="form-group row">
+                                    <label for="" class="col-lg-3 col-form-label form-control-label">Viaje</label>
+                                    <div class="col-lg-9">
+                                        <select class="form-control" id="idviaje" name="idviaje" value="{{old('idviaje')}}">
+                                            <option value="nuevo">Crear un nuevo viaje</option>
+                                            @foreach($viajes as $item)
+                                                <option value="{{$item->idviaje}}">Viaje:{{$item->idviaje}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
                                  <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Ruta</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idRuta')}}">
+                                        <select class="form-control" id="idruta" name="idruta" value="{{old('idruta')}}">
                                             @foreach($rutas as $item)
                                                 <option value="{{$item->idruta}}">{{$item->idruta}} - {{$item->lugarInicio}} a {{$item->lugarFin}}</option>
                                             @endforeach
@@ -117,18 +143,18 @@
                                 <div class="form-group row">
                                     <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                                     <div class="col-lg-9">
-                                        <select class="form-control" id="id" name="id"  value="{{old('bus')}}">
+                                        <select class="form-control" id="idbus" name="idbus"  value="{{old('idbus')}}">
                                          @foreach($buses as $item)
-                                            <option value="{{$item->id}}">id bus:{{$item->id}} - capacidad:{{$item->capacidad}}</option>
+                                            <option value="{{$item->idbus}}"> matricula:{{$item->matricula}}- descripcion:{{$item->descripcion}}- capacidad:{{$item->capacidad}}</option>
                                         @endforeach
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Fecha y hora de Salida</label>
+                                    <label class="col-lg-3 col-form-label form-control-label">Hora de Salida</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="datetime-local"  id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
+                                        <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
                                     </div>
                                 </div>
 
@@ -154,7 +180,7 @@
                 <div class="tab-pane fade show navegacionForm" id="listBuses" role="tabpanel"
                     aria-labelledby="list-tab">
                     <div class="card-header">
-                        <h4>Informacion Buses</h4>
+                        <h4>Informacion de buses</h4>
                     </div>
                     <div class="card-body">
                         <!-- Lista de Buses-->
@@ -162,24 +188,23 @@
                             <table id="lugarList" class="table table-bordered table-hover table-striped">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">ID Bus (Matricula)</th>
+                                        <th scope="col">Matrícula</th>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Capacidad</th>
                                         <th scope="col">Estado</th>
-                                        <th scope="col">Capacida</th>
-                                        <th></th>
+                                        <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($buses as $item)
                                     <tr>
-                                        <th scope="row">{{$item->id}}</th>
-                                        <td>{{$item->estado}}</td>
+                                        <th scope="row">{{$item->matricula}}</th>
+                                        <td>{{$item->descripcion}}</td>
                                         <td>{{$item->capacidad}}</td>
+                                        <td>{{$item->estado}}</td>
                                         <td>
-                                            <a href="{{route('editar', $item->id)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->id)}}"
+                                            <a href="{{route('editar', $item->idbus)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->idbus)}}"
                                                 class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
-                                                
-
-
                                         </td>
                                     </tr>
                                 @endforeach
@@ -194,34 +219,54 @@
                     </div>
                     <div class="card-body">
                         <!-- Formulario de Buses-->
-
                         <form class="form" role="form" autocomplete="off" action="/create" method = "post">
                         {{csrf_field()}}
                             <div class="form-group row">
-                                <label class="col-lg-3 col-form-label form-control-label">ID Bus(Matricula)</label>
+                                <label class="col-lg-3 col-form-label form-control-label">Matrícula</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" type="number">
+                                    <input class="form-control @error('matricula') is-invalid @enderror" type="text" name="matricula" value="{{old('matricula')}}">
+                                    @error('matricula')
+                                      <span class="invalid-feedback mensaje-error" role="alert">
+                                          {{ $message }}
+                                      </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3 col-form-label form-control-label">Descripción</label>
+                                <div class="col-lg-9">
+                                    <input class="form-control @error('descripcion') is-invalid @enderror" type="text" name="descripcion" value="{{old('descripcion')}}">
+                                    @error('descripcion')
+                                    <span class="invalid-feedback mensaje-error" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                  @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Capacidad</label>
                                 <div class="col-lg-9">
-                                    <input class="form-control" name="capacidad" type="number">
+                                    <input class="form-control @error('capacidad') is-invalid @enderror" name="capacidad" type="number" value="{{old('capacidad')}}">
+                                    @error('capacidad')
+                                    <span class="invalid-feedback mensaje-error" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                  @enderror
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label form-control-label">Estado</label>
                                 <div class="col-lg-9">
                                     <select class="form-control" id="sel1" name="estado">
-                                        <option>ACTIVO</option>
-                                        <option>INACTIVO</option>
+                                        <option>Activo</option>
+                                        <option>Inactivo</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-12 text-center">
                                     <input type="reset" class="btn btn-secondary" value="Cancelar">
-                                    <input type="submit" class="btn btn-primary" value="Guardar Cambios">
+                                    <input type="submit" class="btn btn-primary" value="Guardar">
                                 </div>
                             </div>
                             
@@ -236,7 +281,7 @@
             </div>
         </div>
     </div>
-
+    @include('sweetalert::alert')
     <!--BOOTSTRAP JAVASCRIPT-->
    {{--  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

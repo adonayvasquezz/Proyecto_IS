@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
 <!--
-	Directive by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	e-Transs
 -->
 <html>
 
@@ -17,13 +15,13 @@
     <link href="{{ asset('Styles/main.css') }}" rel="stylesheet">
     <link href="{{ asset('Styles/bootstrap.min.css') }}" rel="stylesheet">
 
+
 </head>
 <body class="is-preload">
-    <!--Probando, probando, probando, probando. Esto es para el domingo y lo estamos trabajando el sábado en la madrugada -->
+    <!-- Inicio de la estructura html del index-->
 
-    <!-- Prueba 2  -->
 
-    <!-- Header -->
+    <!-- Header y validaciones de permisos de usuario -->
     <div id="header">
 
         <span>
@@ -51,22 +49,24 @@
 
     <!-- Main -->
     <div id="main">
-
+    @if (session('alert2'))
+    <div class="alert alert-success">
+        {{ session('alert2') }}
+    </div>
+    @endif
         <header class="major container medium">
+        
             <h2>VIAJA A NUESTROS PRINCIPALES
                 <br /> DESTINOS
             </h2>
-            <!--
-					<p>Tellus erat mauris ipsum fermentum<br />
-					etiam vivamus nunc nibh morbi.</p>
-					-->
         </header>
 
         <!-- Inicio del menú de las ciudades principales que sirven de origen para las rutas -->
-
+     
         <div class="box alt container">
             <div class="container-fluid">
                 <div class="row">
+                    <!--Item Tegucigalpa -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Tegucigalpa</div>
@@ -80,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--Item San Pedro Sula -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">San Pedro Sula</div>
@@ -92,6 +93,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--Item La ceiba -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">La Ceiba</div>
@@ -104,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Siguatepeque -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Siguatepeque</div>
@@ -116,6 +119,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Catacamas -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Catacamas</div>
@@ -128,6 +132,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Choluteca -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Choluteca</div>
@@ -140,6 +145,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Lago de Yojoa -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Lago de Yojoa</div>
@@ -152,6 +158,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Trujillo -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Trujillo</div>
@@ -164,6 +171,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Danli -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Danlí</div>
@@ -194,7 +202,8 @@
     </div>
 
 
-    <!-- Modal -->
+    <!-- Ventanas modal Tegucigalpa -->
+
     <div class="modal fade bd-example-modal-lgl" id="modalTGU" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -217,56 +226,19 @@
                                 </b>
                             </tr>
                         </thead>
+                        
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                         @foreach ($tegus as $tgu)
+                        
                         <tbody>
                             <tr>
-                                <td>Tegucigalpa</td>
-                                <td>San Pedro Sula</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>300 lps</td>
+                                <td>{{$tgu->salida}}</td>
+                                <td>{{$tgu->destino}}</td>
+                                <td>{{$tgu->hora}}</td>
+                                <td>{{$tgu->tarifa}}</td>
                             </tr>
-
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Siguatepeque</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Lago de Yojoa</td>
-                                <td>8:00 am y 2:00 pm</td>
-                                <td>180 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Choluteca</td>
-                                <td>7:00 am y 1:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Danli</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Catacamas</td>
-                                <td>9:00 am y 2:00 pm</td>
-                                <td>250 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Ceiba</td>
-                                <td>5:00 am </td>
-                                <td>380 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Tegucigalpa</td>
-                                <td>Trujillo</td>
-                                <td>5:00 am </td>
-                                <td>500 lps</td>
-                            </tr>
+                        @endforeach
+                            
                         </tbody>
                     </table>
                 </div>
@@ -274,7 +246,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -285,7 +257,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal San Pedro Sula -->
     <div class="modal fade bd-example-modal-lg" id="modalSPS" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -308,37 +280,18 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                        @foreach ($sps as $spsr)
+                        
                         <tbody>
                             <tr>
-                                <td>San Pdero Sula</td>
-                                <td>Tegucigalpa</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>300 lps</td>
+                                <td>{{$spsr->salida}}</td>
+                                <td>{{$spsr->destino}}</td>
+                                <td>{{$spsr->hora}}</td>
+                                <td>{{$spsr->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Siguatepeque</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Lago de Yojoa</td>
-                                <td>10:00 am y 3:00 pm</td>
-                                <td>150 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Ceiba</td>
-                                <td>7:00 am</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>San Pedro Sula</td>
-                                <td>Trujillo</td>
-                                <td>7:00 am</td>
-                                <td>350 lps</td>
-                            </tr>
+                        @endforeach
+                           
                         </tbody>
                     </table>
                 </div>
@@ -346,7 +299,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -357,7 +310,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal Ceiba -->
     <div class="modal fade bd-example-modal-lg" id="modalCE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -380,25 +333,18 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                         @foreach ($ceiba as $ceibar)
+                        
                         <tbody>
                             <tr>
-                                <td>Ceiba</td>
-                                <td>Tegucigalpa</td>
-                                <td>2:00 pm</td>
-                                <td>380 lps</td>
+                                <td>{{$ceibar->salida}}</td>
+                                <td>{{$ceibar->destino}}</td>
+                                <td>{{$ceibar->hora}}</td>
+                                <td>{{$ceibar->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Ceiba </td>
-                                <td>San Pedro Sula</td>
-                                <td>11:00 am</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Ceiba</td>
-                                <td>Trujillo</td>
-                                <td>10:00 am y 12:00 m</td>
-                                <td>150 lps</td>
-                            </tr>
+                        @endforeach
+                            
 
                         </tbody>
                     </table>
@@ -407,7 +353,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -417,7 +363,7 @@
         </div>
     </div>
     </div>
-
+<!-- Ventana Modal Siguatepeque -->
     <div class="modal fade bd-example-modal-lg" id="modalSIG" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -440,25 +386,18 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                        @foreach ($siguatepeque as $siguar)
+                        
                         <tbody>
                             <tr>
-                                <td>Siguatepeque</td>
-                                <td>Tegucigalpa</td>
-                                <td>1:00 pm y 6:00 pm</td>
-                                <td>100 lps</td>
+                                <td>{{$siguar->salida}}</td>
+                                <td>{{$siguar->destino}}</td>
+                                <td>{{$siguar->hora}}</td>
+                                <td>{{$siguar->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Siguatepeque</td>
-                                <td>San Pedro Sula</td>
-                                <td>10:00 am y 4:00 pm</td>
-                                <td>200 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Siguatepeque</td>
-                                <td>Lago de Yojoa</td>
-                                <td>10:00 pm y 4:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
+                        @endforeach
+                           
 
                         </tbody>
                     </table>
@@ -467,7 +406,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -478,7 +417,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal Catacamas -->
     <div class="modal fade bd-example-modal-lg" id="modalCAT" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -501,14 +440,17 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                         @foreach ($catacamas as $catar)
+                        
                         <tbody>
                             <tr>
-                                <td>Catacamas</td>
-                                <td>Tegucigalpa</td>
-                                <td>10 am</td>
-                                <td>250 lps</td>
+                                <td>{{$catar->salida}}</td>
+                                <td>{{$catar->destino}}</td>
+                                <td>{{$catar->hora}}</td>
+                                <td>{{$catar->tarifa}}</td>
                             </tr>
-
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -516,7 +458,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -526,7 +468,7 @@
         </div>
     </div>
     </div>
-
+<!-- Ventana Modal Choluteca -->
     <div class="modal fade bd-example-modal-lg" id="modalCHO" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -549,13 +491,17 @@
                                 </b>
                             </tr>
                         </thead>
+                       <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                       @foreach ($choluteca as $cholur)
+                        
                         <tbody>
                             <tr>
-                                <td>Choluteca</td>
-                                <td>Tegucigalpa</td>
-                                <td>11:00 am</td>
-                                <td>200 lps</td>
+                                <td>{{$cholur->salida}}</td>
+                                <td>{{$cholur->destino}}</td>
+                                <td>{{$cholur->hora}}</td>
+                                <td>{{$cholur->tarifa}}</td>
                             </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -563,7 +509,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -574,7 +520,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal Lago de Yojoa -->
     <div class="modal fade bd-example-modal-lg" id="modalLY" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -597,25 +543,18 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                        @foreach ($lago as $lagor)
+                        
                         <tbody>
                             <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>Tegucigalpa</td>
-                                <td>12:00 m y 5:00 pm</td>
-                                <td>180 lps</td>
+                                <td>{{$lagor->salida}}</td>
+                                <td>{{$lagor->destino}}</td>
+                                <td>{{$lagor->hora}}</td>
+                                <td>{{$lagor->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>San Pedro Sula</td>
-                                <td>11:00 m y 5:00 pm</td>
-                                <td>150 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Lago de Yojoa</td>
-                                <td>Siguatepeque</td>
-                                <td>12:00 m y 5:00 pm</td>
-                                <td>100 lps</td>
-                            </tr>
+                        @endforeach
+                           
                         </tbody>
                     </table>
                 </div>
@@ -623,7 +562,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -634,7 +573,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal rujillo -->
     <div class="modal fade bd-example-modal-lg" id="modalTRU" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -657,25 +596,18 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                         @foreach ($trujillo as $trur)
+                        
                         <tbody>
                             <tr>
-                                <td>Trujillo</td>
-                                <td>Tegucigalpa</td>
-                                <td>11:00 am</td>
-                                <td>500 lps</td>
+                                <td>{{$trur->salida}}</td>
+                                <td>{{$trur->destino}}</td>
+                                <td>{{$trur->hora}}</td>
+                                <td>{{$trur->tarifa}}</td>
                             </tr>
-                            <tr>
-                                <td>Trujillo</td>
-                                <td>San Pedro Sula</td>
-                                <td>8:00 am</td>
-                                <td>350 lps</td>
-                            </tr>
-                            <tr>
-                                <td>Trujillo</td>
-                                <td>Ceiba</td>
-                                <td>8:00 am y 11:00 am</td>
-                                <td>500 lps</td>
-                            </tr>
+                        @endforeach
+                           
 
                         </tbody>
                     </table>
@@ -684,7 +616,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -695,7 +627,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal Danli -->
     <div class="modal fade bd-example-modal-lg" id="modalDAN" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -718,13 +650,17 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
+                         @foreach ($danli as $danr)
+                        
                         <tbody>
                             <tr>
-                                <td>Danli</td>
-                                <td>Tegucigalpa</td>
-                                <td>1:00 pm am</td>
-                                <td>100 lps</td>
+                                <td>{{$danr->salida}}</td>
+                                <td>{{$danr->destino}}</td>
+                                <td>{{$danr->hora}}</td>
+                                <td>{{$danr->tarifa}}</td>
                             </tr>
+                        @endforeach
 
                         </tbody>
                     </table>
@@ -733,7 +669,7 @@
                     <table class="table table-borderless">
                         <tr>
                             <td class="table-m"><button type="button" class=" btn-m" data-dismiss="modal">Cerrar</button></td>
-                            <td class="table-m"><button type="button " class=" btn-m ">Comprar Boleto</button></td>
+                            <td class="table-m"><button type="button " class=" btn-m "  onclick="location.href = '{{'/ventas'}}'">Comprar Boleto</button></td>
                         </tr>
                     </table>
 
@@ -743,11 +679,7 @@
         </div>
     </div>
     </div>
-
     <!-- Footer -->
-        
-
- 
     <div id="footer">
         <div class="container medium">
         <header class="major last">
@@ -755,24 +687,24 @@
             </header>
 
             <p>Recuerda que tu cercanía con nuestra plataforma nos hace crecer, puedes enviar tus preguntas o comentarios.</p>
-            
+            <!-- Formulario de contacto -->
             <form method="POST" action="{{route('index')}}  " >
             @csrf
                 <div class="row">
                     <div class="col-6 col-12-mobilep">
-                        <input  type="text" name="name" placeholder="Nombre" value="{{old('name')}}" />
+                        <input required  type="text" name="name" placeholder="Nombre" value="{{old('name')}}" />
                         {!! $errors->first('name', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-6 col-12-mobilep">
-                        <input  type="text" name="email" placeholder="Email" value="{{old('email')}}" />
+                        <input required  type="text" name="email" placeholder="Email" value="{{old('email')}}" />
                         {!! $errors->first('email', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-6 col-12-mobilep" style="display:none">
-                        <input  type="text" name="subject" placeholder="Email" value="Contacto-Cliente"  />
+                        <input required type="text" name="subject" placeholder="Email" value="Contacto-Cliente"  />
                         {!! $errors->first('subject', '<small style="color:red">:message</small>') !!}
                     </div>
                     <div class="col-12">
-                        <textarea  name="message" placeholder="Mensaje" rows="6" value="{{old('message')}}"></textarea>
+                        <textarea required  name="message" placeholder="Mensaje" rows="6" value="{{old('message')}}"></textarea>
                         {!! $errors->first('message', '<small style="color:red">:message</small>') !!}
                     </div>
                   <div class="col-12">
