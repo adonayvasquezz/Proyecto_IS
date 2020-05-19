@@ -11,24 +11,18 @@
                 <div class="card-body" style="margin: auto">
 
 
-                    <a href="/empleados" type="button" class="btn btn-info" style="height:70px; width:220px; line-height: 50px; color:white;">
-                        <strong>
-                                EMPLEADOS
-                        </strong>
+                    <a href="/empleados" type="button" class="btn btn-secondary" style="height:70px; width:220px; line-height: 50px; color:white; background-color: #ed2b46">
+                        EMPLEADOS
                     </a>
                     <br>
                     <br>
-                    <a href="/agregar-empleados" type="button" class="btn btn-success" style="height:70px; width:220px; line-height: 50px;">
-                        <strong>
-                            AGREGAR EMPLEADO
-                        </strong>
+                    <a href="/agregar-empleados" type="button" class="btn btn-secondary" style="height:70px; width:220px; line-height: 50px; color:white; background-color: #ed2b46; border-color:transparent">
+                        AGREGAR EMPLEADO
                     </a>
                     <br>
                     <br>
-                    <a href="/bitacora" type="button" class="btn btn-secondary" style="height:70px; width:220px; line-height: 50px;">
-                        <strong>
-                            BITÁCORA
-                        </strong>
+                    <a href="/bitacora" type="button" class="btn btn-secondary" style="height:70px; width:220px; line-height: 50px; color:white; background-color: #ed2b46">
+                        BITÁCORA
                     </a>
                 </div>
             </div>
