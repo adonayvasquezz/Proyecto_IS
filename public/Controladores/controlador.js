@@ -13,16 +13,17 @@ var cantidad;
 var fechaViaje;
 
 
-
+// para sumar 7 dias a la fecha
 Date.prototype.addDays = function() {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + 6);
     return date;
 }
 
+// para devolver una fecha en el formato necesario para trabajar
 function fechaString(fecha) {
     let dd = String(fecha.getDate()).padStart(2, '0');
-    let mm = String(fecha.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let mm = String(fecha.getMonth() + 1).padStart(2, '0'); 
     let yyyy = fecha.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
     return today;
@@ -39,6 +40,7 @@ var divInicio = `
     <button style="margin-left: 45%;" onclick="inicio(${arrayOrigenes})" type="button" class="btn btn-success">Continuar</button>
 `;
 
+// se encarga de llenar el select con los destinos traidos de la base de datos
 function selectDestinos(destinos) {
     arrayDestinos = destinos;
     let optDestinos = `<option value="0" >------</option>`;
@@ -48,6 +50,7 @@ function selectDestinos(destinos) {
     document.getElementById("destino").innerHTML = optDestinos;
 }
 
+// se encarga de llenar el select con los horarios traidos de la base de datos
 function selectHorarios(horario) {
     arrayHorarios = horario;
     let optHorarios = `<option value="0" >------</option>`;
@@ -57,6 +60,7 @@ function selectHorarios(horario) {
     document.getElementById("hora").innerHTML = optHorarios;
 }
 
+// se encarga de llenar el resto de la informacion necesaria del viaje
 function selectDisponibles(info) {
     arrayExtraInfo = info;
     numAsientos = arrayExtraInfo[0][0].capacidad;
@@ -67,14 +71,17 @@ function selectDisponibles(info) {
     document.getElementById("cantidad").max = `${tempDisponible}`
 }
 
+
+// agrega al array de ocupados los asientos que se encuentran en la base de datos
 function llenarOcupados(arrayOcupados) {
     for (let i = 0; i < arrayOcupados.length; i++) {
         ocupados.push(arrayOcupados[i].numeroasiento)
     }
-
     boleteria()
 }
 
+// Funcion que muestra el formulario de compra de boletos
+// lo primero que hace es llenar el select de lugares de origenes
 function inicio(origenes) {
     arrayOrigenes = origenes;
     let optOrigenes = `<option value="0" >------</option>`;
@@ -131,22 +138,8 @@ function inicio(origenes) {
     document.getElementById("contenido").style = `height: 80vh;`;
 }
 
-function atrasBoleteria() {
-    document.getElementById("inicio").classList.add("active");
-    document.getElementById("inicio").classList.remove("opt-success");
-    document.getElementById("inicio").disabled = false;
-    document.getElementById("boleteria").classList.remove("active");
-    document.getElementById("boleteria").disabled = true;
-    divInicio = `
-    <div style="height: 90%;">
-        <h1 style="text-align: center;">Bienvenido a E-transs</h1>
-        <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>  
-    </div>
-    <button style="margin-left: 45%;" onclick="inicio(${arrayOrigenes})" type="button" class="btn btn-success">Continuar</button>
-    `;
-    document.getElementById("contenido").innerHTML = divInicio;
-}
 
+// funcion que se encarga de validar los campos del formulario
 function validarBoleteria() {
     let valido = true;
     origen = document.getElementById("origen");
@@ -181,6 +174,7 @@ function validarBoleteria() {
     return valido;
 }
 
+// si los campos estan validados correctamente, genera los asientos
 function boleteria() {
     if (validarBoleteria()) {
         numBoleto = parseInt(cantidad.value);
@@ -194,6 +188,8 @@ function boleteria() {
     }
 }
 
+// funcion que se encarga de determinar que asientos estan libres u ocupados
+// los asientos ocupados son los que previamente se trajeron de la base de datos
 function generarAsientos() {
     genAsientos = '';
     let src;
@@ -248,16 +244,9 @@ function generarAsientos() {
     document.getElementById("contenido").style = `height: ${90+12.5*Math.floor(numAsientos/4)}vh;`;
 }
 
-function atrasAsientos() {
-    document.getElementById("boleteria").classList.add("active");
-    document.getElementById("boleteria").classList.remove("opt-success");
-    document.getElementById("boleteria").disabled = false;
-    document.getElementById("asientos").classList.remove("active");
-    document.getElementById("asientos").disabled = true;
-    document.getElementById("contenido").innerHTML = divBoleteria;
-    document.getElementById("contenido").style = "height: 80vh;";
-}
 
+// funcion que cambia de asiento libre a seleccionado y viceversa
+// adenas de guardar la posicion y cantidad de seleccionados que lleva al momento
 function cambiarAsiento(indice) {
     let asiento = document.getElementById(`img${indice}`);
     if (asiento.getAttribute("src") == "../Images/libre.png") {
@@ -273,6 +262,7 @@ function cambiarAsiento(indice) {
     }
 }
 
+// Muestra un resumen de los datos del viaje antes de finalizar la compra
 function asientos() {
     if (numBoleto == 0) {
         document.getElementById("asientos").classList.remove("active");
@@ -316,13 +306,4 @@ function asientos() {
         `;
         document.getElementById("contenido").style = "height: 100vh;";
     }
-}
-
-function atrasConfirmacion() {
-    document.getElementById("asientos").classList.add("active");
-    document.getElementById("asientos").classList.remove("opt-success");
-    document.getElementById("asientos").disabled = false;
-    document.getElementById("confirmacion").classList.remove("active");
-    document.getElementById("confirmacion").disabled = true;
-    generarAsientos();
 }
