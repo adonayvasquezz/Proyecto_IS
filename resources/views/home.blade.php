@@ -16,9 +16,9 @@
 
                     ¿A donde viajaras?
 
-                    @if(@Auth::user()->hasRole('empleado'))
+                    {{-- @if(@Auth::user()->hasRole('empleado'))
                         <h2>Eres un Empleado</h2>
-                    @endif
+                    @endif --}}
 
                 </div>
             </div>

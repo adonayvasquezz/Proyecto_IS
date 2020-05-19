@@ -18,6 +18,7 @@ class PersonaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    // Solo usuarios autenticados pueden acceder a las rutas de este controlador
     public function __construct()
     {
         $this->middleware('auth');
@@ -25,14 +26,11 @@ class PersonaController extends Controller
 
     public function index()
     {
+        // Se recibe y muestra la informacion del usuario en la vista perfil
         $user = User::find(Auth::user()->id);
         $persona = User::find(Auth::user()->id)->perfil;
 
         return view('perfil', ['user'=>$user, 'persona'=>$persona]);
-
-       /*  $procedimiento = DB::select('call new_procedure()');
-
-        return $procedimiento; */
     }
 
     /**
@@ -75,8 +73,12 @@ class PersonaController extends Controller
      */
     public function edit($id)
     {
+        // Se recibe y muestra la informacion actual de perfil antes de editarla en un formulario.
         $user = User::find(Auth::user()->id);
         $persona = User::find(Auth::user()->id)->perfil;
+
+        // Se crea el usuario tambien en la tabla personas para que ya exista al momento de
+        // agregar mas informacion de contacto
         if (empty($persona)) {
             $nuevaPersona = new Persona;
             $nuevaPersona->idPersona = $id;
@@ -101,8 +103,7 @@ class PersonaController extends Controller
     public function update(Request $request, $id)
     {
 
-        // Actualizar los datos de una tabla con la forma estandar de laravel
-
+        // Actualiza la informacion de contacto en la tabla personas
         $perfil = Persona::find($id);
         $perfil->pnombre = $request->pnombre;
         $perfil->snombre = $request->snombre;
@@ -115,16 +116,14 @@ class PersonaController extends Controller
         $perfil->correo = $request->correo;
         $perfil -> save();
 
-
-
         //  Metodo de actualizar informacion con procedimientos almacenados
-        $pnombre = $request->pnombre;
+       /*  $pnombre = $request->pnombre;
         $snombre = $request->snombre;
         $papellido = $request->papellido;
         $sapellido = $request->sapellido;
         $direccion = $request->direccion;
         $telefono = $request->telefono;
-        $correo = $request->correo;
+        $correo = $request->correo; */
 
        /*  $procedimiento = DB::select('call sp_actualizar_persona(?,?,?,?,?,?,?,?)',
                         array($id,$pnombre,$snombre,$papellido,$sapellido,$direccion,$telefono,$correo)); */
@@ -136,12 +135,10 @@ class PersonaController extends Controller
         $user->email = $request->correo;
         $user-> save();
 
-
         $persona = User::find(Auth::user()->id)->perfil;
         return view('perfil', ['user'=>$user, 'persona'=>$persona]);
 
         //return redirect()->route('home');
-
     }
 
     /**
