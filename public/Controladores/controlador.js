@@ -6,10 +6,10 @@ var arrayHorarios;
 var arrayExtraInfo;
 var seleccionados = [];
 var numBoleto;
-var origen ;
+var origen;
 var destino;
 var hora;
-var cantidad ;
+var cantidad;
 var fechaViaje;
 
 
@@ -20,7 +20,7 @@ Date.prototype.addDays = function() {
     return date;
 }
 
-function fechaString(fecha){
+function fechaString(fecha) {
     let dd = String(fecha.getDate()).padStart(2, '0');
     let mm = String(fecha.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = fecha.getFullYear();
@@ -39,46 +39,46 @@ var divInicio = `
     <button style="margin-left: 45%;" onclick="inicio(${arrayOrigenes})" type="button" class="btn btn-success">Continuar</button>
 `;
 
-function selectDestinos(destinos){
+function selectDestinos(destinos) {
     arrayDestinos = destinos;
     let optDestinos = `<option value="0" >------</option>`;
-    for(let i=0; i<arrayDestinos.length;i++){
+    for (let i = 0; i < arrayDestinos.length; i++) {
         optDestinos += `<option value="${i+1}" >${arrayDestinos[i].nombre}</option>`
     }
     document.getElementById("destino").innerHTML = optDestinos;
 }
 
-function selectHorarios(horario){
+function selectHorarios(horario) {
     arrayHorarios = horario;
     let optHorarios = `<option value="0" >------</option>`;
-    for(let i=0; i<arrayHorarios.length;i++){
+    for (let i = 0; i < arrayHorarios.length; i++) {
         optHorarios += `<option value="${i+1}" >${arrayHorarios[i].horaSalida}</option>`
     }
     document.getElementById("hora").innerHTML = optHorarios;
 }
 
-function selectDisponibles(info){
+function selectDisponibles(info) {
     arrayExtraInfo = info;
     numAsientos = arrayExtraInfo[0][0].capacidad;
     let tempDisponible = numAsientos - arrayExtraInfo[1][0].cantidad;
-    document.getElementById("duracion").innerHTML=`${arrayHorarios[parseInt(hora.value)-1].duracion} Horas`
-    document.getElementById("dispon").innerHTML=`${tempDisponible} Asientos `
-    document.getElementById("precio").innerHTML=`Lps. ${arrayHorarios[parseInt(hora.value)-1].precio}.00`
+    document.getElementById("duracion").innerHTML = `${arrayHorarios[parseInt(hora.value)-1].duracion} Horas`
+    document.getElementById("dispon").innerHTML = `${tempDisponible} Asientos `
+    document.getElementById("precio").innerHTML = `Lps. ${arrayHorarios[parseInt(hora.value)-1].precio}.00`
     document.getElementById("cantidad").max = `${tempDisponible}`
 }
 
-function llenarOcupados(arrayOcupados){
-    for(let i=0;i<arrayOcupados.length;i++){
+function llenarOcupados(arrayOcupados) {
+    for (let i = 0; i < arrayOcupados.length; i++) {
         ocupados.push(arrayOcupados[i].numeroasiento)
     }
-    
+
     boleteria()
 }
 
-function inicio( origenes ){
+function inicio(origenes) {
     arrayOrigenes = origenes;
     let optOrigenes = `<option value="0" >------</option>`;
-    for(let i=0; i<arrayOrigenes.length;i++){
+    for (let i = 0; i < arrayOrigenes.length; i++) {
         optOrigenes += `<option value="${i+1}" >${arrayOrigenes[i].nombre}</option>`
     }
     let divBoleteria = `<div style="height: 90%;">
@@ -124,19 +124,19 @@ function inicio( origenes ){
 
     document.getElementById("inicio").classList.remove("active");
     document.getElementById("inicio").classList.add("opt-success");
-    document.getElementById("inicio").disabled=true;
+    document.getElementById("inicio").disabled = true;
     document.getElementById("boleteria").classList.add("active");
-    document.getElementById("boleteria").disabled=false;
+    document.getElementById("boleteria").disabled = false;
     document.getElementById("contenido").innerHTML = divBoleteria;
-    document.getElementById("contenido").style=`height: 80vh;`;
+    document.getElementById("contenido").style = `height: 80vh;`;
 }
 
-function atrasBoleteria(){
+function atrasBoleteria() {
     document.getElementById("inicio").classList.add("active");
     document.getElementById("inicio").classList.remove("opt-success");
-    document.getElementById("inicio").disabled=false;
+    document.getElementById("inicio").disabled = false;
     document.getElementById("boleteria").classList.remove("active");
-    document.getElementById("boleteria").disabled=true;
+    document.getElementById("boleteria").disabled = true;
     divInicio = `
     <div style="height: 90%;">
         <h1 style="text-align: center;">Bienvenido a E-transs</h1>
@@ -147,72 +147,72 @@ function atrasBoleteria(){
     document.getElementById("contenido").innerHTML = divInicio;
 }
 
-function validarBoleteria(){
+function validarBoleteria() {
     let valido = true;
     origen = document.getElementById("origen");
     destino = document.getElementById("destino");
     hora = document.getElementById("hora");
     cantidad = document.getElementById("cantidad")
     fechaViaje = document.getElementById("dia")
-    if(parseInt(cantidad.value) <1 || parseInt(cantidad.value)> parseInt(cantidad.max)){
+    if (parseInt(cantidad.value) < 1 || parseInt(cantidad.value) > parseInt(cantidad.max)) {
         valido = false;
         cantidad.classList.add("error-form")
-    }else{
+    } else {
         cantidad.classList.remove("error-form")
     }
-    if(origen.value =="0"){
+    if (origen.value == "0") {
         valido = false;
         origen.classList.add("error-form")
-    }else{
+    } else {
         origen.classList.remove("error-form")
     }
-    if(destino.value =="0"){
+    if (destino.value == "0") {
         valido = false;
         destino.classList.add("error-form")
-    }else{
+    } else {
         destino.classList.remove("error-form")
     }
-    if(hora.value =="0"){
+    if (hora.value == "0") {
         valido = false;
         hora.classList.add("error-form")
-    }else{
+    } else {
         hora.classList.remove("error-form")
     }
     return valido;
 }
 
-function boleteria(){
-    if(validarBoleteria()){
+function boleteria() {
+    if (validarBoleteria()) {
         numBoleto = parseInt(cantidad.value);
         document.getElementById("boleteria").classList.remove("active");
         document.getElementById("boleteria").classList.add("opt-success");
-        document.getElementById("boleteria").disabled=true;
+        document.getElementById("boleteria").disabled = true;
         document.getElementById("asientos").classList.add("active");
-        document.getElementById("asientos").disabled=false;
+        document.getElementById("asientos").disabled = false;
         seleccionados = [];
         generarAsientos();
     }
 }
 
-function generarAsientos(){
-    genAsientos='';
+function generarAsientos() {
+    genAsientos = '';
     let src;
-    for(let i=1;i<=numAsientos;i++){
-        if(ocupados.lastIndexOf(i)==-1){
-            if(seleccionados.lastIndexOf(i)==-1){
-                src= "../Images/libre.png";
-            }else{
+    for (let i = 1; i <= numAsientos; i++) {
+        if (ocupados.lastIndexOf(i) == -1) {
+            if (seleccionados.lastIndexOf(i) == -1) {
+                src = "../Images/libre.png";
+            } else {
                 src = "../Images/seleccionado.png"
             }
             genAsientos += `<div class="col-2"><img width="50px" id= "img${i}" onclick="cambiarAsiento(${i})" src=${src}></div>`;
-        }else{
+        } else {
             genAsientos += `<div class="col-2"><img width="50px" src="../Images/ocupado.png"></div>`;
         }
-        if(i%2==0){
-            if(i%4==0){
-                genAsientos+= `</div><div class="row">`;
-            }else{
-                genAsientos+= `<div class="col-1"></div>`;
+        if (i % 2 == 0) {
+            if (i % 4 == 0) {
+                genAsientos += `</div><div class="row">`;
+            } else {
+                genAsientos += `<div class="col-1"></div>`;
             }
         }
     }
@@ -245,69 +245,84 @@ function generarAsientos(){
     <button style="margin-left: 40%;" onclick="cancelar()" type="button" class="btn btn-secondary">Cancelar</button>
     <button style="margin-left: 10px;" onclick="asientos()" type="button" class="btn btn-success">Continuar</button>
 `;
-    document.getElementById("contenido").style=`height: ${90+12.5*Math.floor(numAsientos/4)}vh;`;
+    document.getElementById("contenido").style = `height: ${90+12.5*Math.floor(numAsientos/4)}vh;`;
 }
 
-function atrasAsientos(){
-        document.getElementById("boleteria").classList.add("active");
-        document.getElementById("boleteria").classList.remove("opt-success");
-        document.getElementById("boleteria").disabled=false;
-        document.getElementById("asientos").classList.remove("active");
-        document.getElementById("asientos").disabled=true;
-        document.getElementById("contenido").innerHTML = divBoleteria;
-        document.getElementById("contenido").style="height: 80vh;";
+function atrasAsientos() {
+    document.getElementById("boleteria").classList.add("active");
+    document.getElementById("boleteria").classList.remove("opt-success");
+    document.getElementById("boleteria").disabled = false;
+    document.getElementById("asientos").classList.remove("active");
+    document.getElementById("asientos").disabled = true;
+    document.getElementById("contenido").innerHTML = divBoleteria;
+    document.getElementById("contenido").style = "height: 80vh;";
 }
 
-function cambiarAsiento(indice){
+function cambiarAsiento(indice) {
     let asiento = document.getElementById(`img${indice}`);
-    if(asiento.getAttribute("src")=="../Images/libre.png"){
-        if(numBoleto>0){
-            asiento.src ="../Images/seleccionado.png";
+    if (asiento.getAttribute("src") == "../Images/libre.png") {
+        if (numBoleto > 0) {
+            asiento.src = "../Images/seleccionado.png";
             numBoleto -= 1;
             seleccionados.push(indice);
         }
-    }else{
+    } else {
         asiento.src = "../Images/libre.png";
-        numBoleto +=1;
-        seleccionados.splice(seleccionados.lastIndexOf(indice),1);
+        numBoleto += 1;
+        seleccionados.splice(seleccionados.lastIndexOf(indice), 1);
     }
 }
 
-function asientos(){
-    if(numBoleto == 0){
+function asientos() {
+    if (numBoleto == 0) {
         document.getElementById("asientos").classList.remove("active");
         document.getElementById("asientos").classList.add("opt-success");
-        document.getElementById("asientos").disabled=true;
+        document.getElementById("asientos").disabled = true;
         document.getElementById("confirmacion").classList.add("active");
-        document.getElementById("confirmacion").disabled=false;
+        document.getElementById("confirmacion").disabled = false;
         document.getElementById("contenido").innerHTML = `
-        <div style="height: 90%;">
-            <h1 style="text-align: center;">Confirmacion y Pago</h1>  
+        <div style=" height: 60vh;">
+            <h1 style="text-align: center ">Confirmacion y Pago</h1>  
                 <div class="ml-5">
-                    
-                    <Label>Origen: ${arrayOrigenes[parseInt(origen.value)-1].nombre}</Label><br>
-                    <Label>Destino: ${arrayDestinos[parseInt(destino.value)-1].nombre}</Label><br>
-                    <Label>Fecha de Compra: ${fechaString(hoy)}</Label><br>
-                    <Label>Fecha de Viaje: ${fechaViaje.value}</Label><br>
-                    <Label>Hora Salida: ${arrayHorarios[parseInt(hora.value)-1].horaSalida}</Label><br>
-                    <Label>Precio Boleto: ${arrayHorarios[parseInt(hora.value)-1].precio}</Label><br>
-                    <Label>Cantidad: ${cantidad.value}</Label><br>
-                    <Label>Asientos seleccionados: ${seleccionados}</Label><br>
-                    <Label>Total a Pagar: ${arrayHorarios[parseInt(hora.value)-1].precio*seleccionados.length}</Label><br>
-                </div>
+                <table class="table table-borderless" style="color:white">
+                 <tbody>
+                <tr>
+                <td> <Label>Origen:          ${arrayOrigenes[parseInt(origen.value)-1].nombre}</Label></td>
+                <td> <Label>Destino:         ${arrayDestinos[parseInt(destino.value)-1].nombre}</Label></td>
+                </tr>
+                <tr>
+                <td><Label>Fecha de Compra: ${fechaString(hoy)}</Label></td>
+                <td> <Label>Fecha de Viaje:  ${fechaViaje.value}</Label></td>
+                </tr>
+                <tr>
+                <td> <Label>Hora Salida:     ${arrayHorarios[parseInt(hora.value)-1].horaSalida}</Label></td>
+                <td> <Label>Precio Boleto:   ${arrayHorarios[parseInt(hora.value)-1].precio}</Label></td>
+                </tr>
+                <tr>
+                <td> <Label>Cantidad:        ${cantidad.value}</Label></td>
+                <td>  <Label>Asientos seleccionados: ${seleccionados}</Label></td>
+            </tr>
+                <tr>
+                <td colspan="2"> <Label>Total a Pagar:   ${arrayHorarios[parseInt(hora.value)-1].precio*seleccionados.length}</Label></td>
+            
+                </tr>
+            </tbody>
+            </table>           
+                
+            </div>
         </div>
         <button style="margin-left: 40%;" onclick="cancelar()" type="button" class="btn btn-secondary">Cancelar</button>
         <button style="margin-left: 10px;" onclick="guardar()" type="button" class="btn btn-success">Continuar</button>
         `;
-        document.getElementById("contenido").style="height: 100vh;";
+        document.getElementById("contenido").style = "height: 100vh;";
     }
 }
 
-function atrasConfirmacion(){
+function atrasConfirmacion() {
     document.getElementById("asientos").classList.add("active");
     document.getElementById("asientos").classList.remove("opt-success");
-    document.getElementById("asientos").disabled=false;
+    document.getElementById("asientos").disabled = false;
     document.getElementById("confirmacion").classList.remove("active");
-    document.getElementById("confirmacion").disabled=true;
+    document.getElementById("confirmacion").disabled = true;
     generarAsientos();
 }
