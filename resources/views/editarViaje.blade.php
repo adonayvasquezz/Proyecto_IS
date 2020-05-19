@@ -18,7 +18,7 @@
 
 <br>
 <br>
-    <div class="titulo-edicion">Actualización de Viajes</div>
+    <div class="titulo-edicion" style="font-size: 22px; color: #ed2b46; font-weight:">Actualización de Viajes</div>
                     @if($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -56,9 +56,9 @@
                             <label for="" class="col-lg-3 col-form-label form-control-label">Bus</label>
                             <div class="col-lg-9">
                                 <select class="form-control" id="idbus" name="idbus"  value="{{$bus->idbus}}">
-                                     <option value="{{$bus->idbus}}"> matricula:{{$bus->matricula}}- descripcion:{{$bus->descripcion}}- capacidad:{{$bus->capacidad}}</option>
+                                     <option value="{{$bus->idbus}}"> Matrícula: {{$bus->matricula}}  Descripción: {{$bus->descripcion}} Capacidad:{{$bus->capacidad}}</option>
                                     @foreach($buses as $item)
-                                        <option value="{{$item->idbus}}"> matricula:{{$item->matricula}}- descripcion:{{$item->descripcion}}- capacidad:{{$item->capacidad}}</option>
+                                        <option value="{{$item->idbus}}"> Matrícula: {{$item->matricula}} Descripción:{{$item->descripcion}} Capacidad:{{$item->capacidad}}</option>
                                     @endforeach
                                 </select>
                             </div>

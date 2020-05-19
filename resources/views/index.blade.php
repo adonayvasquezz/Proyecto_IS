@@ -192,11 +192,9 @@
 
 
         <footer class="major container medium">
-            <h3>Observa, aprende y ejecuta</h3>
+            <h4>A donde quiera que vayas, ve con todo.</h4>
             <p>E- Transs te ofrece una manera rápida y efectiva con la que puedes adquirir tus boletos.</p>
-            <ul class="actions special">
-                <li><a href="#" class="button">Ver vídeo</a></li>
-            </ul>
+            
         </footer>
 
     </div>

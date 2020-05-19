@@ -66,37 +66,43 @@
                                 <table id="ViajeList" class="table table-bordered table-hover table-striped">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th scope="col">ID Viaje</th>
+                                            
                                             <th scope="col">Hora de Salida</th>
                                             <th scope="col">Bus</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Ruta</th>
-                                            <th></th>
+                                            <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($rutasViajes as $item)
                                             <tr>
-                                                <th scope="row">{{$item->viaje_idviaje}}</th>
+                                                
                                                 <td>{{$item->horaSalida}}</td>                                      
-                                                <td>{{$item->idbus}} - matricula:{{$item->matriculaBus}} - {{$item->descripcionBus}} -capacidad: {{$item->capacidadBus}}</td>
+                                                <td>matricula:{{$item->matriculaBus}} - {{$item->descripcionBus}}</td>
                                                 <td>{{$item->estado}}</td>
-                                                <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
+                                                <td>{{$item->lugarInicio}} a {{$item->lugarFin}} </td>
                                                 <td>
                                                     <a href="javascript:void(0);"  class="awe" onclick="$(this).find('form').submit();">
                                                         <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "get">
                                                             {{csrf_field()}}
                                                             <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
-                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-edit"></i></button>
+                                                            <button type="submit" style="background-color:transparent; color:#ed2b46; border-color:transparent"><i class="fas fa-edit"></i></button>
                                                         </form>
-                                                    </a> | 
+                                                    </a>
                                                     <a href="javascript:void(0);"  class="awe" onclick="return confirm('¿Deseas eliminar el registro?')">
                                                         <form class="form" role="form" autocomplete="off" action="{{ route('eliminarViaje', $item->viaje_idviaje)}}" method = "post">
                                                             {{csrf_field()}}
                                                             <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
-                                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                            <button type="submit" style="background-color:transparent; color:#ed2b46; border-color:transparent"><i class="fas fa-trash"></i></button>
                                                         </form>
                                                     </a>
+                                                    <div style="float: left">
+                                                        
+                                                    </div>
+                                                    <div style="float: left">
+                                                        
+                                                    </div>
                                                 </td>
                                             </tr>
                                         @endforeach
