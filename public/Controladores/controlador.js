@@ -36,7 +36,7 @@ var divInicio = `
         <h1 style="text-align: center;">Bienvenido a E-transs</h1>
         <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>  
     </div>
-    <button style="margin-left: 45%;" onclick="inicio(${arrayDestinos})" type="button" class="btn btn-success">Continuar</button>
+    <button style="margin-left: 45%;" onclick="inicio(${arrayOrigenes})" type="button" class="btn btn-success">Continuar</button>
 `;
 
 function selectDestinos(destinos){
@@ -71,7 +71,7 @@ function llenarOcupados(arrayOcupados){
     for(let i=0;i<arrayOcupados.length;i++){
         ocupados.push(arrayOcupados[i].numeroasiento)
     }
-    console.log(ocupados)
+    
     boleteria()
 }
 
@@ -115,11 +115,11 @@ function inicio( origenes ){
       <label id="precio" style="margin-top: 10px;text-align:left" class="col-4"> ----- </label>
       <label style="margin-top: 10px;text-align: right" class="col-2">Cantidad:</label>
       <div style="margin-top: 10px;" class="col-4">
-        <input type="number" onchange="validarBoleteria()" id="cantidad" min="1" max="30">
+        <input type="number" onchange="validarBoleteria()" id="cantidad" value="0" min="1" max="30">
       </div>
     </div>   
   </div>
-<button style="margin-left: 40%;" onclick="atrasBoleteria()" type="button" class="btn btn-secondary">Atras</button>
+<button style="margin-left: 40%;" onclick="cancelar()" type="button" class="btn btn-secondary">Cancelar</button>
 <button style="margin-left: 10px;" onclick="obtenerOcupados()" type="button" class="btn btn-success">Continuar</button>`;
 
     document.getElementById("inicio").classList.remove("active");
@@ -128,6 +128,7 @@ function inicio( origenes ){
     document.getElementById("boleteria").classList.add("active");
     document.getElementById("boleteria").disabled=false;
     document.getElementById("contenido").innerHTML = divBoleteria;
+    document.getElementById("contenido").style=`height: 80vh;`;
 }
 
 function atrasBoleteria(){
@@ -136,6 +137,13 @@ function atrasBoleteria(){
     document.getElementById("inicio").disabled=false;
     document.getElementById("boleteria").classList.remove("active");
     document.getElementById("boleteria").disabled=true;
+    divInicio = `
+    <div style="height: 90%;">
+        <h1 style="text-align: center;">Bienvenido a E-transs</h1>
+        <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>  
+    </div>
+    <button style="margin-left: 45%;" onclick="inicio(${arrayOrigenes})" type="button" class="btn btn-success">Continuar</button>
+    `;
     document.getElementById("contenido").innerHTML = divInicio;
 }
 
@@ -222,10 +230,19 @@ function generarAsientos(){
                 </div>
                 <div class = "bg-bus-lw"></div>
             </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="card col-12" style="width: 18rem;" style="padding:0">
+                        <img class="card-img-top" width="50px" src="../Images/instrucciones.jpg" alt="Card image cap">
+                    </div>
+                </div>
+
+            </div>
+            </div>
         </div>
     </div>
     <br>
-    <button style="margin-left: 40%;" onclick="atrasAsientos()" type="button" class="btn btn-secondary">Atras</button>
+    <button style="margin-left: 40%;" onclick="cancelar()" type="button" class="btn btn-secondary">Cancelar</button>
     <button style="margin-left: 10px;" onclick="asientos()" type="button" class="btn btn-success">Continuar</button>
 `;
     document.getElementById("contenido").style=`height: ${90+12.5*Math.floor(numAsientos/4)}vh;`;
@@ -267,7 +284,7 @@ function asientos(){
         <div style="height: 90%;">
             <h1 style="text-align: center;">Confirmacion y Pago</h1>  
                 <div class="ml-5">
-                    <Label style="margin-left: auto;margin-right: auto;">Nombre: </Label><br>
+                    
                     <Label>Origen: ${arrayOrigenes[parseInt(origen.value)-1].nombre}</Label><br>
                     <Label>Destino: ${arrayDestinos[parseInt(destino.value)-1].nombre}</Label><br>
                     <Label>Fecha de Compra: ${fechaString(hoy)}</Label><br>
@@ -279,7 +296,7 @@ function asientos(){
                     <Label>Total a Pagar: ${arrayHorarios[parseInt(hora.value)-1].precio*seleccionados.length}</Label><br>
                 </div>
         </div>
-        <button style="margin-left: 40%;" onclick="atrasConfirmacion()" type="button" class="btn btn-secondary">Atras</button>
+        <button style="margin-left: 40%;" onclick="cancelar()" type="button" class="btn btn-secondary">Cancelar</button>
         <button style="margin-left: 10px;" onclick="guardar()" type="button" class="btn btn-success">Continuar</button>
         `;
         document.getElementById("contenido").style="height: 100vh;";

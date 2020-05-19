@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
+use App\Log;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class VentasController extends Controller
 {
@@ -73,16 +76,17 @@ class VentasController extends Controller
                         $idruta = $request->input('idruta');
                         $fecha = $request->input('fecha');
                         $asientos = $request->input('asientos');
+                        $origen_temp = $request->input('origen');
+                        $destino_temp = $request->input('destino');
                         for($i = 0; $i < count($asientos); ++$i){
                            DB::insert("insert into boletos ( numeroasiento, idruta, idviaje, fecha) VALUES ( ?, ?, ?, ?)",[$asientos[$i],$idruta,$idviaje,$fecha]);
                         }
-                        
-                        return response()->json([
-                            'success'=>[$idviaje,
-                            $idruta,
-                            $fecha,
-                            $asientos]
-                        ]);
+                        $usuarioAccion = User::find(Auth::user()->id);
+                        $logs = new Log();
+                        $logs->action =  'Compro '.(count($asientos)).' boletos desde '.$origen_temp.' hasta '.$destino_temp.' para el dia '.$fecha;
+                        $logs->user = $usuarioAccion->id;
+                        $logs->save();
+                        return 0;
                         break;
 
 

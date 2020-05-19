@@ -79,3 +79,9 @@ button.bg-light:focus, button.bg-light:hover {
     border-color: red;
     border-radius: 8px;
 }
+
+.card{
+    padding: 0;
+border:0!important;
+margin-top: 20px;
+}

@@ -17,10 +17,10 @@
               <button id="fin" type="button" class="btn list-group-item list-group-item-action bg-light" disabled><span class="iconify" data-icon="emojione-monotone:digit-five"></span>  Fin</button>
             </div>
         </div>
-        <div id="contenido" class="col-9 bg-content">
-          <div style="height: 90%;">
+        <div id="contenido" style = "height:40vh" class="col-9 bg-content">
+          <div style="height: 80%;">
             <h1 style="text-align: center;">Bienvenido a E-transs</h1>
-            <br><br><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque laborum id nostrum illo maxime quisquam amet quia earum ex, ullam eos sint provident, totam ea, accusamus facere! Dolorem nisi sapiente est officia voluptate corporis eius itaque magni assumenda ea, fugiat quia adipisci optio ut perferendis, voluptatem laudantium animi incidunt ipsum?</p>
+            <h3 style="text-align: center;">Compre sus boletos de manera Rapida y Segura</h3>
           
         </div>
         
@@ -37,7 +37,10 @@
 <br>
 <br>
 <br>
+
+@include('sweetalert::alert')
 </div>
+
 
 <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script language="JavaScript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -56,6 +59,7 @@ function actualizarDestino(){
             url:"{{ route('ajaxRequest.post') }}",
             data:{tipo:1,orig:arrayOrigenes[parseInt(origen.value)-1].id},
             success:function(data){
+              console.log(data.success)
                selectDestinos(data.success);
             }
          })
@@ -71,7 +75,7 @@ function actualizarHorario(){
           headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type:'POST',
             url:"{{ route('ajaxRequest.post') }}",
-            data:{tipo:2,orig:arrayOrigenes[parseInt(origen.value)-1].id,desti:arrayDestinos[parseInt(origen.value)-1].id},
+            data:{tipo:2,orig:arrayOrigenes[parseInt(origen.value)-1].id,desti:arrayDestinos[parseInt(destino.value)-1].id},
             success:function(data){
               selectHorarios(data.success);
             }
@@ -115,15 +119,26 @@ function obtenerOcupados(){
   }
 }
 
+function cancelar(){
+  window.location="{{URL::to('ventas')}}";
+}
+
 function guardar(){
   $.ajax({
           headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type:'POST',
             url:"{{ route('ajaxRequest.post') }}",
-            data:{tipo:5,idviaje:parseInt(arrayHorarios[parseInt(hora.value)-1].viaje_idviaje),idruta:parseInt(arrayHorarios[parseInt(hora.value)-1].ruta_idruta),fecha:fechaViaje.value,asientos:seleccionados},
+            data:{tipo:5,
+              idviaje:parseInt(arrayHorarios[parseInt(hora.value)-1].viaje_idviaje),
+              idruta:parseInt(arrayHorarios[parseInt(hora.value)-1].ruta_idruta),
+              fecha:fechaViaje.value,
+              asientos:seleccionados,
+              origen: arrayOrigenes[parseInt(origen.value)-1].nombre,
+              destino: arrayDestinos[parseInt(destino.value)-1].nombre
+            },
             success:function(data){
-              console.log(data.success);
-              
+              alert("Boleto comprado exitosamente");
+              window.location="{{URL::to('home')}}";
             }
          })
 }      
@@ -135,6 +150,5 @@ function guardar(){
 
 
 </script>
-
 
 @endsection
