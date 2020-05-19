@@ -40,18 +40,25 @@
                     <a class="nav-link active" id="list-tab" data-toggle="tab" href="#listViajes" role="tab"
                         aria-controls="list" aria-selected="false">Viajes</a>
                 </li>
+
+                @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formViajes" role="tab" aria-controls="form"
                         aria-selected="true">Registro de Viajes</a>
                 </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listBuses" role="tab"
                         aria-controls="list" aria-selected="true">Buses</a>
                 </li>
+
+                @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formBuses" role="form"
                         aria-controls="form" aria-selected="true">Registro de Buses</a>
                 </li>
+                @endif
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active navegacionForm" id="listViajes" role="tabpanel"
@@ -71,17 +78,21 @@
                                             <th scope="col">Bus</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Ruta</th>
+                                            @if(@Auth::user()->hasRole('admin'))
                                             <th></th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($rutasViajes as $item)
                                             <tr>
                                                 <th scope="row">{{$item->viaje_idviaje}}</th>
-                                                <td>{{$item->horaSalida}}</td>                                      
+                                                <td>{{$item->horaSalida}}</td>
                                                 <td>{{$item->idbus}} - matricula:{{$item->matriculaBus}} - {{$item->descripcionBus}} -capacidad: {{$item->capacidadBus}}</td>
                                                 <td>{{$item->estado}}</td>
                                                 <td>id:{{$item->ruta_idruta}}- {{$item->lugarInicio}} a {{$item->lugarFin}} </td>
+
+                                                @if(@Auth::user()->hasRole('admin'))
                                                 <td>
                                                     <a href="javascript:void(0);"  class="awe" onclick="$(this).find('form').submit();">
                                                         <form class="form" role="form" autocomplete="off" action="{{ route('editarViaje', $item->viaje_idviaje)}}" method = "get">
@@ -89,7 +100,7 @@
                                                             <input type="hidden" class="form-control" name="idruta" value="{{$item->ruta_idruta}}">
                                                             <button type="submit" class="btn btn-danger"><i class="fas fa-edit"></i></button>
                                                         </form>
-                                                    </a> | 
+                                                    </a> |
                                                     <a href="javascript:void(0);"  class="awe" onclick="return confirm('¿Deseas eliminar el registro?')">
                                                         <form class="form" role="form" autocomplete="off" action="{{ route('eliminarViaje', $item->viaje_idviaje)}}" method = "post">
                                                             {{csrf_field()}}
@@ -98,6 +109,7 @@
                                                         </form>
                                                     </a>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -114,7 +126,7 @@
                         </div>
                         <div class="card-body">
                             <!-- Formulario de Viajes-->
-                           
+
                              <form class="form" role="form" autocomplete="off" action="/createViaje" method = "post">
                              {{csrf_field()}}
                                  <div class="form-group row">
@@ -154,7 +166,7 @@
                                 <div class="form-group row">
                                     <label class="col-lg-3 col-form-label form-control-label">Hora de Salida</label>
                                     <div class="col-lg-9">
-                                        <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}"> 
+                                        <input class="form-control" type="time" id="horaSalida" name="horaSalida"  value="{{old('horaSalida')}}">
                                     </div>
                                 </div>
 
@@ -192,7 +204,9 @@
                                         <th scope="col">Descripción</th>
                                         <th scope="col">Capacidad</th>
                                         <th scope="col">Estado</th>
+                                        @if(@Auth::user()->hasRole('admin'))
                                         <th scope="col">Acciones</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -202,10 +216,12 @@
                                         <td>{{$item->descripcion}}</td>
                                         <td>{{$item->capacidad}}</td>
                                         <td>{{$item->estado}}</td>
+                                        @if(@Auth::user()->hasRole('admin'))
                                         <td>
                                             <a href="{{route('editar', $item->idbus)}}" class="awe"><i class="fas fa-edit"></i></a> | <a href="{{ route('eliminarBus', $item->idbus)}}"
                                                 class="awe" onclick="return confirm('¿Deseas eliminar el registro?')"><i class="fas fa-trash"></i></a>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -269,7 +285,7 @@
                                     <input type="submit" class="btn btn-primary" value="Guardar">
                                 </div>
                             </div>
-                            
+
                         </form>
                         @if(session('agregar'))
                             <div>

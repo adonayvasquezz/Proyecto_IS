@@ -135,8 +135,10 @@ class PersonaController extends Controller
         $user->email = $request->correo;
         $user-> save();
 
-        $persona = User::find(Auth::user()->id)->perfil;
-        return view('perfil', ['user'=>$user, 'persona'=>$persona]);
+       /*  $persona = User::find(Auth::user()->id)->perfil;
+        return view('perfil', ['user'=>$user, 'persona'=>$persona]); */
+
+        return redirect('perfil')->with('success', 'Informacion actualizada');
 
         //return redirect()->route('home');
     }

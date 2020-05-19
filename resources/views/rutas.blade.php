@@ -24,19 +24,19 @@
                     <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Rutas</a>
                 </li>
 
-                {{--  @if(@Auth::user()->hasRole('admin')) --}}
+                 @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form Rutas</a>
                 </li>
-               {{--  @endif --}}
+                @endif
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listaLugares" role="tab" aria-controls="list" aria-selected="true">Lugares</a>
                 </li>
-               {{--  @if(@Auth::user()->hasRole('admin')) --}}
+                @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formLugar" role="form" aria-controls="form" aria-selected="true">Form Lugares</a>
                 </li>
-               {{--  @endif --}}
+                @endif
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active navegacionForm" id="list" role="tabpanel" aria-labelledby="list-tab">
@@ -55,7 +55,9 @@
                                             <th scope="col">Fin</th>
                                             <th scope="col">Duracion</th>
                                             <th scope="col">Precio lps</th>
+                                            @if(@Auth::user()->hasRole('admin'))
                                             <th></th>
+                                            @endif
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,13 +69,14 @@
                                             <td>{{$ruta->ciudadFin}}</td>
                                             <td>{{$ruta->duracion}}</td>
                                             <td>{{$ruta->precio}}</td>
+                                            @if(@Auth::user()->hasRole('admin'))
                                             <td>
                                                 <a href="{{ route('editarRuta', $ruta->idruta)}}" class="awe"><i class="fas fa-edit"></i></a>
-                                                @if(@Auth::user()->hasRole('admin'))
-                                                |<a href="{{ route('eliminarRuta.destroy', $ruta->idruta)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
-                                                @endif
+                                                <a href="{{ route('eliminarRuta.destroy', $ruta->idruta)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
 
                                             </td>
+                                            @endif
+
                                         </tr>
                                     @endforeach
                                 </table>
@@ -152,7 +155,9 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Ciudad/Pueblo</th>
+                                        @if(@Auth::user()->hasRole('admin'))
                                         <th></th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -161,14 +166,14 @@
                                    <tr>
                                         <th scope="row">{{$ciudad->idLugar}}</th>
                                         <td>{{$ciudad->nombre}}</td>
-                                        <td style="width:15%">
 
-                                            @if(@Auth::user()->hasRole('admin'))
+                                        @if(@Auth::user()->hasRole('admin'))
+                                        <td style="width:15%">
                                             <a href="{{ route('editarLugar', $ciudad->idLugar)}}" class="awe"><i class="fas fa-edit"></i></a> |
                                             <a href="{{ route('eliminarLugar.destroy', $ciudad->idLugar)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
-                                            @endif
 
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 

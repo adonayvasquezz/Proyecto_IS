@@ -41,17 +41,17 @@
                         <a class="nav-link" href="/home">Inicio <span class="sr-only">(current)</span></a>
                     </li>
 
-                     @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) 
+                     @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado'))
                     <li class="nav-item active">
                         <a class="nav-link" href="/rutas">Rutas</a>
                     </li>
-                     @endif 
+                     @endif
 
-                    @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) 
+                    @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado'))
                     <li class="nav-item active">
                         <a class="nav-link" href="/viajes">Viajes</a>
                     </li>
-                    @endif 
+                    @endif
 
                     <li class="nav-item active">
                         <a class="nav-link" href="/ventas">Ventas</a>
@@ -59,7 +59,7 @@
 
                     @if(@Auth::user()->hasRole('admin'))
                     <li class="nav-item active">
-                        <a class="nav-link" href="/administracion">Administracion</a>
+                        <a class="nav-link" href="/administracion">Administración</a>
                     </li>
                     @endif
 
@@ -107,11 +107,11 @@
         </nav>
     </div>
 
- 
+
 <div class="container">
-    <br> <br> 
-   
-    @yield('content') 
+    <br> <br>
+
+    @yield('content')
      <!-- Contenido de las vistas -->
     <br>
 </div>

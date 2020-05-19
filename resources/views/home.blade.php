@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    ¿A donde viajaras?
+                    ¿A donde viajarás?
 
                     {{-- @if(@Auth::user()->hasRole('empleado'))
                         <h2>Eres un Empleado</h2>
