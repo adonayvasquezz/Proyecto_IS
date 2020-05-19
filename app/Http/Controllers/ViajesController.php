@@ -117,7 +117,7 @@ class ViajesController extends Controller
     
         }
          //Log de crear viaje.
-         $user = User::find(Auth::user()->id);
+         $user = User::find(Auth::user()->id)->id;
          $logCrear = new Log();
          $logCrear->action = 'El Viaje '.$idAViajeRecienGuardada.' fue creado exitosamente con la ruta '.$request->idruta;
          $logCrear->user = $user;
@@ -216,7 +216,7 @@ class ViajesController extends Controller
             ]);
         }
          //Log de editar viaje.
-         $user = User::find(Auth::user()->id);
+         $user = User::find(Auth::user()->id)->id;
          $logEditar = new Log();
          $logEditar->action = 'El Viaje '.$id.' fue editado exitosamente';
          $logEditar->user = $user;
@@ -234,7 +234,7 @@ class ViajesController extends Controller
             $viaje->delete();
         }
         //Log de eliminar viaje.
-        $user = User::find(Auth::user()->id);
+        $user = User::find(Auth::user()->id)->id;
         $logEliminar = new Log();
         $logEliminar->action = 'La ruta '.$request->idruta.' fue eliminada  del viaje '.$id;
         $logEliminar->user = $user;

@@ -59,7 +59,7 @@ class RutasController extends Controller
         if($request->ciudadInicio==$request->ciudadFin){
             return redirect('rutas')->with('warning', 'Ciudad de Inicio y Fin deben ser diferentes');
         }else{
-        // Si cumple las validacones se crea el nuevo registro en la tabla
+        // Si cumple las validaciones se crea el nuevo registro en la tabla
              $Rutas= new rutas();
         $Rutas->lugarInicio = $request->ciudadInicio;
         $Rutas->lugarFin = $request->ciudadFin;
