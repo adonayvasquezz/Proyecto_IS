@@ -72,9 +72,15 @@ class HomeController extends Controller
 
     public function empleados()
     {
-
         // Se consulta los empleados de la compañia
-        $empleados = DB::select("SELECT A.idempleado, D.name, B.papellido, C.nombrecargo, B.telefono, D.email
+        $empleados = DB::table('empleados')
+            ->join('personas', 'empleados.idpersona', '=', 'personas.idpersona')
+            ->join('cargo', 'empleados.idcargo', '=', 'cargo.idcargo')
+            ->join('users','personas.idpersona', '=', 'users.id')
+            ->select('empleados.idempleado', 'users.name', 'personas.papellido','cargo.nombrecargo','personas.telefono','users.email')
+            ->paginate(5);
+
+        /* $empleados = DB::select("SELECT A.idempleado, D.name, B.papellido, C.nombrecargo, B.telefono, D.email
         from etranss2.empleados A,
         etranss2.personas B,
         etranss2.cargo C,
@@ -82,7 +88,7 @@ class HomeController extends Controller
         where A.idpersona = B.idpersona
         and B.idpersona = D.id
         and A.idcargo = C.idcargo
-        order by C.idcargo;");
+        order by C.idcargo;")->paginate(10); */
 
         return view('empleados', ['empleados'=>$empleados]);
         //return $empleados;
