@@ -16,6 +16,7 @@ use App\Persona;
 use App\Empleado;
 use App\Log;
 use Spatie\Permission\Models\Role;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class HomeController extends Controller
@@ -40,6 +41,7 @@ class HomeController extends Controller
     public function index()
     {
 
+        // Muestra la pagina home cuando se logea
         return view('home');
     }
 
@@ -51,8 +53,6 @@ class HomeController extends Controller
 
         return view('perfil', ['user'=>$user, 'persona'=>$persona]);
     }
-
-
 
 
     public function viajes()
@@ -132,26 +132,32 @@ class HomeController extends Controller
 
     public function empleados_registrado(Request $request)
     {
+        // Se reciben los parametros para registrar un nuevo empleado
         $fechainicio=$request->fecha_inicio;
         $idpersona=$request->idpersona;
         $idcargo=$request->cargo;
 
         $persona = User::find($idpersona)->perfil;
+        // Si el usuario no esta guardado en la tabla personas, se le guarda antes de
+        // guardarlo en la tabla empleados
         if (empty($persona)) {
             $nuevaPersona = new Persona;
             $nuevaPersona->idPersona = $idpersona;
             $nuevaPersona->save();
           }
 
+        // Se guarda el nuevo empleado
         $Empleado = new Empleado;
         $Empleado->fechainicio = $fechainicio;
         $Empleado->idpersona = $idpersona;
         $Empleado->idcargo = $idcargo;
         $Empleado->save();
 
+        // Se le asigna el rol de empleado
         $user = User::find($idpersona);
         $user->assignRole('empleado');
 
+        // Se registra esta accion en la tabla logs para poderse visualizar en bitacora.
         $Log = new Log;
         $usuarioAccion = User::find(Auth::user()->id);
         $Log->action = "Registro como empleado al usuario ".$idpersona;
@@ -161,24 +167,28 @@ class HomeController extends Controller
         // El ingreso de las variables en el array debe ser en el mismo orden como fue creado el SP
         /* $procedimiento = DB::select('call sp_agregar_empleado(?,?,?)',
             array($fechainicio,$idpersona,$idcargo)); */
-        return redirect()->route('empleados');
+        return redirect()->route('empleados')->with('success', 'Empleado agregado correctamente');
     }
 
     public function destroy($id)
     {
+
         $Empleado = Empleado::find($id);
         $usuario = User::find($Empleado->idpersona);
 
+        // Elimina el rol de empleado y lo elimina tambien de la tabla empleados
         $usuario->removeRole('empleado');
         $Empleado-> delete();
 
+        // Registra la accion de eliminar en la tabla logs
         $Log = new Log;
         $usuarioAccion = User::find(Auth::user()->id);
         $Log->action = "Elimino al empleado ".$id;
         $Log->user = $usuarioAccion->id;
         $Log->save();
 
-        return redirect()->route('empleados');
+        //return redirect()->route('empleados');
+        return redirect('empleados')->with('success', 'Empleado eliminado');
     }
 
     public function bitacora()

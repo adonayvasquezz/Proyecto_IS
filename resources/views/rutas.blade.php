@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
-    
+
     <div class="container">
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
         <!-- Validaciones de los roles de los usuarios y permisos -->
@@ -28,16 +28,16 @@
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form Rutas</a>
                 </li>
-                @endif 
+                @endif
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listaLugares" role="tab" aria-controls="list" aria-selected="true">Lugares</a>
                 </li>
-                @if(@Auth::user()->hasRole('admin')) 
+                @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formLugar" role="form" aria-controls="form" aria-selected="true">Form Lugares</a>
                 </li>
-                @endif 
-            </ul> 
+                @endif
+            </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active navegacionForm" id="list" role="tabpanel" aria-labelledby="list-tab">
                     <div class="card">
@@ -68,8 +68,10 @@
                                             <td>{{$ruta->duracion}}</td>
                                             <td>{{$ruta->precio}}</td>
                                             <td>
-                                            <a href="{{ route('editarRuta', $ruta->idruta)}}" class="awe"><i class="fas fa-edit"></i></a> | 
-                                            <a href="{{ route('eliminarRuta.destroy', $ruta->idruta)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
+                                                @if(@Auth::user()->hasRole('admin'))
+                                                <a href="{{ route('editarRuta', $ruta->idruta)}}" class="awe"><i class="fas fa-edit"></i></a> |
+                                                <a href="{{ route('eliminarRuta.destroy', $ruta->idruta)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
+                                                @endif
 
                                             </td>
                                         </tr>
@@ -160,8 +162,12 @@
                                         <th scope="row">{{$ciudad->idLugar}}</th>
                                         <td>{{$ciudad->nombre}}</td>
                                         <td style="width:15%">
-                                            <a href="{{ route('editarLugar', $ciudad->idLugar)}}" class="awe"><i class="fas fa-edit"></i></a> | 
+
+                                            @if(@Auth::user()->hasRole('admin'))
+                                            <a href="{{ route('editarLugar', $ciudad->idLugar)}}" class="awe"><i class="fas fa-edit"></i></a> |
                                             <a href="{{ route('eliminarLugar.destroy', $ciudad->idLugar)}}" class="awe" onclick="return confirm('¿Deseas eliminar el registro?')" ><i class="fas fa-trash"></i></a>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -202,7 +208,7 @@
         </div>
     </div>
 
-  
+
     <!--BOOTSTRAP JAVASCRIPT-->
     @include('sweetalert::alert')
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
