@@ -1,8 +1,6 @@
 <!DOCTYPE HTML>
 <!--
-	Directive by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	e-Transs
 -->
 <html>
 
@@ -20,11 +18,10 @@
 
 </head>
 <body class="is-preload">
-    <!--Probando, probando, probando, probando. Esto es para el domingo y lo estamos trabajando el sábado en la madrugada -->
+    <!-- Inicio de la estructura html del index-->
 
-    <!-- Prueba 2  -->
 
-    <!-- Header -->
+    <!-- Header y validaciones de permisos de usuario -->
     <div id="header">
 
         <span>
@@ -62,10 +59,6 @@
             <h2>VIAJA A NUESTROS PRINCIPALES
                 <br /> DESTINOS
             </h2>
-            <!--
-					<p>Tellus erat mauris ipsum fermentum<br />
-					etiam vivamus nunc nibh morbi.</p>
-					-->
         </header>
 
         <!-- Inicio del menú de las ciudades principales que sirven de origen para las rutas -->
@@ -73,6 +66,7 @@
         <div class="box alt container">
             <div class="container-fluid">
                 <div class="row">
+                    <!--Item Tegucigalpa -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Tegucigalpa</div>
@@ -86,6 +80,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--Item San Pedro Sula -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">San Pedro Sula</div>
@@ -98,6 +93,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--Item La ceiba -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">La Ceiba</div>
@@ -110,6 +106,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Siguatepeque -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Siguatepeque</div>
@@ -122,6 +119,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Catacamas -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Catacamas</div>
@@ -134,6 +132,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Choluteca -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Choluteca</div>
@@ -146,6 +145,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Lago de Yojoa -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border ">
                             <div class="titulo">Lago de Yojoa</div>
@@ -158,6 +158,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Trujillo -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Trujillo</div>
@@ -170,6 +171,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Item Danli -->
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
                         <div class="ciudad border">
                             <div class="titulo">Danlí</div>
@@ -200,7 +202,8 @@
     </div>
 
 
-    <!-- Modal -->
+    <!-- Ventanas modal Tegucigalpa -->
+
     <div class="modal fade bd-example-modal-lgl" id="modalTGU" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -223,6 +226,8 @@
                                 </b>
                             </tr>
                         </thead>
+                        
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                          @foreach ($tegus as $tgu)
                         
                         <tbody>
@@ -252,7 +257,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal San Pedro Sula -->
     <div class="modal fade bd-example-modal-lg" id="modalSPS" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -275,6 +280,7 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                         @foreach ($sps as $spsr)
                         
                         <tbody>
@@ -304,7 +310,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal Ceiba -->
     <div class="modal fade bd-example-modal-lg" id="modalCE" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -327,6 +333,7 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                          @foreach ($ceiba as $ceibar)
                         
                         <tbody>
@@ -356,7 +363,7 @@
         </div>
     </div>
     </div>
-
+<!-- Ventana Modal Siguatepeque -->
     <div class="modal fade bd-example-modal-lg" id="modalSIG" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -379,6 +386,7 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                         @foreach ($siguatepeque as $siguar)
                         
                         <tbody>
@@ -409,7 +417,7 @@
     </div>
     </div>
 
-
+<!-- Ventana Modal Catacamas -->
     <div class="modal fade bd-example-modal-lg" id="modalCAT" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -432,6 +440,7 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                          @foreach ($catacamas as $catar)
                         
                         <tbody>
@@ -459,7 +468,7 @@
         </div>
     </div>
     </div>
-
+<!-- Ventana Modal Choluteca -->
     <div class="modal fade bd-example-modal-lg" id="modalCHO" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -482,6 +491,7 @@
                                 </b>
                             </tr>
                         </thead>
+                       <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                        @foreach ($choluteca as $cholur)
                         
                         <tbody>
@@ -510,7 +520,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal Lago de Yojoa -->
     <div class="modal fade bd-example-modal-lg" id="modalLY" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -533,6 +543,7 @@
                                 </b>
                             </tr>
                         </thead>
+                        <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                         @foreach ($lago as $lagor)
                         
                         <tbody>
@@ -562,7 +573,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal rujillo -->
     <div class="modal fade bd-example-modal-lg" id="modalTRU" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -585,6 +596,7 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                          @foreach ($trujillo as $trur)
                         
                         <tbody>
@@ -615,7 +627,7 @@
     </div>
     </div>
 
-
+<!-- Venatana Modal Danli -->
     <div class="modal fade bd-example-modal-lg" id="modalDAN" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -638,6 +650,7 @@
                                 </b>
                             </tr>
                         </thead>
+                         <!-- Informacion de las rutas asociadas al lugar obtenida desde la BD -->
                          @foreach ($danli as $danr)
                         
                         <tbody>
@@ -666,11 +679,7 @@
         </div>
     </div>
     </div>
-
     <!-- Footer -->
-        
-
- 
     <div id="footer">
         <div class="container medium">
         <header class="major last">
@@ -678,7 +687,7 @@
             </header>
 
             <p>Recuerda que tu cercanía con nuestra plataforma nos hace crecer, puedes enviar tus preguntas o comentarios.</p>
-            
+            <!-- Formulario de contacto -->
             <form method="POST" action="{{route('index')}}  " >
             @csrf
                 <div class="row">

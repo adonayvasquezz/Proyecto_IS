@@ -74,10 +74,6 @@ route::get('/create','ViajesController@show');
 
 //Route::resource('/viajes', 'ViajesController');
 
-//
-
-
-
 // Inicio de rutas para CRUD de buses perteneciente al módulo de Viajes.
 Route::get('/viajes', 'busesController@index');
 Route::post('/create', 'busesController@createBus');

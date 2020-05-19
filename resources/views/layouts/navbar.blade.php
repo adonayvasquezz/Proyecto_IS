@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>e-Transs</title>
+    <link rel="shortcut icon" href="../Images/logo.png" type="image/x-icon">
    {{--  <link rel="stylesheet" href="../Styles/bootstrap.min.css">
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css"> --}}
@@ -22,6 +23,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- NavBar -->
             <div class="collapse navbar-collapse" id="navbarText">
                 <ul class="navbar-nav mr-auto nav-n">
 
@@ -39,17 +41,17 @@
                         <a class="nav-link" href="/home">Inicio <span class="sr-only">(current)</span></a>
                     </li>
 
-                    {{-- @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) --}}
+                     @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) 
                     <li class="nav-item active">
                         <a class="nav-link" href="/rutas">Rutas</a>
                     </li>
-                   {{--  @endif --}}
+                     @endif 
 
-                   {{--  @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) --}}
+                    @if(@Auth::user()->hasRole('admin') or @Auth::user()->hasRole('empleado')) 
                     <li class="nav-item active">
                         <a class="nav-link" href="/viajes">Viajes</a>
                     </li>
-                   {{--  @endif --}}
+                    @endif 
 
                     <li class="nav-item active">
                         <a class="nav-link" href="/ventas">Ventas</a>
@@ -107,11 +109,13 @@
 
  
 <div class="container">
-    <br> <br> <br>
-    @yield('content')
+    <br> <br> 
+   
+    @yield('content') 
+     <!-- Contenido de las vistas -->
     <br>
 </div>
-
+<!-- Footer -->
     <div id="footer" class="inferior">
         <ul class="icons">
             <li>

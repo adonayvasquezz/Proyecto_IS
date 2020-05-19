@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<!-- Archivos necesarios -->
     <link rel="stylesheet" href="../css/UserForm.css">
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -28,7 +28,10 @@
                 <!-- Formulario de Lugares-->
 
                 <form class="form" action="{{action('lugarRutasController@update', $id)}}" method="POST" role="form" autocomplete="off" id="formularioLugares">
+                    <!-- Token de seguridad -->
                     {{csrf_field()}}
+                    
+                    <!-- Carga los datos que se desean editar en el formulario -->  
                     
                     <div class="form-group row">
                         <label class="col-lg-3 col-form-label form-control-label">Nombre/Descripcion</label>

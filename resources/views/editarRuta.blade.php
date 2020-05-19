@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<!-- Archivos necesarios -->
     
     <link rel="stylesheet" href="../css/UserForm.css">
     <!--BOOTSTRAP CSS-->
@@ -20,6 +20,7 @@
 <br>
 <br>
 <div class="container">
+<!-- Formulario de Rutas -->
     <div class="mx-auto col-sm-8 main-section">
                 <ul class="nav nav-tabs justify-content-end">
                     <li class="nav-item">
@@ -28,7 +29,9 @@
                 </ul>
                 
                     <form class="form" action="{{action('RutasController@update', $Rutas->idruta)}}" method="POST" role="form" autocomplete="off">
-                    {{csrf_field()}}                  
+                    <!-- Token de seguridad -->
+                    {{csrf_field()}}        
+                    <!-- Carga los datos que se desean editar en el formulario -->          
                         <div class="form-group row">
                             <label for="" class="col-lg-3 col-form-label form-control-label">Inicio</label>
                             <div class="col-lg-9">

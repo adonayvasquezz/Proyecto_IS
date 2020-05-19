@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+// Modelo de la tabla rutas
 class Rutas extends Model
 {
 

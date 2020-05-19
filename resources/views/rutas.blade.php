@@ -2,7 +2,7 @@
 
 @section('content')
 
-
+<!-- Archivos necesarios -->
     <link rel="stylesheet" href="../css/UserForm.css">
     <!--BOOTSTRAP CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -15,37 +15,29 @@
     <link rel="stylesheet" href="../Styles/estilo-navbar.css">
     <link rel="stylesheet" href="../Styles/fontawesome-all.min.css">
 
-    @if (session('alert'))
-    <div class="alert alert-danger">
-        {{ session('alert') }}
-    </div>
-    @endif
-    @if (session('alert2'))
-    <div class="alert alert-success">
-        {{ session('alert2') }}
-    </div>
-    @endif
+    
     <div class="container">
         <div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
+        <!-- Validaciones de los roles de los usuarios y permisos -->
             <ul class="nav nav-tabs justify-content-end">
                 <li class="nav-item">
                     <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Rutas</a>
                 </li>
 
-                {{-- @if(@Auth::user()->hasRole('admin')) --}}
+                 @if(@Auth::user()->hasRole('admin'))
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form Rutas</a>
                 </li>
-                {{-- @endif --}}
+                @endif 
                 <li class="nav-item">
                     <a class="nav-link " id="list-tab" data-toggle="tab" href="#listaLugares" role="tab" aria-controls="list" aria-selected="true">Lugares</a>
                 </li>
-               {{--  @if(@Auth::user()->hasRole('admin')) --}}
+                @if(@Auth::user()->hasRole('admin')) 
                 <li class="nav-item">
                     <a class="nav-link" id="form-tab" data-toggle="tab" href="#formLugar" role="form" aria-controls="form" aria-selected="true">Form Lugares</a>
                 </li>
-               {{--  @endif --}}
-            </ul>
+                @endif 
+            </ul> 
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active navegacionForm" id="list" role="tabpanel" aria-labelledby="list-tab">
                     <div class="card">
@@ -67,6 +59,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <!-- LLena la vista con los datos enviados desde el conrolador -->
                                     @foreach ($rutas as $ruta)
                                         <tr>
                                             <th scope="row">{{$ruta->idruta}}</th>
@@ -161,6 +154,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <!-- Llena la vista con los datos enviados desde el conrolador -->
                                 @foreach ($ciudades as $ciudad)
                                    <tr>
                                         <th scope="row">{{$ciudad->idLugar}}</th>
@@ -208,8 +202,9 @@
         </div>
     </div>
 
-
+  
     <!--BOOTSTRAP JAVASCRIPT-->
+    @include('sweetalert::alert')
 {{--     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
 
